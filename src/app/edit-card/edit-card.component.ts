@@ -5,10 +5,10 @@ import { CardService } from '../card.service';
 
 @Component({
   selector: 'app-gst-edit',
-  templateUrl: './gst-edit.component.html',
-  styleUrls: ['./gst-edit.component.css']
+  templateUrl: './edit-card.component.html',
+  styleUrls: ['./edit-card.component.css']
 })
-export class GstEditComponent implements OnInit {
+export class EditCardComponent implements OnInit {
 
   business: any = {};
   angForm: FormGroup;
@@ -24,14 +24,14 @@ export class GstEditComponent implements OnInit {
     this.angForm = this.fb.group({
       english_word: ['', Validators.required ],
       japanese_word: ['', Validators.required ],
-      business_gst_number: ['', Validators.required ]
+      comment: ['', Validators.required ]
     });
   }
 
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.bs.editBusiness(params['id']).subscribe(res => {
+      this.bs.editCard(params['id']).subscribe(res => {
         this.business = res;
       });
     });
@@ -39,7 +39,7 @@ export class GstEditComponent implements OnInit {
 
   updateBusiness(person_name, business_name, business_gst_number) {
     this.route.params.subscribe(params => {
-      this.bs.updateBusiness(person_name, business_name, business_gst_number, params['id']);
+      this.bs.updateCard(person_name, business_name, business_gst_number, params['id']);
       this.router.navigate(['business']);
     });
   }

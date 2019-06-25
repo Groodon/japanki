@@ -7,9 +7,9 @@ import { CardService } from './card.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { GstAddComponent } from './gst-add/gst-add.component';
-import { GstGetComponent } from './gst-get/gst-get.component';
-import { GstEditComponent } from './gst-edit/gst-edit.component';
+import { AddCardComponent } from './add-card/add-card.component';
+import { GetCardComponent } from './get-cards/get-card.component';
+import { EditCardComponent } from './edit-card/edit-card.component';
 
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 
@@ -17,9 +17,9 @@ import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 @NgModule({
   declarations: [
     AppComponent,
-    GstAddComponent,
-    GstGetComponent,
-    GstEditComponent
+    AddCardComponent,
+    GetCardComponent,
+    EditCardComponent
   ],
   imports: [
     BrowserModule,

@@ -7,7 +7,7 @@
       </div>
       <div *ngIf="angForm.controls['english_word'].invalid && (angForm.controls['english_word'].dirty || angForm.controls['english_word'].touched)" class="alert alert-danger">
         <div *ngIf="angForm.controls['english_word'].errors.required">
-          Person Name is required.
+          English word is required.
         </div>
       </div>
       <div class="form-group">
@@ -16,20 +16,15 @@
       </div>
       <div *ngIf="angForm.controls['japanese_word'].invalid && (angForm.controls['japanese_word'].dirty || angForm.controls['japanese_word'].touched)" class="alert alert-danger">
         <div *ngIf="angForm.controls['japanese_word'].errors.required">
-          Person Card is required.
+          Japanese word is required.
         </div>
       </div>
       <div class="form-group">
-        <label class="col-md-4">Card GST Number </label>
-        <input type="text" class="form-control" formControlName="business_gst_number" #business_gst_number />
-      </div>
-      <div *ngIf="angForm.controls['business_gst_number'].invalid && (angForm.controls['business_gst_number'].dirty || angForm.controls['business_gst_number'].touched)" class="alert alert-danger">
-        <div *ngIf="angForm.controls['business_gst_number'].errors.required">
-          Card GST Number is required.
-        </div>
+        <label class="col-md-4">Comment (optional) </label>
+        <input type="text" class="form-control" formControlName="comment" #comment />
       </div>
       <div class="form-group">
-        <button (click)="addBusiness(english_word.value, japanese_word.value, business_gst_number.value)"
+        <button (click)="addCard(english_word.value, japanese_word.value, comment.value)"
                 [disabled]="angForm.pristine || angForm.invalid"
                 class="btn btn-primary">
           Add Card

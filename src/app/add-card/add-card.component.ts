@@ -1,4 +1,4 @@
-// gst-add.component.ts
+// add-card.component.ts
 
 import { Component, OnInit } from '@angular/core';
 import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
@@ -6,10 +6,10 @@ import { CardService } from '../card.service';
 
 @Component({
   selector: 'app-gst-add',
-  templateUrl: './gst-add.component.html',
-  styleUrls: ['./gst-add.component.css']
+  templateUrl: './add-card.component.html',
+  styleUrls: ['./add-card.component.css']
 })
-export class GstAddComponent implements OnInit {
+export class AddCardComponent implements OnInit {
 
   angForm: FormGroup;
   constructor(private fb: FormBuilder, private bs: CardService) {
@@ -20,12 +20,12 @@ export class GstAddComponent implements OnInit {
     this.angForm = this.fb.group({
       english_word: ['', Validators.required ],
       japanese_word: ['', Validators.required ],
-      business_gst_number: ['', Validators.required ]
+      comment: ['']
     });
   }
 
-  addBusiness(person_name, business_name, business_gst_number) {
-    this.bs.addBusiness(person_name, business_name, business_gst_number);
+  addCard(english_word, japanese_word, comment) {
+    this.bs.addCard(english_word, japanese_word, comment);
   }
 
   ngOnInit() {

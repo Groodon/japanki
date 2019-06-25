@@ -12,35 +12,35 @@ export class CardService {
 
   constructor(private http: HttpClient) { }
 
-  addBusiness(person_name, business_name, business_gst_number) {
+  addCard(english_word, japanese_word, comment) {
     const obj = {
-      english_word: person_name,
-      japanese_word: business_name,
-      business_gst_number: business_gst_number
+      english_word: english_word,
+      japanese_word: japanese_word,
+      comment: comment
     };
     console.log(obj);
     this.http.post(`${this.uri}/add`, obj)
       .subscribe(res => console.log('Done'));
   }
 
-  getBusinesses() {
+  getCards() {
     return this
       .http
       .get(`${this.uri}`);
   }
 
-  editBusiness(id) {
+  editCard(id) {
     return this
       .http
       .get(`${this.uri}/edit/${id}`);
   }
 
-  updateBusiness(person_name, business_name, business_gst_number, id) {
+  updateCard(english_word, japanese_word, comment, id) {
 
     const obj = {
-      english_word: person_name,
-      japanese_word: business_name,
-      business_gst_number: business_gst_number
+      english_word: english_word,
+      japanese_word: japanese_word,
+      comment: comment
     };
     this
       .http
@@ -48,7 +48,7 @@ export class CardService {
       .subscribe(res => console.log('Done'));
   }
 
-  deleteBusiness(id) {
+  deleteCard(id) {
     return this
       .http
       .get(`${this.uri}/delete/${id}`);

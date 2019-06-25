@@ -5,18 +5,18 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // Define collection and schema for Card
-let Business = new Schema({
+let Card = new Schema({
   english_word: {
     type: String
   },
   japanese_word: {
     type: String
   },
-  business_gst_number: {
-    type: Number
+  comment: {
+    type: String
   }
 },{
   collection: 'business'
 });
 
-module.exports = mongoose.model('Card', Business);
+module.exports = mongoose.model('Card', Card);

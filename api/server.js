@@ -5,7 +5,7 @@ const express = require('express'),
   mongoose = require('mongoose'),
   config = require('./DB');
 
-const businessRoute = require('./routes/business.route');
+const businessRoute = require('./routes/card.route');
 mongoose.Promise = global.Promise;
 mongoose.connect(config.DB, { useNewUrlParser: true }).then(
   () => {console.log('Database is connected') },

@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { GstAddComponent } from './gst-add/gst-add.component';
-import { GstEditComponent } from './gst-edit/gst-edit.component';
-import { GstGetComponent } from './gst-get/gst-get.component';
+import { AddCardComponent } from './add-card/add-card.component';
+import { EditCardComponent } from './edit-card/edit-card.component';
+import { GetCardComponent } from './get-cards/get-card.component';
 
 const routes: Routes = [
   {
     path: 'business/create',
-    component: GstAddComponent
+    component: AddCardComponent
   },
   {
     path: 'business/edit/:id',
-    component: GstEditComponent
+    component: EditCardComponent
   },
   {
     path: 'business',
-    component: GstGetComponent
+    component: GetCardComponent
   }
 ];
 

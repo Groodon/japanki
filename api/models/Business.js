@@ -4,12 +4,12 @@ const mongoose = require('mongoose');
 // defines the shape of the documents within that collection.
 const Schema = mongoose.Schema;
 
-// Define collection and schema for Business
+// Define collection and schema for Card
 let Business = new Schema({
-  person_name: {
+  english_word: {
     type: String
   },
-  business_name: {
+  japanese_word: {
     type: String
   },
   business_gst_number: {
@@ -19,4 +19,4 @@ let Business = new Schema({
   collection: 'business'
 });
 
-module.exports = mongoose.model('Business', Business);
+module.exports = mongoose.model('Card', Business);

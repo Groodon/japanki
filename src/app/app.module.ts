@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-import { BusinessService } from './business.service';
+import { CardService } from './card.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,7 +28,7 @@ import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [ BusinessService ],
+  providers: [ CardService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 const businessRoutes = express.Router();
 
-// Require Business model in our routes module
+// Require Card model in our routes module
 let Business = require('../models/Business');
 
 // Defined store route
@@ -15,6 +15,7 @@ businessRoutes.route('/add').post(function (req, res) {
       res.status(200).json({'business': 'business in added successfully'});
     })
     .catch(err => {
+      console.log(err);
       res.status(400).send("unable to save to database");
     });
 });
@@ -45,12 +46,13 @@ businessRoutes.route('/edit/:id').get(function (req, res) {
 
 //  Defined update route
 businessRoutes.route('/update/:id').post(function (req, res) {
-  Business.findById(req.params.id, function(err, next, business) {
-    if (!business)
-      return next(new Error('Could not load Document'));
+  Business.findById(req.params.id, function(err, business) {
+    if (!business) {
+      return res.status(400).send(err);
+    }
     else {
-      business.person_name = req.body.person_name;
-      business.business_name = req.body.business_name;
+      business.english_word = req.body.english_word;
+      business.japanese_word = req.body.japanese_word;
       business.business_gst_number = req.body.business_gst_number;
 
       business.save().then(business => {
@@ -65,8 +67,10 @@ businessRoutes.route('/update/:id').post(function (req, res) {
 
 // Defined delete | remove | destroy route
 businessRoutes.route('/delete/:id').get(function (req, res) {
-  Business.findByIdAndRemove({_id: req.params.id}, function(err, business){
+  Business.findOneAndRemove({_id: req.params.id}, function(err, business){
+    console.log(req.params.id);
     if(err) res.json(err);
+    else if (!business) res.status(404).send('business not found');
     else res.json('Successfully removed');
   });
 });

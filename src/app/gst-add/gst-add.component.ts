@@ -2,7 +2,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
-import { BusinessService } from '../business.service';
+import { CardService } from '../card.service';
 
 @Component({
   selector: 'app-gst-add',
@@ -12,14 +12,14 @@ import { BusinessService } from '../business.service';
 export class GstAddComponent implements OnInit {
 
   angForm: FormGroup;
-  constructor(private fb: FormBuilder, private bs: BusinessService) {
+  constructor(private fb: FormBuilder, private bs: CardService) {
     this.createForm();
   }
 
   createForm() {
     this.angForm = this.fb.group({
-      person_name: ['', Validators.required ],
-      business_name: ['', Validators.required ],
+      english_word: ['', Validators.required ],
+      japanese_word: ['', Validators.required ],
       business_gst_number: ['', Validators.required ]
     });
   }

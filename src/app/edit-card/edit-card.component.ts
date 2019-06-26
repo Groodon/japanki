@@ -15,7 +15,7 @@ export class EditCardComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private bs: CardService,
+              private cs: CardService,
               private fb: FormBuilder) {
     this.createForm();
   }
@@ -31,15 +31,15 @@ export class EditCardComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.bs.editCard(params['id']).subscribe(res => {
+      this.cs.editCard(params['id']).subscribe(res => {
         this.business = res;
       });
     });
   }
 
-  updateBusiness(person_name, business_name, business_gst_number) {
+  updateCard(english_word, japanese_word, comment) {
     this.route.params.subscribe(params => {
-      this.bs.updateCard(person_name, business_name, business_gst_number, params['id']);
+      this.cs.updateCard(english_word, japanese_word, comment, params['id']);
       this.router.navigate(['business']);
     });
   }

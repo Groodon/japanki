@@ -71,7 +71,10 @@ cardRoutes.route('/delete/:id').get(function (req, res) {
     console.log(req.params.id);
     if(err) res.json(err);
     else if (!card) res.status(404).send('card not found');
-    else res.json('Successfully removed');
+    else {
+      // TODO: send back dataset
+      res.json('Successfully removed');
+    }
   });
 });
 

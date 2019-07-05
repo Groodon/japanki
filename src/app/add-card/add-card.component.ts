@@ -12,7 +12,7 @@ import { CardService } from '../card.service';
 export class AddCardComponent implements OnInit {
 
   angForm: FormGroup;
-  constructor(private fb: FormBuilder, private bs: CardService) {
+  constructor(private fb: FormBuilder, private cs: CardService) {
     this.createForm();
   }
 
@@ -25,7 +25,8 @@ export class AddCardComponent implements OnInit {
   }
 
   addCard(english_word, japanese_word, comment) {
-    this.bs.addCard(english_word, japanese_word, comment);
+    let card = {english_word: english_word, japanese_word: japanese_word, comment: comment};
+    this.cs.addCard(card);
   }
 
   ngOnInit() {

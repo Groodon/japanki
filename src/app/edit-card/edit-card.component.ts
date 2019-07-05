@@ -39,8 +39,13 @@ export class EditCardComponent implements OnInit {
 
   updateCard(english_word, japanese_word, comment) {
     this.route.params.subscribe(params => {
-      this.cs.updateCard(english_word, japanese_word, comment, params['id']);
-      this.router.navigate(['business']);
+      const card = {
+        english_word: english_word,
+        japanese_word: japanese_word,
+        comment: comment
+      };
+      this.cs.updateCard(card, params['id']);
+      this.router.navigate(['card']);
     });
   }
 }

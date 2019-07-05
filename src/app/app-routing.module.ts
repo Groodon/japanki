@@ -6,15 +6,15 @@ import { GetCardComponent } from './get-cards/get-card.component';
 
 const routes: Routes = [
   {
-    path: 'business/create',
+    path: 'card/create',
     component: AddCardComponent
   },
   {
-    path: 'business/edit/:id',
+    path: 'card/edit/:id',
     component: EditCardComponent
   },
   {
-    path: 'business',
+    path: 'card',
     component: GetCardComponent
   }
 ];

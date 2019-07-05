@@ -1,0 +1,12 @@
+<li *ngIf="this.loggedIn" class="nav-item">
+    Logged in
+</li>
+<li *ngIf="!this.loggedIn" class="nav-item">
+  Logged out
+</li>
+<li *ngIf="!this.loggedIn" class="nav-item">
+  <a class="nav-link" (click)="signInWithGoogle()">Log in</a>
+</li>
+<li *ngIf="this.loggedIn" class="nav-item">
+  <a class="nav-link" (click)="signOut()">Log out</a>
+</li>

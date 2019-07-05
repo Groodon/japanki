@@ -23,8 +23,8 @@ export class GetCardComponent implements OnInit {
 
   deleteCard(id) {
     this.cs.deleteCard(id).subscribe(res => {
-      console.log(res);
       console.log('Deleted');
+      console.log(res);
     });
   }
 }

@@ -1,21 +1,60 @@
 <ng2-slim-loading-bar color="blue"></ng2-slim-loading-bar>
 
-<nav class="navbar navbar-expand-sm bg-light">
-  <div class="container-fluid">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a routerLink="business/create" class="nav-link" routerLinkActive="active">
-          Create Card
-        </a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="business" class="nav-link" routerLinkActive="active">
-          Cards
-        </a>
-      </li>
-    </ul>
-  </div>
-</nav>
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" routerLink="/" routerLinkActive="active">Japanki</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="navbarNavDropdown" class="navbar-collapse collapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a routerLink="/" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="card/create" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            Create Card
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="card" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            Cards
+          </a>
+        </li>
+
+      </ul>
+      <ul class="navbar-nav">
+        <div class="dropdown">
+          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown link
+          </a>
+
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </div>
+        <li *ngIf="_as.currentlyLoggedIn" class="nav-item">
+          Logged in
+        </li>
+        <li *ngIf="!_as.currentlyLoggedIn" class="nav-item">
+          Logged out
+        </li>
+        <li *ngIf="!_as.currentlyLoggedIn" class="nav-item">
+          <a class="nav-link" (click)="_as.signInWithGoogle()">Log in</a>
+        </li>
+        <li *ngIf="_as.currentlyLoggedIn" class="nav-item">
+          <a class="nav-link" (click)="_as.signOut()">Log out</a>
+        </li>
+
+      </ul>
+    </div>
+  </nav>
+</div>
+
 
 <div class="container">
   <router-outlet></router-outlet>

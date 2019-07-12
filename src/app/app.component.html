@@ -37,18 +37,24 @@
             <a class="dropdown-item" href="#">Something else here</a>
           </div>
         </div>
-        <li *ngIf="_as.currentlyLoggedIn" class="nav-item">
+        <li *ngIf="authenticationService.isLoggedIn" class="nav-item">
           Logged in
         </li>
-        <li *ngIf="!_as.currentlyLoggedIn" class="nav-item">
+        <li *ngIf="!authenticationService.isLoggedIn" class="nav-item">
           Logged out
         </li>
-        <li *ngIf="!_as.currentlyLoggedIn" class="nav-item">
-          <a class="nav-link" (click)="_as.signInWithGoogle()">Log in</a>
+        <li *ngIf="authenticationService.isLoggedIn" class="nav-item">
+          <a class="nav-link" (click)="authenticationService.logout()">Log out</a>
         </li>
-        <li *ngIf="_as.currentlyLoggedIn" class="nav-item">
-          <a class="nav-link" (click)="_as.signOut()">Log out</a>
+
+        <a class="nav-item nav-link" routerLink="/">Home</a>
+        <li *ngIf="authenticationService.isLoggedIn" class="nav-item">
+          <a class="nav-item nav-link" (click)="logout()">Logout</a>
         </li>
+        <li *ngIf="!authenticationService.isLoggedIn" class="nav-item">
+          <a routerLink="/login" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Login</a>
+        </li>
+
 
       </ul>
     </div>

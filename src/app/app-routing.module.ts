@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AddCardComponent } from './add-card/add-card.component';
 import { EditCardComponent } from './edit-card/edit-card.component';
 import { GetCardComponent } from './get-cards/get-card.component';
+import {LoginComponent} from "./login/login.component";
 
 const routes: Routes = [
   {
@@ -16,7 +17,13 @@ const routes: Routes = [
   {
     path: 'card',
     component: GetCardComponent
-  }
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  // otherwise redirect to home
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

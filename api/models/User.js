@@ -5,18 +5,19 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // Define collection and schema for Card
-let Card = new Schema({
-  english_word: {
+let User = new Schema({
+  user: {
     type: String
   },
-  japanese_word: {
+  password: {
     type: String
   },
-  comment: {
-    type: String
+  email: {
+    type: String,
+    unique: true
   }
 },{
-  collection: 'cards'
+  collection: 'users'
 });
 
-module.exports = mongoose.model('Card', Card);
+module.exports = mongoose.model('User', User);

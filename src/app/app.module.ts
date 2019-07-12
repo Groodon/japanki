@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import { CardService } from './card.service';
-
+import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddCardComponent } from './add-card/add-card.component';
@@ -14,8 +14,10 @@ import { EditCardComponent } from './edit-card/edit-card.component';
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 import { GoogleLoginProvider } from "angularx-social-login";
-import { LoginComponent } from './login/login.component';
 import {AuthenticationService} from "./authentication.service";
+import {ErrorInterceptor} from "./_helpers/error.interceptor";
+import {JwtInterceptor} from "./_helpers/jwt.interceptors";
+import {APIInterceptor} from "./_helpers/api.interceptor";
 
 let config = new AuthServiceConfig([
   {
@@ -48,7 +50,12 @@ export function provideConfig() {
     HttpClientModule,
     SocialLoginModule
   ],
-  providers: [ CardService, {
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS, useClass: APIInterceptor, multi: true },
+    CardService, {
     provide: AuthServiceConfig,
     useFactory: provideConfig
   },

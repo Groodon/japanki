@@ -8,6 +8,7 @@ const express = require('express'),
   errorHandler = require('./_helpers/error-handler');
 
 const cardRoute = require('./routes/card.route');
+const userRoute = require('./routes/user.route');
 mongoose.Promise = global.Promise;
 mongoose.connect(config.DB, { useNewUrlParser: true }).then(
   () => {console.log('Database is connected') },
@@ -20,7 +21,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use('/card', cardRoute);
 // api routes
-app.use('/users', require('./users/users.controller'));
+app.use('/users', userRoute);
 
 // global error handler
 app.use(errorHandler);

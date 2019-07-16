@@ -54,6 +54,9 @@
         <li *ngIf="!authenticationService.isLoggedIn" class="nav-item">
           <a routerLink="/login" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Login</a>
         </li>
+        <li *ngIf="!authenticationService.isLoggedIn" class="nav-item">
+          <a routerLink="/register" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Register</a>
+        </li>
 
 
       </ul>

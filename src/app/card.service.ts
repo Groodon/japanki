@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CardService {
 
-  uri = 'http://localhost:4000/card';
+  uri = 'card';
 
   constructor(private http: HttpClient) { }
 

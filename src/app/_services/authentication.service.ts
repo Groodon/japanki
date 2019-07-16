@@ -31,6 +31,7 @@ export class AuthenticationService {
       .pipe(map(user => {
         // User is the response we got from the post call
         // login successful if there's a jwt token in the response
+        console.log(user);
         if (user && user.token) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('currentUser', JSON.stringify(user));
@@ -46,5 +47,13 @@ export class AuthenticationService {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
+  }
+
+  registerUser(username: string, password: string, email: string) {
+    this
+      .http
+      .post(`users/register`, {username, password, email})
+      .subscribe(res => console.log('Registered!'),
+        error => console.log(error));
   }
 }

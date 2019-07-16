@@ -2,11 +2,14 @@ const config = require('../config.json');
 const jwt = require('jsonwebtoken');
 
 // users hardcoded for simplicity, store in a db for production applications
-const users = [{ id: 1, username: 'test', password: 'test', firstName: 'Test', lastName: 'User' }];
+//const users = [{ id: 1, username: 'test', password: 'test', firstName: 'Test', lastName: 'User' }];
+// Require Card model in our routes module
+let users = require('../models/User');
 
 module.exports = {
   authenticate,
-  getAll
+  getAll,
+  register
 };
 
 async function authenticate({ username, password }) {

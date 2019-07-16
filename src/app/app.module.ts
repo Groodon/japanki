@@ -12,26 +12,12 @@ import { GetCardComponent } from './get-cards/get-card.component';
 import { EditCardComponent } from './edit-card/edit-card.component';
 
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
-import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
-import { GoogleLoginProvider } from "angularx-social-login";
-import {AuthenticationService} from "./authentication.service";
+import { SocialLoginModule } from "angularx-social-login";
 import {ErrorInterceptor} from "./_helpers/error.interceptor";
 import {JwtInterceptor} from "./_helpers/jwt.interceptors";
 import {APIInterceptor} from "./_helpers/api.interceptor";
+import { RegisterUserComponent } from './register-user/register-user.component';
 
-let config = new AuthServiceConfig([
-  {
-    id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider("471391585101-8rhggm7ek2va7uqbula56oj2rn80b3ah.apps.googleusercontent.com")
-  }
-]);
-
-// TODO: what is this?
-let client_secret = "DldrG6PEogW7Bzz4O9aNHhMJ";
-
-export function provideConfig() {
-  return config;
-}
 
 
 @NgModule({
@@ -40,7 +26,8 @@ export function provideConfig() {
     AddCardComponent,
     GetCardComponent,
     EditCardComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterUserComponent
   ],
   imports: [
     BrowserModule,
@@ -55,11 +42,7 @@ export function provideConfig() {
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     {
       provide: HTTP_INTERCEPTORS, useClass: APIInterceptor, multi: true },
-    CardService, {
-    provide: AuthServiceConfig,
-    useFactory: provideConfig
-  },
-  AuthenticationService],
+    CardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -17,6 +17,7 @@ import {ErrorInterceptor} from "./_helpers/error.interceptor";
 import {JwtInterceptor} from "./_helpers/jwt.interceptors";
 import {APIInterceptor} from "./_helpers/api.interceptor";
 import { RegisterUserComponent } from './register-user/register-user.component';
+import { AddDeckComponent } from './add-deck/add-deck.component';
 
 
 
@@ -27,7 +28,8 @@ import { RegisterUserComponent } from './register-user/register-user.component';
     GetCardComponent,
     EditCardComponent,
     LoginComponent,
-    RegisterUserComponent
+    RegisterUserComponent,
+    AddDeckComponent
   ],
   imports: [
     BrowserModule,

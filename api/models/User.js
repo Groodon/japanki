@@ -6,15 +6,19 @@ const Schema = mongoose.Schema;
 
 // Define collection and schema for Card
 let User = new Schema({
-  user: {
-    type: String
+  username: {
+    type: String,
+    required: true
   },
   password: {
-    type: String
+    type: String,
+    required: true
   },
   email: {
     type: String,
-    unique: true
+    unique: true,
+    lowercase: true,
+    required: true
   }
 },{
   collection: 'users'

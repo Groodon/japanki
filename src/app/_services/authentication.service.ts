@@ -26,12 +26,11 @@ export class AuthenticationService {
   }
 
   // posts the user credentials to the api and checks the response for a JWT token
-  login(username: string, password: string) {
-    return this.http.post<any>(`users/authenticate`, { username, password })
+  login(email: string, password: string) {
+    return this.http.post<any>(`users/authenticate`, { email, password })
       .pipe(map(user => {
         // User is the response we got from the post call
         // login successful if there's a jwt token in the response
-        console.log(user);
         if (user && user.token) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('currentUser', JSON.stringify(user));
@@ -50,10 +49,9 @@ export class AuthenticationService {
   }
 
   registerUser(username: string, password: string, email: string) {
-    this
+    return this
       .http
-      .post(`users/register`, {username, password, email})
-      .subscribe(res => console.log('Registered!'),
-        error => console.log(error));
+      .post<any>(`users/register`, {username, password, email})
+
   }
 }

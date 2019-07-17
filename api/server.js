@@ -19,6 +19,7 @@ const app = express();
 app.use(bodyParser.json());
 // Cross-Origin Resource Sharing
 app.use(cors());
+app.use(jwt());
 app.use('/card', cardRoute);
 // api routes
 app.use('/users', userRoute);

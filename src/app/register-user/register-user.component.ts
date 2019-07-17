@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthenticationService} from "../_services";
+import {first} from "rxjs/operators";
 
 @Component({
   selector: 'app-register-user',
@@ -23,7 +24,8 @@ export class RegisterUserComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
-      email: ['', Validators.required]});
+      email: ['', [Validators.required, Validators.email]]});
+    this.returnUrl = '';
   }
 
   // convenience getter for easy access to form fields
@@ -38,7 +40,14 @@ export class RegisterUserComponent implements OnInit {
     }
 
     this.loading = true;
-    this.authenticationService.registerUser(this.f.username.value, this.f.password.value, this.f.email.value);
+    this.authenticationService.registerUser(this.f.username.value, this.f.password.value, this.f.email.value)
+      .pipe(first())
+      .subscribe(data => {
+          this.router.navigate([this.returnUrl]);
+        },
+        error => {
+          this.error = error;
+          this.loading = false;
+        });
   }
-
 }

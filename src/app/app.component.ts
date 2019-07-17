@@ -23,7 +23,10 @@ export class AppComponent implements OnInit {
     this.router.events.subscribe((event: Event) => {
       this.navigationInterceptor(event);
     });
-    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    this.authenticationService.currentUser.subscribe(x => {
+      this.currentUser = x;
+      console.log("asdasdasd", this.currentUser);
+    });
   }
   private navigationInterceptor(event: Event): void {
     if (event instanceof NavigationStart) {
@@ -40,9 +43,11 @@ export class AppComponent implements OnInit {
     }
   }
 
+  // Returns false to not redirect to href, as seen in html file.
   logout() {
     this.authenticationService.logout();
     this.router.navigate(['/login']);
+    return false;
   }
 
   ngOnInit() {

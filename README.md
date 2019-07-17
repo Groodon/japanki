@@ -32,7 +32,8 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 3. Start mongodb with mongod
 4. With Robo 3T: create connection
 
-## Code examples 'used'
+## Code examples that I used for getting started
 https://jasonwatmore.com/post/2018/11/16/angular-7-jwt-authentication-example-tutorial
 https://jasonwatmore.com/post/2018/11/28/nodejs-role-based-authorization-tutorial-with-example-api
+https://jasonwatmore.com/post/2018/08/06/nodejs-jwt-authentication-tutorial-with-example-api
 https://appdividend.com/2018/11/04/angular-7-crud-example-mean-stack-tutorial/

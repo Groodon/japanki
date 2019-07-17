@@ -13,12 +13,17 @@
             Home
           </a>
         </li>
-        <li class="nav-item">
+        <li *ngIf="authenticationService.isLoggedIn" class="nav-item">
+          <a routerLink="decks" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            My decks
+          </a>
+        </li>
+        <li *ngIf="authenticationService.isLoggedIn" class="nav-item">
           <a routerLink="card/create" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
             Create Card
           </a>
         </li>
-        <li class="nav-item">
+        <li *ngIf="authenticationService.isLoggedIn" class="nav-item">
           <a routerLink="card" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
             Cards
           </a>
@@ -26,31 +31,18 @@
 
       </ul>
       <ul class="navbar-nav">
-        <div class="dropdown">
+        <div *ngIf="authenticationService.isLoggedIn" class="dropdown">
           <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Dropdown link
+            {{this.currentUser.username}}
           </a>
 
           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             <a class="dropdown-item" href="#">Action</a>
             <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
+            <a class="dropdown-item" href="#" (click)="logout()">Logout</a>
           </div>
         </div>
-        <li *ngIf="authenticationService.isLoggedIn" class="nav-item">
-          Logged in
-        </li>
-        <li *ngIf="!authenticationService.isLoggedIn" class="nav-item">
-          Logged out
-        </li>
-        <li *ngIf="authenticationService.isLoggedIn" class="nav-item">
-          <a class="nav-link" (click)="authenticationService.logout()">Log out</a>
-        </li>
 
-        <a class="nav-item nav-link" routerLink="/">Home</a>
-        <li *ngIf="authenticationService.isLoggedIn" class="nav-item">
-          <a class="nav-item nav-link" (click)="logout()">Logout</a>
-        </li>
         <li *ngIf="!authenticationService.isLoggedIn" class="nav-item">
           <a routerLink="/login" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Login</a>
         </li>

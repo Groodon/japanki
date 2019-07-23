@@ -7,14 +7,22 @@ const Schema = mongoose.Schema;
 // Define collection and schema for Card
 let Card = new Schema({
   english_word: {
-    type: String
+    type: String,
+    required: true
   },
   japanese_word: {
-    type: String
+    type: String,
+    required: true
+  },
+  deck: {
+    // This number is a reference to which deck it belongs to
+    type: Number,
+    required: true
   },
   comment: {
     type: String
   }
+
 },{
   collection: 'cards'
 });

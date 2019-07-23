@@ -9,6 +9,7 @@ const express = require('express'),
 
 const cardRoute = require('./routes/card.route');
 const userRoute = require('./routes/user.route');
+const deckRoute = require('./routes/deck.route');
 mongoose.Promise = global.Promise;
 mongoose.connect(config.DB, { useNewUrlParser: true }).then(
   () => {console.log('Database is connected') },
@@ -20,9 +21,11 @@ app.use(bodyParser.json());
 // Cross-Origin Resource Sharing
 app.use(cors());
 app.use(jwt());
-app.use('/card', cardRoute);
+
 // api routes
+app.use('/card', cardRoute);
 app.use('/users', userRoute);
+app.use('/decks', deckRoute);
 
 // global error handler
 app.use(errorHandler);

@@ -42,6 +42,7 @@ function authenticate({ email, password }, res) {
         email,
         password,
         username: result.username,
+        id: result._id,
         token
       };
       res.status(200).send(o);

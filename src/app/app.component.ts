@@ -25,7 +25,6 @@ export class AppComponent implements OnInit {
     });
     this.authenticationService.currentUser.subscribe(x => {
       this.currentUser = x;
-      console.log("asdasdasd", this.currentUser);
     });
   }
   private navigationInterceptor(event: Event): void {

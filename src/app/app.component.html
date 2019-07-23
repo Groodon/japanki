@@ -14,7 +14,12 @@
           </a>
         </li>
         <li *ngIf="authenticationService.isLoggedIn" class="nav-item">
-          <a routerLink="decks" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <a routerLink="decks/add" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            Create deck
+          </a>
+        </li>
+        <li *ngIf="authenticationService.isLoggedIn" class="nav-item">
+          <a routerLink="decks/all" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
             My decks
           </a>
         </li>

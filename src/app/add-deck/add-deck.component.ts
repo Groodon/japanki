@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
-import {CardService} from "../card.service";
+import {DeckService} from "../_services/deck.service";
+import {AuthenticationService} from "../_services";
 
 @Component({
   selector: 'app-add-deck',
@@ -11,21 +12,18 @@ import {CardService} from "../card.service";
 export class AddDeckComponent implements OnInit {
 
   angForm: FormGroup;
-  constructor(private fb: FormBuilder, private cs: CardService) {
+  constructor(private fb: FormBuilder, private ds: DeckService, private as: AuthenticationService) {
     this.createForm();
   }
 
   createForm() {
     this.angForm = this.fb.group({
-      english_word: ['', Validators.required ],
-      japanese_word: ['', Validators.required ],
-      comment: ['']
+      deck_name: ['', Validators.required ]
     });
   }
 
-  addCard(english_word, japanese_word, comment) {
-    let card = {english_word: english_word, japanese_word: japanese_word, comment: comment};
-    this.cs.addCard(card);
+  addDeck(deck_name) {
+    this.ds.addDeck({deck_name: deck_name});
   }
 
   ngOnInit() {

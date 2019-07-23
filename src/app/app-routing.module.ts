@@ -6,15 +6,22 @@ import { GetCardComponent } from './get-cards/get-card.component';
 import {LoginComponent} from "./login/login.component";
 import {RegisterUserComponent} from "./register-user/register-user.component";
 import { AuthGuard } from './_guards/auth.guard';
+import {AddDeckComponent} from "./add-deck/add-deck.component";
+import {GetDecksComponent} from "./get-decks/get-decks.component";
 
 const routes: Routes = [
   {
-    path: 'card/create',
-    component: AddCardComponent,
+    path: 'decks/add',
+    component: AddDeckComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: 'decks',
+    path: 'decks/all',
+    component: GetDecksComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'card/create',
     component: AddCardComponent,
     canActivate: [AuthGuard]
   },

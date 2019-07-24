@@ -4,6 +4,7 @@ const deckRoutes = express.Router();
 const jwt = require('jsonwebtoken');
 const config = require('../config.json');
 let User = require('../models/User');
+let Card = require('../models/Card');
 
 // TODO: check if deck already exists?
 deckRoutes.route('/add').post(function (req, res) {
@@ -28,6 +29,13 @@ deckRoutes.route('/all').get(function (req, res) {
       res.status(400).send({'message': "Database error"});
     }
   });
+  }
+);
+
+deckRoutes.route('/get/:id').get(function (req, res) {
+    Card.find({deck: req.params.id}).then(cards => {
+      res.status(200).send(cards);
+    });
   }
 );
 

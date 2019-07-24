@@ -23,17 +23,6 @@
             My decks
           </a>
         </li>
-        <li *ngIf="authenticationService.isLoggedIn" class="nav-item">
-          <a routerLink="card/create" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-            Create Card
-          </a>
-        </li>
-        <li *ngIf="authenticationService.isLoggedIn" class="nav-item">
-          <a routerLink="card" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-            Cards
-          </a>
-        </li>
-
       </ul>
       <ul class="navbar-nav">
         <div *ngIf="authenticationService.isLoggedIn" class="dropdown">

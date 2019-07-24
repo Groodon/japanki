@@ -8,6 +8,7 @@ import {RegisterUserComponent} from "./register-user/register-user.component";
 import { AuthGuard } from './_guards/auth.guard';
 import {AddDeckComponent} from "./add-deck/add-deck.component";
 import {GetDecksComponent} from "./get-decks/get-decks.component";
+import {ShowDeckComponent} from "./show-deck/show-deck.component";
 
 const routes: Routes = [
   {
@@ -18,6 +19,11 @@ const routes: Routes = [
   {
     path: 'decks/all',
     component: GetDecksComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'decks/show/:id',
+    component: ShowDeckComponent,
     canActivate: [AuthGuard]
   },
   {

@@ -26,6 +26,12 @@ export class DeckService {
       .get(`${this.uri}/all`);
   }
 
+  getDeck(id) {
+    return this
+      .http
+      .get(`${this.uri}/get/${id}`)
+  }
+
   deleteDeck(id) {
     return this
       .http

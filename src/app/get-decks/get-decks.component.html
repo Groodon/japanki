@@ -13,8 +13,8 @@
       <a [routerLink]="['/card/add', deck._id]" class="btn btn-primary">
         Add card
       </a>
-      <a [routerLink]="['edit', deck._id]" class="btn btn-primary">
-        Edit
+      <a [routerLink]="['/decks/show', deck._id]" class="btn btn-primary">
+        Show
       </a>
       <a (click) = "deleteDeck(deck._id)" class="btn btn-danger">
         Delete

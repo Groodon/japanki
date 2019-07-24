@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
-import { CardService } from '../card.service';
+import { CardService } from '../_services/card.service';
 
 @Component({
   selector: 'app-gst-edit',

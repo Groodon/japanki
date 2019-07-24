@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Card from '../Card';
-import { CardService } from '../card.service';
+import { CardService } from '../_services/card.service';
 
 @Component({
   selector: 'app-gst-get',

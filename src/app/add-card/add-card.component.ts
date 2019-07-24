@@ -2,7 +2,8 @@
 
 import { Component, OnInit } from '@angular/core';
 import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
-import { CardService } from '../card.service';
+import { CardService } from '../_services/card.service';
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-gst-add',
@@ -12,7 +13,9 @@ import { CardService } from '../card.service';
 export class AddCardComponent implements OnInit {
 
   angForm: FormGroup;
-  constructor(private fb: FormBuilder, private cs: CardService) {
+  deck: number;
+
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private cs: CardService) {
     this.createForm();
   }
 
@@ -25,11 +28,14 @@ export class AddCardComponent implements OnInit {
   }
 
   addCard(english_word, japanese_word, comment) {
-    let card = {english_word: english_word, japanese_word: japanese_word, comment: comment};
+    let card = {english_word: english_word, japanese_word: japanese_word, comment: comment, deck: this.deck};
     this.cs.addCard(card);
   }
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.deck = params['id'];
+    });
   }
 
 }

@@ -39,6 +39,12 @@ export class CardService {
         error => console.log(error));
   }
 
+  addCard2(card) {
+    this.http.post(`${this.uri}/add`, card)
+      .subscribe(res => console.log('Done'),
+        error => console.log(error));
+  }
+
   deleteCard(id) {
     return this
       .http

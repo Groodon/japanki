@@ -21,11 +21,6 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'card/create',
-    component: AddCardComponent,
-    canActivate: [AuthGuard]
-  },
-  {
     path: 'card/edit/:id',
     component: EditCardComponent,
     canActivate: [AuthGuard]
@@ -33,6 +28,11 @@ const routes: Routes = [
   {
     path: 'card',
     component: GetCardComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'card/add/:id',
+    component: AddCardComponent,
     canActivate: [AuthGuard]
   },
   {

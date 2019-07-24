@@ -2,8 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
-import { CardService } from './card.service';
+import { CardService } from './_services/card.service';
 import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +20,7 @@ import {APIInterceptor} from "./_helpers/api.interceptor";
 import { RegisterUserComponent } from './register-user/register-user.component';
 import { AddDeckComponent } from './add-deck/add-deck.component';
 import { GetDecksComponent } from './get-decks/get-decks.component';
+import { ShowDeckComponent } from './show-deck/show-deck.component';
 
 
 
@@ -31,7 +33,8 @@ import { GetDecksComponent } from './get-decks/get-decks.component';
     LoginComponent,
     RegisterUserComponent,
     AddDeckComponent,
-    GetDecksComponent
+    GetDecksComponent,
+    ShowDeckComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,8 @@ import { GetDecksComponent } from './get-decks/get-decks.component';
     SlimLoadingBarModule,
     ReactiveFormsModule,
     HttpClientModule,
-    SocialLoginModule
+    SocialLoginModule,
+    AngularFontAwesomeModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

@@ -15,8 +15,8 @@ let Card = new Schema({
     required: true
   },
   deck: {
-    // This number is a reference to which deck it belongs to
-    type: Number,
+    // This string is a reference to which deck it belongs to
+    type: String,
     required: true
   },
   comment: {

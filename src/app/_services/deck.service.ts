@@ -14,10 +14,8 @@ export class DeckService {
   constructor(private http: HttpClient, private as: AuthenticationService) { }
 
   addDeck(deck) {
-    this.http
-      .post<any>(`${this.uri}/add`, deck).
-      subscribe(res => console.log(res),
-      error => console.log(error));
+    return this.http
+      .post<any>(`${this.uri}/add`, deck);
   }
 
   getDecks() {

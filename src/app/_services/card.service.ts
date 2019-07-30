@@ -13,9 +13,7 @@ export class CardService {
   constructor(private http: HttpClient) { }
 
   addCard(card) {
-    this.http.post(`${this.uri}/add`, card)
-      .subscribe(res => console.log('Done'),
-      error => console.log(error));
+    return this.http.post(`${this.uri}/add`, card);
   }
 
   getCards() {

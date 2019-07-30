@@ -13,6 +13,7 @@ import { GetCardComponent } from './get-cards/get-card.component';
 import { EditCardComponent } from './edit-card/edit-card.component';
 
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
+import { FlashMessagesModule } from 'angular2-flash-messages';
 import { SocialLoginModule } from "angularx-social-login";
 import {ErrorInterceptor} from "./_helpers/error.interceptor";
 import {JwtInterceptor} from "./_helpers/jwt.interceptors";
@@ -43,7 +44,7 @@ import { ShowDeckComponent } from './show-deck/show-deck.component';
     ReactiveFormsModule,
     HttpClientModule,
     SocialLoginModule,
-    AngularFontAwesomeModule
+    FlashMessagesModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

@@ -25,7 +25,7 @@ export class RegisterUserComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]]});
-    this.returnUrl = '';
+    this.returnUrl = '/login';
   }
 
   // convenience getter for easy access to form fields

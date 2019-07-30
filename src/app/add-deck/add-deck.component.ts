@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {DeckService} from "../_services/deck.service";
 import {AuthenticationService} from "../_services";
+import {first} from "rxjs/operators";
+import {FlashMessagesService} from "angular2-flash-messages";
 
 @Component({
   selector: 'app-add-deck',
@@ -11,8 +13,9 @@ import {AuthenticationService} from "../_services";
 })
 export class AddDeckComponent implements OnInit {
 
+  returnUrl: string;
   angForm: FormGroup;
-  constructor(private fb: FormBuilder, private ds: DeckService, private as: AuthenticationService) {
+  constructor(private fb: FormBuilder, private ds: DeckService, private router: Router) {
     this.createForm();
   }
 
@@ -23,10 +26,18 @@ export class AddDeckComponent implements OnInit {
   }
 
   addDeck(deck_name) {
-    this.ds.addDeck({deck_name: deck_name});
+    this.ds.addDeck({deck_name: deck_name})
+      .pipe(first())
+      .subscribe(data => {
+          this.router.navigate([this.returnUrl]);
+      },
+      error => {
+        console.log(error);
+      });
   }
 
   ngOnInit() {
+    this.returnUrl = '/decks/all';
   }
 
 }

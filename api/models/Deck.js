@@ -10,8 +10,6 @@ let Deck = new Schema({
     type: String,
     required: true
   }
-},{
-  collection: 'decks'
 });
 
 module.exports = mongoose.model('Deck', Deck);

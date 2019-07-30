@@ -15,7 +15,7 @@ deckRoutes.route('/add').post(function (req, res) {
       if (error) {
         res.status(400).send("Unable to update the database");
       } else {
-        res.status(200).send("Deck created");
+        res.status(200).json({'message': 'deck added successfully'});
       }
     });
     }
@@ -47,7 +47,11 @@ deckRoutes.route('/delete/:id').get(function (req, res) {
       if (error) {
         res.status(400).send("Unable to update the database");
       } else {
-        res.json('Successfully removed');
+        // Delete all cards in deck
+        Card.find({ id: req.params.id }).remove().exec().then(
+          res.status(200).send('Successfully removed')
+        );
+
       }
     });
 });

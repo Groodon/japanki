@@ -5,6 +5,7 @@ import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
 import { CardService } from '../_services/card.service';
 import {ActivatedRoute, Router} from "@angular/router";
 import {FlashMessagesService} from "angular2-flash-messages";
+import {JishoService} from "../_services/jisho.service";
 
 @Component({
   selector: 'app-gst-add',
@@ -16,7 +17,8 @@ export class AddCardComponent implements OnInit {
   angForm: FormGroup;
   deck: number;
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private cs: CardService, private flashMessage: FlashMessagesService) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private cs: CardService,
+              private flashMessage: FlashMessagesService, private js: JishoService) {
     this.createForm();
   }
 
@@ -32,7 +34,13 @@ export class AddCardComponent implements OnInit {
     let card = {english_word: english_word, japanese_word: japanese_word, comment: comment, deck: this.deck};
     this.cs.addCard(card)
       .subscribe(
-        res => this.showFlash("Card added", true),
+        res => {
+          this.showFlash("Card added", true);
+          this.angForm.reset();
+          this.js.getJapaneseWord(english_word).subscribe(
+            res => console.log(res)
+          )
+        },
           error => this.showFlash(error, false));
   }
 

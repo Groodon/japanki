@@ -29,10 +29,17 @@ export class ShowDeckComponent implements OnInit {
 
   showFlash(message, success) {
     let alertClass: string = (success ? "alert-success" : "alert-danger");
-    console.log("asdasdasdasd");
     // 1st parameter is a flash message text
     // 2nd parameter is optional. You can pass object with options.
     this.flashMessage.show(message, { cssClass: alertClass, timeout: 4000 });
+  }
+
+  deleteRow(id){
+    for(let i = 0; i < this.cards.length; ++i){
+      if (this.cards[i]._id === id) {
+        this.cards.splice(i,1);
+      }
+    }
   }
 
   deleteCard(id) {
@@ -40,12 +47,11 @@ export class ShowDeckComponent implements OnInit {
       .deleteCard(id)
       .subscribe(
         res => {
-          console.log("did it");
-          this.showFlash("Card deleted", true);
+          this.deleteRow(id);
+          //this.showFlash("Card deleted", true);
 
         },
         error => {
-          console.log("did it not");
           this.showFlash(error, false)
         });
   }

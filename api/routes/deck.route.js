@@ -48,8 +48,8 @@ deckRoutes.route('/delete/:id').get(function (req, res) {
         res.status(400).send("Unable to update the database");
       } else {
         // Delete all cards in deck
-        Card.find({ id: req.params.id }).remove().exec().then(
-          res.status(200).send('Successfully removed')
+        Card.find({ deck: req.params.id }).remove().exec().then(
+          res.json({'message': 'deck removed successfully'})
         );
 
       }

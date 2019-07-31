@@ -9,7 +9,6 @@ import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddCardComponent } from './add-card/add-card.component';
-import { GetCardComponent } from './get-cards/get-card.component';
 import { EditCardComponent } from './edit-card/edit-card.component';
 
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
@@ -22,6 +21,8 @@ import { RegisterUserComponent } from './register-user/register-user.component';
 import { AddDeckComponent } from './add-deck/add-deck.component';
 import { GetDecksComponent } from './get-decks/get-decks.component';
 import { ShowDeckComponent } from './show-deck/show-deck.component';
+import {ConfirmDialogComponent} from "./confirm-dialog/confirm-dialog.component";
+import {ConfirmDialogService} from "./confirm-dialog/confirm-dialog.service";
 
 
 
@@ -29,13 +30,13 @@ import { ShowDeckComponent } from './show-deck/show-deck.component';
   declarations: [
     AppComponent,
     AddCardComponent,
-    GetCardComponent,
     EditCardComponent,
     LoginComponent,
     RegisterUserComponent,
     AddDeckComponent,
     GetDecksComponent,
-    ShowDeckComponent
+    ShowDeckComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +52,7 @@ import { ShowDeckComponent } from './show-deck/show-deck.component';
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     {
       provide: HTTP_INTERCEPTORS, useClass: APIInterceptor, multi: true },
-    CardService],
+    CardService, ConfirmDialogService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

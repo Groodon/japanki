@@ -9,10 +9,7 @@
   </thead>
 
   <tbody>
-  <div>
-    <flash-messages></flash-messages>
-  </div>
-  <tr *ngFor="let card of cards">
+  <tr *ngFor="let card of cards" [attr.id]="card._id">
     <td>{{ card.english_word }}</td>
     <td>{{ card.japanese_word }}</td>
     <td>{{ card.comment }}</td>
@@ -24,3 +21,4 @@
   </tr>
   </tbody>
 </table>
+

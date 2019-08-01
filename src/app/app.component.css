@@ -1,2 +1,7 @@
 a:not([href]).dropdown-toggle:hover { cursor: pointer;}
 
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+}

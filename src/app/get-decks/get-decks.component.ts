@@ -25,7 +25,9 @@ export class GetDecksComponent implements OnInit {
 
   showDialog(id) {
     let temp = this;
-    this.confirmDialogService.confirmThis("Confirm deletion", "Are you sure you want to delete the deck \"" + this.decks.find(deck => deck._id = id).deck_name + "\"?", function () {
+    console.log("id", id);
+    console.log("decks: ", this.decks);
+    this.confirmDialogService.confirmThis("Confirm deletion", "Are you sure you want to delete the deck \"" + this.decks.find(deck => deck._id === id).deck_name + "\"?", function () {
       temp.deleteDeck(id);
     }, function () {
     })

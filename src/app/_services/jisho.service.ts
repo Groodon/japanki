@@ -6,7 +6,9 @@ import { HttpClient } from '@angular/common/http';
 export class JishoService {
   constructor(private http: HttpClient) { }
 
+  uri = 'search';
+
   getJapaneseWord(searchWord) {
-    return this.http.get<any>(`https://jisho.org/api/v1/search/words?keyword=` + searchWord);
+    return this.http.get<any>(`${this.uri}/` + searchWord);
   }
 }

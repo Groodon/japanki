@@ -1,8 +1,5 @@
 const express = require('express');
-const app = express();
 const deckRoutes = express.Router();
-const jwt = require('jsonwebtoken');
-const config = require('../config.json');
 let User = require('../models/User');
 let Card = require('../models/Card');
 

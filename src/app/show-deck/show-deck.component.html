@@ -2,8 +2,8 @@
   <thead>
   <tr>
     <td>English</td>
-    <td>Japanese</td>
-    <td>Comment</td>
+    <td>Japanese reading</td>
+    <td>Kanji</td>
     <td>Actions</td>
   </tr>
   </thead>
@@ -11,8 +11,8 @@
   <tbody>
   <tr *ngFor="let card of cards" [attr.id]="card._id">
     <td>{{ card.english_word }}</td>
-    <td>{{ card.japanese_word }}</td>
-    <td>{{ card.comment }}</td>
+    <td>{{ card.japanese_reading }}</td>
+    <td>{{ card.kanji }}</td>
     <td>
       <a (click) = "deleteCard(card._id)" class="btn btn-danger">
         Delete

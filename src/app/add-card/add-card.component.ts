@@ -16,30 +16,50 @@ export class AddCardComponent implements OnInit {
 
   angForm: FormGroup;
   deck: number;
+  suggestionCards: Array<Object>[];
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private cs: CardService,
               private flashMessage: FlashMessagesService, private js: JishoService) {
     this.createForm();
   }
 
+  //createForm() {
+   // this.angForm = this.fb.group({
+    //  english_word: ['', Validators.required ],
+     // japanese_reading: ['', Validators.required ],
+      //kanji: ['', Validators.required ],
+      //comment: ['']
+    //});
+  //}
+
   createForm() {
-    this.angForm = this.fb.group({
-      english_word: ['', Validators.required ],
-      japanese_word: ['', Validators.required ],
-      comment: ['']
+   this.angForm = this.fb.group({
+     search_word: ['', Validators.required ]
     });
   }
 
-  addCard(english_word, japanese_word, comment) {
-    let card = {english_word: english_word, japanese_word: japanese_word, comment: comment, deck: this.deck};
+  getSuggestions(english_word) {
+    this.js.getJapaneseWord(english_word).subscribe(
+      res => {
+        this.suggestionCards = res.data;
+        this.suggestionCards.map((card) => {
+          card['added'] = false;
+          card['edit'] = false;
+        });
+      }
+    )
+  }
+
+  addCard(english_word, japanese_reading, kanji, comment, added_card?) {
+    let card = {english_word: english_word, japanese_reading: japanese_reading, kanji: kanji, comment: comment, deck: this.deck};
     this.cs.addCard(card)
       .subscribe(
         res => {
-          this.showFlash("Card added", true);
           this.angForm.reset();
-          this.js.getJapaneseWord(english_word).subscribe(
-            res => console.log(res)
-          )
+          if (added_card) {
+            added_card.added = true;
+            console.log(added_card);
+          }
         },
           error => this.showFlash(error, false));
   }

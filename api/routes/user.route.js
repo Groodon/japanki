@@ -1,7 +1,6 @@
 // user.route.js
 
 const express = require('express');
-const app = express();
 const userRoutes = express.Router();
 const jwt = require('jsonwebtoken');
 const config = require('../config.json');
@@ -9,7 +8,6 @@ const config = require('../config.json');
 let User = require('../models/User');
 
 
-// Defined store route
 userRoutes.route('/register').post(function (req, res) {
   let query = User.findOne({email: req.body.email});
   let result = query.exec();

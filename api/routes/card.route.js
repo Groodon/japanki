@@ -1,7 +1,6 @@
 // card.route.js
 
 const express = require('express');
-const app = express();
 const cardRoutes = express.Router();
 
 // Require Card model in our routes module
@@ -52,7 +51,8 @@ cardRoutes.route('/update/:id').post(function (req, res) {
     }
     else {
       card.english_word = req.body.english_word;
-      card.japanese_word = req.body.japanese_word;
+      card.japanese_reading = req.body.japanese_reading;
+      card.kanji = req.body.kanji;
       card.comment = req.body.comment;
 
       card.save().then(card => {

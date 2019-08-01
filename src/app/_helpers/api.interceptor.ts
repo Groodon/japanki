@@ -8,10 +8,10 @@ import {Observable} from 'rxjs/Observable';
 export class APIInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // When we call the external api at jisho we don't want to use the url to our server
-    if (req.url.indexOf('jisho') != -1) {
-      req.headers
-      return next.handle(req);
-    }
+    //if (req.url.indexOf('jisho') != -1) {
+    //  req.headers
+    //  return next.handle(req);
+    //}
 
     const apiReq = req.clone({ url: `http://localhost:4000/${req.url}` });
     return next.handle(apiReq);

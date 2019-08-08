@@ -15,6 +15,14 @@ let Card = new Schema({
   kanji: {
     type: String
   },
+  next_study_time: {
+    type: String,
+    required: true
+  },
+  last_wait_time: {
+    type: Number,
+    default: 0
+  },
   deck: {
     // This string is a reference to which deck it belongs to
     type: String,

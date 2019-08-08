@@ -1,0 +1,22 @@
+<div class="jumbotron">
+  <div *ngIf="!done">
+    <p>{{known_word}}</p>
+    <hr *ngIf="revealed" class="my-4">
+    <p *ngIf="revealed">{{unknown_word}}</p>
+    <button *ngIf="!revealed" (click)="revealed = true;" class="btn btn-primary">
+      Show Answer
+    </button>
+    <button *ngIf="revealed" (click)="changeCard(DIFFICULTY.Fail)" class="btn btn-danger">
+      Fail
+    </button>
+    <button *ngIf="revealed" (click)="changeCard(DIFFICULTY.Hard)" class="btn btn-warning">
+      Hard
+    </button>
+    <button *ngIf="revealed" (click)="changeCard(DIFFICULTY.Easy)" class="btn btn-success">
+      Easy
+    </button>
+  </div>
+  <div *ngIf="done">
+    Finished all cards!
+  </div>
+</div>

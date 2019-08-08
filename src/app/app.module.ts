@@ -23,6 +23,7 @@ import { GetDecksComponent } from './get-decks/get-decks.component';
 import { ShowDeckComponent } from './show-deck/show-deck.component';
 import {ConfirmDialogComponent} from "./confirm-dialog/confirm-dialog.component";
 import {ConfirmDialogService} from "./confirm-dialog/confirm-dialog.service";
+import { StudyCardsComponent } from './study-cards/study-cards.component';
 
 
 
@@ -36,7 +37,8 @@ import {ConfirmDialogService} from "./confirm-dialog/confirm-dialog.service";
     AddDeckComponent,
     GetDecksComponent,
     ShowDeckComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    StudyCardsComponent
   ],
   imports: [
     BrowserModule,

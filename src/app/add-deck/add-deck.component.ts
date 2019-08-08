@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {DeckService} from "../_services/deck.service";
-import {AuthenticationService} from "../_services";
 import {first} from "rxjs/operators";
-import {FlashMessagesService} from "angular2-flash-messages";
 
 @Component({
   selector: 'app-add-deck',

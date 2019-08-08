@@ -29,10 +29,10 @@ export class CardService {
   }
 
   // TODO: error handling
-  updateCard(card, id) {
+  updateCard(card) {
     this
       .http
-      .post(`${this.uri}/update/${id}`, card)
+      .post(`${this.uri}/update`, card)
       .subscribe(res => console.log('Done'),
         error => console.log(error));
   }

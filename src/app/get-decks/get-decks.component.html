@@ -10,6 +10,9 @@
   <tr *ngFor="let deck of decks" [attr.id]="deck._id">
     <td class="w-75">{{ deck.deck_name }}</td>
     <td class="w-25">
+      <a [routerLink]="['/study', deck._id]" class="btn btn-primary">
+        Study
+      </a>
       <a [routerLink]="['/card/add', deck._id]" class="btn btn-primary">
         Add card
       </a>

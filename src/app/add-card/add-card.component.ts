@@ -6,6 +6,7 @@ import { CardService } from '../_services/card.service';
 import {ActivatedRoute, Router} from "@angular/router";
 import {FlashMessagesService} from "angular2-flash-messages";
 import {JishoService} from "../_services/jisho.service";
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-gst-add',
@@ -51,7 +52,9 @@ export class AddCardComponent implements OnInit {
   }
 
   addCard(english_word, japanese_reading, kanji, comment, added_card?) {
-    let card = {english_word: english_word, japanese_reading: japanese_reading, kanji: kanji, comment: comment, deck: this.deck};
+    let now = moment().format('MM/DD/YYYY').toString();
+
+    let card = {english_word, japanese_reading, kanji, next_study_time: now, comment, deck: this.deck};
     this.cs.addCard(card)
       .subscribe(
         res => {

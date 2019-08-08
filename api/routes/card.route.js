@@ -44,14 +44,16 @@ cardRoutes.route('/edit/:id').get(function (req, res) {
 });
 
 //  Defined update route
-cardRoutes.route('/update/:id').post(function (req, res) {
-  Card.findById(req.params.id, function(err, card) {
+cardRoutes.route('/update').post(function (req, res) {
+  Card.findById(req.body._id, function(err, card) {
     if (!card) {
       return res.status(400).send(err);
     }
     else {
       card.english_word = req.body.english_word;
       card.japanese_reading = req.body.japanese_reading;
+      card.last_wait_time = req.body.last_wait_time;
+      card.next_study_time = req.body.next_study_time;
       card.kanji = req.body.kanji;
       card.comment = req.body.comment;
 

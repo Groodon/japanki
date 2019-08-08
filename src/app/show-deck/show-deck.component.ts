@@ -22,7 +22,6 @@ export class ShowDeckComponent implements OnInit {
     this.ds
       .getDeck(id)
       .subscribe((data: Card[]) => {
-        console.log(data);
         this.cards = data;
       });
   }

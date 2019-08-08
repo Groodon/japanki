@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 import { CardService } from './_services/card.service';
 import { LoginComponent } from './login/login.component';
@@ -24,7 +24,8 @@ import { ShowDeckComponent } from './show-deck/show-deck.component';
 import {ConfirmDialogComponent} from "./confirm-dialog/confirm-dialog.component";
 import {ConfirmDialogService} from "./confirm-dialog/confirm-dialog.service";
 import { StudyCardsComponent } from './study-cards/study-cards.component';
-
+import { IgxRadioModule } from 'igniteui-angular';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -47,7 +48,9 @@ import { StudyCardsComponent } from './study-cards/study-cards.component';
     ReactiveFormsModule,
     HttpClientModule,
     SocialLoginModule,
-    FlashMessagesModule.forRoot()
+    IgxRadioModule,
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

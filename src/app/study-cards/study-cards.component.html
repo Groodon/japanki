@@ -1,22 +1,35 @@
-<div class="jumbotron">
-  <div *ngIf="!done">
-    <p>{{known_word}}</p>
-    <hr *ngIf="revealed" class="my-4">
-    <p *ngIf="revealed">{{unknown_word}}</p>
-    <button *ngIf="!revealed" (click)="revealed = true;" class="btn btn-primary">
-      Show Answer
-    </button>
-    <button *ngIf="revealed" (click)="changeCard(DIFFICULTY.Fail)" class="btn btn-danger">
-      Fail
-    </button>
-    <button *ngIf="revealed" (click)="changeCard(DIFFICULTY.Hard)" class="btn btn-warning">
-      Hard
-    </button>
-    <button *ngIf="revealed" (click)="changeCard(DIFFICULTY.Easy)" class="btn btn-success">
-      Easy
-    </button>
-  </div>
-  <div *ngIf="done">
+<div class="jumbotron" style="min-height: 400px; position: relative">
+  <span class="text-right" style="position:absolute; top: 0; left: 0; margin: auto">
+    <igx-radio [(ngModel)]="selected" value="option1">Both</igx-radio><br>
+    <igx-radio [(ngModel)]="selected" value="option2">Reading</igx-radio><br>
+    <igx-radio [(ngModel)]="selected" value="option3">Kanji</igx-radio>
+  </span>
+
+  <span class="text-center">
+    <div *ngIf="!done">
+      <p>{{known_word}}</p>
+      <hr *ngIf="revealed" class="my-4">
+      <p *ngIf="revealed">{{unknown_word}}</p>
+
+      <div class="bottom-align-text" style="position:absolute; bottom: 0; left: 0; right: 0; margin: auto">
+        <button *ngIf="!revealed" (click)="revealed = true;" class="btn btn-primary">
+          Show Answer
+        </button>
+        <button *ngIf="revealed" (click)="changeCard(DIFFICULTY.Fail)" class="btn btn-danger">
+          Fail (soon)
+        </button>
+        <button *ngIf="revealed" (click)="changeCard(DIFFICULTY.Hard)" class="btn btn-warning">
+          Hard ({{this.current_card.last_wait_time === 0 ? 1 : this.current_card.last_wait_time*2}} {{this.current_card.last_wait_time === 0 ? 'day' : 'days'}})
+        </button>
+        <button *ngIf="revealed" (click)="changeCard(DIFFICULTY.Easy)" class="btn btn-success">
+          Easy ({{this.current_card.last_wait_time === 0 ? 4 : this.current_card.last_wait_time*4}} days)
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="done">
     Finished all cards!
-  </div>
+    </div>
+  </span>
+
 </div>

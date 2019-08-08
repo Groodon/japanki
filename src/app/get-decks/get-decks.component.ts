@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import Deck from '../_models/Deck'
 import {DeckService} from "../_services/deck.service";
-import {FlashMessagesService} from "angular2-flash-messages";
 import {ConfirmDialogService} from "../confirm-dialog/confirm-dialog.service";
+import Card from "../Card";
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-get-decks',
@@ -12,6 +13,7 @@ import {ConfirmDialogService} from "../confirm-dialog/confirm-dialog.service";
 export class GetDecksComponent implements OnInit {
 
   decks: Deck[];
+  cards: Object = {};
 
   constructor(private ds: DeckService, private confirmDialogService: ConfirmDialogService) { }
 
@@ -20,7 +22,28 @@ export class GetDecksComponent implements OnInit {
       .getDecks()
       .subscribe((data: Deck[]) => {
         this.decks = data;
+        this.getCardNumbers();
       });
+
+
+  }
+
+  getCardNumbers() {
+    let now = moment();
+    console.log("decks: ", this.decks);
+    for (let deck of this.decks) {
+      //console.log("deck: ", deck);
+      this.ds
+        .getDeck(deck._id)
+        .subscribe((data: Card[]) => {
+          this.cards[deck._id] = data;
+          this.cards[deck._id].total_cards = data.length;
+          this.cards[deck._id].study_cards = data.filter(card => moment(card.next_study_time,'MM/DD/YYYY')  <= now).length;
+          console.log("deck: ", this.cards[deck._id]);
+          console.log("done", this.cards);
+        });
+
+    }
   }
 
   showDialog(id) {

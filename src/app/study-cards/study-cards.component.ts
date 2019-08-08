@@ -5,6 +5,7 @@ import {ActivatedRoute} from "@angular/router";
 import * as moment from 'moment';
 import Diff = moment.unitOfTime.Diff;
 import {CardService} from "../_services/card.service";
+import {selector} from "rxjs-compat/operator/publish";
 
 enum DIFFICULTY {
   Fail,
@@ -26,8 +27,9 @@ export class StudyCardsComponent implements OnInit {
   current_card_index: number;
   revealed: boolean = false;
   done: boolean = false;
-
+  favoriteSeason: string = 'hejsan';
   DIFFICULTY = DIFFICULTY;
+  selected: any;
 
   constructor(private ds: DeckService, private route: ActivatedRoute, private cs: CardService) { }
 
@@ -39,11 +41,10 @@ export class StudyCardsComponent implements OnInit {
         let now = moment();
         this.cards = data.filter(card => moment(card.next_study_time,'MM/DD/YYYY')  <= now);
         this.changeCard();
-        console.log("now: ", now);
-        console.log("data:", data);
-        console.log("cards:", this.cards);
       });
   }
+
+
 
   updateCard(difficulty) {
     let newWaitTime;

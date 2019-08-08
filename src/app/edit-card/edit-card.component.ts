@@ -44,7 +44,7 @@ export class EditCardComponent implements OnInit {
         japanese_word: japanese_word,
         comment: comment
       };
-      this.cs.updateCard(card, params['id']);
+      this.cs.updateCard(card);
       this.router.navigate(['card']);
     });
   }

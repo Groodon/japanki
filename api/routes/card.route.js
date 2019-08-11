@@ -52,6 +52,7 @@ cardRoutes.route('/update').post(function (req, res) {
     else {
       card.english_word = req.body.english_word;
       card.japanese_reading = req.body.japanese_reading;
+      card.kanji = req.body.kanji;
       if (req.body.jap_eng_last_wait_time)
         card.jap_eng_last_wait_time = req.body.jap_eng_last_wait_time;
       if (req.body.eng_jap_last_wait_time)
@@ -60,8 +61,6 @@ cardRoutes.route('/update').post(function (req, res) {
         card.jap_eng_next_study_time = req.body.jap_eng_next_study_time;
       if (req.body.eng_jap_next_study_time)
         card.eng_jap_next_study_time = req.body.eng_jap_next_study_time;
-      card.kanji = req.body.kanji;
-      card.comment = req.body.comment;
       if (req.body.order)
         card.order = req.body.order;
 

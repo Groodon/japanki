@@ -2,8 +2,14 @@
   < Back to decks
 </button>
 
-<div class="jumbotron" style="min-height: 400px; position: relative">
-  <div class="btn-group btn-group-toggle mb-3" data-toggle="buttons" style="position:absolute; top: 0; left: 0; margin: auto">
+<div class="jumbotron text-center" style="min-height: 400px; position: relative">
+
+  <div *ngIf="status === STATUS.Studying" class="btn btn-primary btn-sm" (click)="edit = !edit;" style="position:absolute; top: 0; right: 0; margin: auto">
+    Edit Card
+  </div>
+
+  <span [hidden]="edit">
+    <div *ngIf="status === STATUS.Studying" class="btn-group btn-group-toggle" data-toggle="buttons" style="position:absolute; top: 0; left: 0; margin: auto">
     <label class="btn btn-primary active btn-sm" (click)="showing=SHOW_OPTIONS.Both">
       <input type="radio">Both
     </label>
@@ -15,16 +21,25 @@
     </label>
   </div>
 
-  <span class="text-center">
     <div *ngIf="status === STATUS.Studying">
-      <p *ngIf="((showing === SHOW_OPTIONS.Reading || showing === SHOW_OPTIONS.Both) || (showing === SHOW_OPTIONS.Kanji && currentOrder === CARD_ORDERS.EngJap))">{{known_word}}</p>
-      <p *ngIf="(showing === SHOW_OPTIONS.Kanji || showing === SHOW_OPTIONS.Both) && (currentOrder === CARD_ORDERS.JapEng)">{{current_card.kanji}}</p>
-      <div *ngIf="revealed">
-        <hr class="my-4">
-        <p *ngIf="((showing === SHOW_OPTIONS.Reading || showing === SHOW_OPTIONS.Both) || (showing === SHOW_OPTIONS.Kanji && currentOrder === CARD_ORDERS.JapEng))">{{unknown_word}}</p>
-        <p *ngIf="(showing === SHOW_OPTIONS.Kanji || showing === SHOW_OPTIONS.Both) && currentOrder === CARD_ORDERS.EngJap">{{current_card.kanji}}</p>
+      <div *ngIf="currentOrder === CARD_ORDERS.EngJap">
+        <p>{{current_card.english_word}}</p>
       </div>
 
+      <div *ngIf="currentOrder === CARD_ORDERS.JapEng">
+        <p *ngIf="(showing === SHOW_OPTIONS.Both || showing === SHOW_OPTIONS.Reading)">{{current_card.japanese_reading}}</p>
+        <p *ngIf="(showing === SHOW_OPTIONS.Both || showing === SHOW_OPTIONS.Kanji)">{{(current_card.kanji)}}</p>
+      </div>
+      <div *ngIf="revealed || edit">
+        <hr class="my-4">
+        <div *ngIf="currentOrder === CARD_ORDERS.JapEng">
+          <p *ngIf="!edit">{{current_card.english_word}}</p>
+        </div>
+        <div *ngIf="currentOrder === CARD_ORDERS.EngJap">
+          <p *ngIf="(showing === SHOW_OPTIONS.Both || showing === SHOW_OPTIONS.Reading)">{{current_card.japanese_reading}}</p>
+          <p *ngIf="(showing === SHOW_OPTIONS.Both || showing === SHOW_OPTIONS.Kanji)">{{current_card.kanji}}</p>
+        </div>
+      </div>
 
       <div class="bottom-align-text" style="position:absolute; bottom: 0; left: 0; right: 0; margin: auto">
         <button *ngIf="!revealed" (click)="revealed = true;" class="btn btn-primary mr-1">
@@ -46,5 +61,24 @@
       Finished all cards!
     </div>
   </span>
+
+
+  <div [hidden]="!edit" style="display: inline-block;">
+    <div style="text-align: right;">
+      English: <input [value]="current_card.english_word" #english_word/>
+      <hr class="my-4">
+      Japanese reading: <input [value]="current_card.japanese_reading" #japanese_reading/><br/>
+      Kanji: <input [value]="(current_card.kanji ? current_card.kanji : '')" #kanji/>
+    </div>
+
+    <div class="bottom-align-text" style="position:absolute; bottom: 0; left: 0; right: 0; margin: auto">
+      <button (click)="updateCard(english_word.value, japanese_reading.value, kanji.value);" class="btn btn-success mr-1">
+        Save card
+      </button>
+      <button (click)="edit = !edit" class="btn btn-primary mr-1">
+        Go back
+      </button>
+    </div>
+  </div>
 
 </div>

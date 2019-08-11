@@ -32,13 +32,10 @@ enum SHOW_OPTIONS {
 export class StudyCardsComponent implements OnInit {
 
   cards: Card[] = [];
-  known_word: string;
-  unknown_word: string;
-  current_card: Card;
+  current_card: Card = Object.create(Card);
   currentOrder: number;
   current_card_index: number;
   revealed: boolean = false;
-  done: boolean = false;
   DIFFICULTY = DIFFICULTY;
   STATUS = STATUS;
   SHOW_OPTIONS = SHOW_OPTIONS;
@@ -46,6 +43,7 @@ export class StudyCardsComponent implements OnInit {
   status: number = STATUS.Loading;
   showing: number = SHOW_OPTIONS.Both;
   last_wait_time: number;
+  edit: boolean = false;
 
   constructor(private ds: DeckService, private route: ActivatedRoute, private cs: CardService, private router: Router) { }
 
@@ -53,76 +51,80 @@ export class StudyCardsComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     this.ds
       .getDeck(id)
-      .subscribe((data: Card[]) => {
-        let now = moment().startOf('day');
-        console.log(now);
-        for (let card of data) {
-          if ((card.order === CardOrders.Both || card.order === CardOrders.JapEng) && moment(card.jap_eng_next_study_time,'MM/DD/YYYY')  <= now) {
-            let copy1 = Object.assign({}, card);
-            copy1.order = CardOrders.JapEng;
-            delete copy1.eng_jap_last_wait_time;
-            delete copy1.eng_jap_next_study_time;
-            this.cards.push(copy1)
-          }
-          if ((card.order == CardOrders.Both || card.order === CardOrders.EngJap) && moment(card.eng_jap_next_study_time,'MM/DD/YYYY')  <= now) {
-            let copy2 = Object.assign({}, card);
-            copy2.order = CardOrders.EngJap;
-            delete copy2.jap_eng_last_wait_time;
-            delete copy2.jap_eng_next_study_time;
-            this.cards.push(copy2);
-          }
-        }
-        console.log("cards", this.cards);
-        this.changeCard();
+      .subscribe((cards: Card[]) => {
+        this.createStudyDeck(cards);
       });
   }
 
-  onChange() {
-    console.log("changed");
+  // This function is to make a deck of cards that is easier to manage for this application
+  // When a card has "both" orders, we make two cards out of it, one with each order; "JapEng" and "EngJap".
+  // Some parameters are deleted from the card so this information does not change when card is sent to update on server.
+  createStudyDeck(cards) {
+    let now = moment().startOf('day');
+    for (let card of cards) {
+      if ((card.order === CardOrders.Both || card.order === CardOrders.JapEng) && moment(card.jap_eng_next_study_time,'MM/DD/YYYY')  <= now) {
+        let copy1 = Object.assign({}, card);
+        copy1.order = CardOrders.JapEng;
+        delete copy1.eng_jap_last_wait_time;
+        delete copy1.eng_jap_next_study_time;
+        this.cards.push(copy1)
+      }
+      if ((card.order == CardOrders.Both || card.order === CardOrders.EngJap) && moment(card.eng_jap_next_study_time,'MM/DD/YYYY')  <= now) {
+        let copy2 = Object.assign({}, card);
+        copy2.order = CardOrders.EngJap;
+        delete copy2.jap_eng_last_wait_time;
+        delete copy2.jap_eng_next_study_time;
+        this.cards.push(copy2);
+      }
+    }
+    this.changeCard();
   }
 
-  updateCard(difficulty) {
-    console.log(this.current_card);
-    let newWaitTime;
-    let lastWaitTime = (this.currentOrder === CardOrders.EngJap ? this.current_card.eng_jap_last_wait_time : this.current_card.jap_eng_last_wait_time);
+  getNewWaitTime(difficulty, lastWaitTime) {
     switch(difficulty) {
       case DIFFICULTY.Easy: {
-        if (lastWaitTime === 0)
-          newWaitTime = 4;
-        else
-          newWaitTime = lastWaitTime * 4;
-        break;
+        return (lastWaitTime === 0 ? 4 : lastWaitTime * 4);
       }
       case DIFFICULTY.Hard: {
-        if (lastWaitTime === 0)
-          newWaitTime = 1;
-        else
-          newWaitTime = lastWaitTime * 2;
-        break;
+        return (lastWaitTime === 0 ? 1 : lastWaitTime * 2);
       }
       case DIFFICULTY.Fail: {
-        newWaitTime = 0;
+        return 0;
         break;
       }
     }
-    let newCard = Object.assign({}, this.current_card);
-    if (this.currentOrder === CardOrders.EngJap) {
-      newCard.eng_jap_last_wait_time = newWaitTime;
-      newCard.eng_jap_next_study_time = moment(this.current_card.eng_jap_next_study_time,'MM/DD/YYYY').add(newWaitTime, 'days').toString();
-    } else {
-      newCard.jap_eng_last_wait_time = newWaitTime;
-      newCard.jap_eng_next_study_time = moment(this.current_card.jap_eng_next_study_time,'MM/DD/YYYY').add(newWaitTime, 'days').toString();
-    }
+  }
 
-    delete newCard.order;
-    this.cs.updateCard(newCard);
+  setNextStudyTime(newWaitTime) {
+    if (this.currentOrder === CardOrders.EngJap) {
+      this.current_card.eng_jap_last_wait_time = newWaitTime;
+      this.current_card.eng_jap_next_study_time = moment(this.current_card.eng_jap_next_study_time,'MM/DD/YYYY')
+        .add(newWaitTime, 'days').toString();
+    } else {
+      this.current_card.jap_eng_last_wait_time = newWaitTime;
+      this.current_card.jap_eng_next_study_time = moment(this.current_card.jap_eng_next_study_time,'MM/DD/YYYY')
+        .add(newWaitTime, 'days').toString();
+    }
+  }
+
+  // Update the new wait time on card the user answered on, this is the time that the user will wait until this card will appear again.
+  updateCardTime(difficulty) {
+    // Get the new amount of days until the next study session with this card and update the current card
+    let lastWaitTime = (this.currentOrder === CardOrders.EngJap ? this.current_card.eng_jap_last_wait_time : this.current_card.jap_eng_last_wait_time);
+    let newWaitTime = this.getNewWaitTime(difficulty, lastWaitTime);
+    this.setNextStudyTime(newWaitTime);
+
+    // Delete this parameter so wrong information is not updated on cards on server
+    delete this.current_card.order;
+
+    this.cs.updateCard(this.current_card);
     this.cards.splice(this.current_card_index, 1);
   }
 
   changeCard(difficulty?) {
     // Update the last cards progress
     if (difficulty)
-      this.updateCard(difficulty);
+      this.updateCardTime(difficulty);
 
     let size = this.cards.length;
     if (size === 0) {
@@ -136,21 +138,24 @@ export class StudyCardsComponent implements OnInit {
     this.current_card_index = Math.floor(Math.random()*size);
     this.current_card = this.cards[this.current_card_index];
 
+    // So we can easily access these values in the html
     this.currentOrder = this.current_card.order;
-    if (this.currentOrder === CardOrders.JapEng) {
-      this.known_word = this.current_card.japanese_reading;
-      this.unknown_word = this.current_card.english_word;
-      this.last_wait_time = this.current_card.jap_eng_last_wait_time;
-
-    } else {
-      this.known_word = this.current_card.english_word;
-      this.unknown_word = this.current_card.japanese_reading;
-      this.last_wait_time = this.current_card.eng_jap_last_wait_time;
-    }
-
-
+    this.last_wait_time = (this.currentOrder === CardOrders.JapEng ? this.current_card.jap_eng_last_wait_time : this.current_card.eng_jap_last_wait_time);
 
     this.revealed = false;
+  }
+
+  updateCard(english_word, japanese_reading, kanji) {
+    let newCard = {};
+    newCard['_id'] = this.current_card._id;
+    newCard['english_word'] = english_word;
+    newCard['japanese_reading'] = japanese_reading;
+    newCard['kanji'] = kanji;
+    this.current_card.english_word = english_word;
+    this.current_card.japanese_reading = japanese_reading;
+    this.current_card.kanji = kanji;
+    this.cs.updateCard(newCard);
+    this.edit = !this.edit;
   }
 
 }

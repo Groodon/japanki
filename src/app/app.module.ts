@@ -26,6 +26,7 @@ import {ConfirmDialogService} from "./confirm-dialog/confirm-dialog.service";
 import { StudyCardsComponent } from './study-cards/study-cards.component';
 import { IgxRadioModule } from 'igniteui-angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {CookieService} from "ngx-cookie-service";
 
 
 @NgModule({
@@ -57,7 +58,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     {
       provide: HTTP_INTERCEPTORS, useClass: APIInterceptor, multi: true },
-    CardService, ConfirmDialogService],
+    CookieService, CardService, ConfirmDialogService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

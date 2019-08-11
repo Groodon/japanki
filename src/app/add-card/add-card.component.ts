@@ -4,8 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
 import { CardService } from '../_services/card.service';
 import {ActivatedRoute, Router} from "@angular/router";
-import {FlashMessagesService} from "angular2-flash-messages";
 import {JishoService} from "../_services/jisho.service";
+import { CardOrders } from "../_models/app-enums";
 import * as moment from 'moment';
 
 @Component({
@@ -16,22 +16,15 @@ import * as moment from 'moment';
 export class AddCardComponent implements OnInit {
 
   angForm: FormGroup;
-  deck: number;
+  deckId: string;
   suggestionCards: Array<Object>[];
+  CardOrders = CardOrders;
+  currentOrder: number = CardOrders.Both;
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private cs: CardService,
-              private flashMessage: FlashMessagesService, private js: JishoService) {
+              private js: JishoService, private router: Router) {
     this.createForm();
   }
-
-  //createForm() {
-   // this.angForm = this.fb.group({
-    //  english_word: ['', Validators.required ],
-     // japanese_reading: ['', Validators.required ],
-      //kanji: ['', Validators.required ],
-      //comment: ['']
-    //});
-  //}
 
   createForm() {
    this.angForm = this.fb.group({
@@ -51,33 +44,28 @@ export class AddCardComponent implements OnInit {
     )
   }
 
+  setOrder(order) {
+    this.currentOrder = order;
+  }
+
   addCard(english_word, japanese_reading, kanji, comment, added_card?) {
     let now = moment().format('MM/DD/YYYY').toString();
 
-    let card = {english_word, japanese_reading, kanji, next_study_time: now, comment, deck: this.deck};
+    let card = {english_word, japanese_reading, kanji, jap_eng_next_study_time: now, eng_jap_next_study_time: now, comment, deck: this.deckId, order: this.currentOrder};
     this.cs.addCard(card)
       .subscribe(
         res => {
-          this.angForm.reset();
           if (added_card) {
             added_card.added = true;
-            console.log(added_card);
           }
         },
-          error => this.showFlash(error, false));
+          error => console.log(error));
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.deck = params['id'];
+      this.deckId = params['id'];
     });
-  }
-
-  showFlash(message, success) {
-    let alertClass: string = (success ? "alert-success" : "alert-danger");
-    // 1st parameter is a flash message text
-    // 2nd parameter is optional. You can pass object with options.
-    this.flashMessage.show(message, { cssClass: alertClass, timeout: 4000 });
   }
 
 }

@@ -15,11 +15,19 @@ let Card = new Schema({
   kanji: {
     type: String
   },
-  next_study_time: {
+  jap_eng_next_study_time: {
     type: String,
     required: true
   },
-  last_wait_time: {
+  eng_jap_next_study_time: {
+    type: String,
+    required: true
+  },
+  jap_eng_last_wait_time: {
+    type: Number,
+    default: 0
+  },
+  eng_jap_last_wait_time: {
     type: Number,
     default: 0
   },
@@ -28,10 +36,14 @@ let Card = new Schema({
     type: String,
     required: true
   },
+  order: {
+    type: Number,
+    required: true
+  },
+
   comment: {
     type: String
   }
-
 },{
   collection: 'cards'
 });

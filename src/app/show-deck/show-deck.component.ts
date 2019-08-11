@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {CardService} from "../_services/card.service";
 import Card from "../Card";
 import {DeckService} from "../_services/deck.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {CardOrders} from "../_models/app-enums";
 
 @Component({
   selector: 'app-show-deck',
@@ -12,15 +13,22 @@ import {ActivatedRoute} from "@angular/router";
 export class ShowDeckComponent implements OnInit {
 
   cards: Card[];
+  CardOrders = CardOrders;
+  deckId: string;
 
-  constructor(private ds: DeckService, private cs: CardService, private route: ActivatedRoute) { }
+  constructor(private ds: DeckService, private cs: CardService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
+    this.deckId = this.route.snapshot.paramMap.get('id');
     this.ds
-      .getDeck(id)
+      .getDeck(this.deckId)
       .subscribe((data: Card[]) => {
         this.cards = data;
+        this.cards.map((card) => {
+          card['edit'] = false;
+        });
+
+        console.log(this.cards);
       });
   }
 
@@ -32,18 +40,34 @@ export class ShowDeckComponent implements OnInit {
     }
   }
 
+  updateCard(card,  english_word, japanese_reading, kanji) {
+    if (card.edit) {
+      card.english_word = english_word;
+      card.japanese_reading = japanese_reading;
+      card.kanji = kanji;
+      this.cs.updateCard(card);
+    }
+    card.edit = !card.edit;
+  }
+
   deleteCard(id) {
     this.cs
       .deleteCard(id)
       .subscribe(
         res => {
           this.deleteRow(id);
-          //this.showFlash("Card deleted", true);
 
         },
         error => {
           console.log(error);
         });
+  }
+
+  changeOrder(card, newOrder) {
+    if (card.order !== newOrder) {
+      card.order = newOrder;
+      this.cs.updateCard(card);
+    }
   }
 
 }

@@ -10,16 +10,16 @@
   <tr *ngFor="let deck of decks" [attr.id]="deck._id">
     <td class="w-50">{{ deck.deck_name }}</td>
     <td class="w-50">
-      <a [routerLink]="['/study', deck._id]" class="btn btn-info">
+      <a [routerLink]="['/study', deck._id]" class="btn btn-info btn-sm mr-1">
         Study ({{cards[deck._id] ? cards[deck._id].study_cards : 0}})
       </a>
-      <a [routerLink]="['/decks/show', deck._id]" class="btn btn-primary">
+      <a [routerLink]="['/decks/show', deck._id]" class="btn btn-primary btn-sm mr-1">
         Show ({{cards[deck._id] ? cards[deck._id].total_cards : 0}})
       </a>
-      <a [routerLink]="['/card/add', deck._id]" class="btn btn-primary">
+      <a [routerLink]="['/card/add', deck._id]" class="btn btn-primary btn-sm mr-1">
         Add card
       </a>
-      <a (click) = "showDialog(deck._id)" class="btn btn-danger">
+      <a (click) = "showDialog(deck._id)" class="btn btn-danger btn-sm mr-1">
         Delete
       </a>
     </td>

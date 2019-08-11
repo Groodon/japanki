@@ -4,6 +4,7 @@ import {DeckService} from "../_services/deck.service";
 import {ConfirmDialogService} from "../confirm-dialog/confirm-dialog.service";
 import Card from "../Card";
 import * as moment from 'moment';
+import {CardOrders} from "../_models/app-enums";
 
 @Component({
   selector: 'app-get-decks',
@@ -29,7 +30,7 @@ export class GetDecksComponent implements OnInit {
   }
 
   getCardNumbers() {
-    let now = moment();
+    let now = moment().startOf('day');
     console.log("decks: ", this.decks);
     for (let deck of this.decks) {
       //console.log("deck: ", deck);
@@ -38,9 +39,15 @@ export class GetDecksComponent implements OnInit {
         .subscribe((data: Card[]) => {
           this.cards[deck._id] = data;
           this.cards[deck._id].total_cards = data.length;
-          this.cards[deck._id].study_cards = data.filter(card => moment(card.next_study_time,'MM/DD/YYYY')  <= now).length;
-          console.log("deck: ", this.cards[deck._id]);
-          console.log("done", this.cards);
+          this.cards[deck._id].study_cards = 0;
+          for (let card of data) {
+            if ((card.order === CardOrders.Both || card.order === CardOrders.JapEng) && moment(card.jap_eng_next_study_time, 'MM/DD/YYYY') <= now) {
+              this.cards[deck._id].study_cards += 1;
+            }
+            if ((card.order === CardOrders.Both || card.order === CardOrders.EngJap) && moment(card.eng_jap_next_study_time, 'MM/DD/YYYY') <= now) {
+              this.cards[deck._id].study_cards += 1;
+            }
+          }
         });
 
     }

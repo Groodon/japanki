@@ -1,34 +1,49 @@
+<button (click)="router.navigate(['/decks/all'])" class="btn btn-primary mt-1 mr-1 mb-2 btn-sm">
+  < Back to decks
+</button>
+
 <div class="jumbotron" style="min-height: 400px; position: relative">
-  <span class="text-right" style="position:absolute; top: 0; left: 0; margin: auto">
-    <igx-radio [(ngModel)]="selected" value="option1">Both</igx-radio><br>
-    <igx-radio [(ngModel)]="selected" value="option2">Reading</igx-radio><br>
-    <igx-radio [(ngModel)]="selected" value="option3">Kanji</igx-radio>
-  </span>
+  <div class="btn-group btn-group-toggle mb-3" data-toggle="buttons" style="position:absolute; top: 0; left: 0; margin: auto">
+    <label class="btn btn-primary active btn-sm" (click)="showing=SHOW_OPTIONS.Both">
+      <input type="radio">Both
+    </label>
+    <label class="btn btn-primary btn-sm" (click)="showing=SHOW_OPTIONS.Reading">
+      <input type="radio">Reading
+    </label>
+    <label class="btn btn-primary btn-sm" (click)="showing=SHOW_OPTIONS.Kanji">
+      <input type="radio">Kanji
+    </label>
+  </div>
 
   <span class="text-center">
-    <div *ngIf="!done">
-      <p>{{known_word}}</p>
-      <hr *ngIf="revealed" class="my-4">
-      <p *ngIf="revealed">{{unknown_word}}</p>
+    <div *ngIf="status === STATUS.Studying">
+      <p *ngIf="((showing === SHOW_OPTIONS.Reading || showing === SHOW_OPTIONS.Both) || (showing === SHOW_OPTIONS.Kanji && currentOrder === CARD_ORDERS.EngJap))">{{known_word}}</p>
+      <p *ngIf="(showing === SHOW_OPTIONS.Kanji || showing === SHOW_OPTIONS.Both) && (currentOrder === CARD_ORDERS.JapEng)">{{current_card.kanji}}</p>
+      <div *ngIf="revealed">
+        <hr class="my-4">
+        <p *ngIf="((showing === SHOW_OPTIONS.Reading || showing === SHOW_OPTIONS.Both) || (showing === SHOW_OPTIONS.Kanji && currentOrder === CARD_ORDERS.JapEng))">{{unknown_word}}</p>
+        <p *ngIf="(showing === SHOW_OPTIONS.Kanji || showing === SHOW_OPTIONS.Both) && currentOrder === CARD_ORDERS.EngJap">{{current_card.kanji}}</p>
+      </div>
+
 
       <div class="bottom-align-text" style="position:absolute; bottom: 0; left: 0; right: 0; margin: auto">
-        <button *ngIf="!revealed" (click)="revealed = true;" class="btn btn-primary">
+        <button *ngIf="!revealed" (click)="revealed = true;" class="btn btn-primary mr-1">
           Show Answer
         </button>
-        <button *ngIf="revealed" (click)="changeCard(DIFFICULTY.Fail)" class="btn btn-danger">
+        <button *ngIf="revealed" (click)="changeCard(DIFFICULTY.Fail)" class="btn btn-danger mr-1">
           Fail (soon)
         </button>
-        <button *ngIf="revealed" (click)="changeCard(DIFFICULTY.Hard)" class="btn btn-warning">
-          Hard ({{this.current_card.last_wait_time === 0 ? 1 : this.current_card.last_wait_time*2}} {{this.current_card.last_wait_time === 0 ? 'day' : 'days'}})
+        <button *ngIf="revealed" (click)="changeCard(DIFFICULTY.Hard)" class="btn btn-warning mr-1">
+          Hard ({{last_wait_time === 0 ? 1 : last_wait_time*2}} {{last_wait_time === 0 ? 'day' : 'days'}})
         </button>
-        <button *ngIf="revealed" (click)="changeCard(DIFFICULTY.Easy)" class="btn btn-success">
-          Easy ({{this.current_card.last_wait_time === 0 ? 4 : this.current_card.last_wait_time*4}} days)
+        <button *ngIf="revealed" (click)="changeCard(DIFFICULTY.Easy)" class="btn btn-success mr-1">
+          Easy ({{last_wait_time === 0 ? 4 : last_wait_time*4}} days)
         </button>
       </div>
     </div>
 
-    <div *ngIf="done">
-    Finished all cards!
+    <div *ngIf="status === STATUS.Finished">
+      Finished all cards!
     </div>
   </span>
 

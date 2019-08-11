@@ -1,3 +1,7 @@
+<button (click)="router.navigate(['/decks/show/' + deckId])" class="btn btn-primary mt-1 mr-1 mb-2 btn-sm">
+  Show deck
+</button>
+
 <div class="card">
   <div class="card-body">
     <form [formGroup]="angForm" novalidate>
@@ -13,102 +17,51 @@
         </button>
       </div>
     </form>
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-4"*ngFor="let card of suggestionCards">
-            <div class="card h-100">
-              <div class="card-body">
-                <dl>
-                  <dt>English</dt>
-                  <dd [hidden]="card.edit">{{card.senses[0].english_definitions[0]}}</dd>
-                  <input [hidden]="!card.edit" [value]="card.senses[0].english_definitions[0]" #english_word/>
+    <div class="btn-group btn-group-toggle mb-3" data-toggle="buttons">
 
-                  <dt>Japanese reading</dt>
-                  <dd [hidden]="card.edit">{{card.japanese[0].reading}}</dd>
-                  <input [hidden]="!card.edit" [value]="card.japanese[0].reading" #japanese_reading/>
+      <span class="badge badge-secondary mr-1"><h6>Cards to add:</h6></span>
+      <label class="btn btn-primary active btn-sm" (click)="setOrder(CardOrders.Both)">
+        <input type="radio">Both
+      </label>
+      <label class="btn btn-primary btn-sm" (click)="setOrder(CardOrders.EngJap)">
+        <input type="radio">Eng -> Jap
+      </label>
+      <label class="btn btn-primary btn-sm" (click)="setOrder(CardOrders.JapEng)">
+        <input type="radio">Jap -> Eng
+      </label>
+    </div>
 
-                  <dt>Kanji</dt>
-                  <dd [hidden]="card.edit">{{card.japanese[0].word ? card.japanese[0].word : '-'}}</dd>
-                  <input [hidden]="!card.edit" [value]="card.japanese[0].word" #kanji/>
-                </dl>
-                <button (click)="card.edit ? addCard(english_word.value, japanese_reading.value, kanji.value, '', card) :
-                                             addCard(card.senses[0].english_definitions[0], card.japanese[0].reading, card.japanese[0].word, '', card)"
-                        class="btn btn-success" [disabled]="card.added">
-                  {{card.added ? 'Added' : 'Add'}}
-                </button>
-                <button (click)="card.edit = !card.edit" class="btn btn-primary">
-                  {{card.edit ? 'Go back' : 'Edit'}}
-                </button>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4"*ngFor="let card of suggestionCards">
+          <div class="card h-100">
+            <div class="card-body">
+              <dl>
+                <dt>English</dt>
+                <dd [hidden]="card.edit">{{card.senses[0].english_definitions[0]}}</dd>
+                <input [hidden]="!card.edit" [value]="card.senses[0].english_definitions[0]" #english_word/>
 
-              </div>
+                <dt>Japanese reading</dt>
+                <dd [hidden]="card.edit">{{card.japanese[0].reading}}</dd>
+                <input [hidden]="!card.edit" [value]="card.japanese[0].reading" #japanese_reading/>
+
+                <dt>Kanji</dt>
+                <dd [hidden]="card.edit">{{card.japanese[0].word ? card.japanese[0].word : '-'}}</dd>
+                <input [hidden]="!card.edit" [value]="card.japanese[0].word" #kanji/>
+              </dl>
+              <button (click)="card.edit ? addCard(english_word.value, japanese_reading.value, kanji.value, '', card) :
+                                           addCard(card.senses[0].english_definitions[0], card.japanese[0].reading, card.japanese[0].word, '', card)"
+                      class="btn btn-success" [disabled]="card.added">
+                {{card.added ? 'Added' : 'Add'}}
+              </button>
+              <button (click)="card.edit = !card.edit" class="btn btn-primary">
+                {{card.edit ? 'Go back' : 'Edit'}}
+              </button>
+
             </div>
           </div>
         </div>
       </div>
-      <!--
-      <div class="form-group">
-        <label class="col-md-4">English word</label>
-        <input type="text" class="form-control" formControlName="english_word" #english_word />
-      </div>
-      <div *ngIf="angForm.controls['english_word'].invalid && (angForm.controls['english_word'].dirty || angForm.controls['english_word'].touched)" class="alert alert-danger">
-        <div *ngIf="angForm.controls['english_word'].errors.required">
-          English word is required.
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-md-4">Japanese reading </label>
-        <input type="text" class="form-control" formControlName="japanese_reading" #japanese_reading />
-      </div>
-      <div *ngIf="angForm.controls['japanese_reading'].invalid && (angForm.controls['japanese_reading'].dirty || angForm.controls['japanese_reading'].touched)" class="alert alert-danger">
-        <div *ngIf="angForm.controls['japanese_reading'].errors.required">
-          Japanese word is required.
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-md-4">Kanji </label>
-        <input type="text" class="form-control" formControlName="kanji" #kanji />
-      </div>
-      <div *ngIf="angForm.controls['kanji'].invalid && (angForm.controls['kanji'].dirty || angForm.controls['kanji'].touched)" class="alert alert-danger">
-        <div *ngIf="angForm.controls['kanji'].errors.required">
-          Kanji is required.
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-md-4">Comment (optional) </label>
-        <input type="text" class="form-control" formControlName="comment" #comment />
-      </div>
-
-      <div class="form-group">
-        <button (click)="addCard(english_word.value, japanese_reading.value, kanji.value, comment.value)"
-                [disabled]="angForm.pristine || angForm.invalid"
-                class="btn btn-primary">
-          Add Card
-        </button>
-      </div>
-      <div class="form-group">
-        <button (click)="getSuggestions(english_word.value)"
-                class="btn btn-primary">
-          Get suggestions
-        </button>
-      </div>
-
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-6"*ngFor="let card of suggestionCards">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">{{card.japanese[0].word}} {{card.japanese[0].reading}}</h5>
-                <p class="card-text">{{card.senses[0].english_definitions[0]}}</p>
-                <button (click)="addCard(card.senses[0].english_definitions[0], card.japanese[0].reading, comment.value, card)" class="btn btn-success" [disabled]="card.added">
-                  {{card.added ? 'Added' : 'Add'}}
-                </button>
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      -->
-
+    </div>
   </div>
 </div>

@@ -21,6 +21,7 @@ export class AddCardComponent implements OnInit {
   CardOrders = CardOrders;
   currentOrder: number = CardOrders.Both;
   customAdded: boolean = false;
+  dropdownSettings = {};
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private cs: CardService,
               private js: JishoService, private router: Router) {
@@ -33,14 +34,24 @@ export class AddCardComponent implements OnInit {
     });
   }
 
-  getSuggestions(english_word) {
-    this.js.getJapaneseWord(english_word).subscribe(
+  getSuggestions(word) {
+    this.js.getJapaneseWord(word).subscribe(
       res => {
-        console.log(res);
         this.suggestionCards = res.data;
         this.suggestionCards.map((card) => {
           card['added'] = false;
           card['edit'] = false;
+          if (card.senses.length > 1) {
+            card['dropdown'] = true;
+            card['data'] = [];
+            for (let meaning of card.senses) {
+              card['data'].push(meaning.english_definitions.join("; "));
+            }
+            card['selected'] = [card['data'][0]];
+          } else {
+            card['dropdown'] = false;
+          }
+
         });
       }
     )
@@ -68,6 +79,25 @@ export class AddCardComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.deckId = params['id'];
     });
+
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'meaning',
+      textField: 'meaning',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3
+    };
+
+  }
+
+
+
+  onItemSelect(card) {
+    card.added = false;
+  }
+  onSelectAll(card) {
+    card.added = false;
   }
 
 }

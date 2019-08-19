@@ -15,6 +15,9 @@ export class ShowDeckComponent implements OnInit {
   cards: Card[];
   CardOrders = CardOrders;
   deckId: string;
+  newLineHtml(str) {
+    return str.replace(/(?:\r\n|\r|\n)/g, '<br>');
+  }
 
   constructor(private ds: DeckService, private cs: CardService, private route: ActivatedRoute, private router: Router) { }
 

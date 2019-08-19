@@ -2,19 +2,6 @@
   Show deck
 </button>
 
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropdown
-  </button>
-  <div class="dropdown-menu">
-    <a class="dropdown-item" href="#">Regular link</a>
-    <a class="dropdown-item active" href="#">Active link</a>
-    <a class="dropdown-item" href="#">Another link</a>
-    <button class="dropdown-item">
-      <input type="checkbox"/> Test Checkbox
-    </button>
-  </div>
-</div>
 <div class="card">
   <div class="card-body">
     <form [formGroup]="angForm" novalidate>
@@ -76,8 +63,22 @@
             <div class="card-body">
               <dl>
                 <dt>English</dt>
-                <dd [hidden]="card.edit">{{card.senses[0].english_definitions.join('; ')}}</dd>
-                <input [hidden]="!card.edit" [value]="card.senses[0].english_definitions.join('; ')" #english_word/>
+                <dd [hidden]="card.edit">
+                  <div [hidden]="card.dropdown">
+                    {{card.senses[0].english_definitions.join('; ')}}
+                  </div>
+
+                  <ng-multiselect-dropdown [hidden]="!card.dropdown"
+                    [placeholder]="'-choose at least one option-'"
+                    [data]="card.data"
+                    [(ngModel)]="card.selected"
+                    [settings]="dropdownSettings"
+                    (onSelect)="onItemSelect(card)"
+                    (onSelectAll)="onSelectAll(card)"
+                  >
+                  </ng-multiselect-dropdown>
+                </dd>
+                <input [hidden]="!card.edit" [value]="(card.dropdown ? card.selected.join('; ') : card.senses[0].english_definitions.join('; '))" #english_word/>
 
                 <dt>Japanese reading</dt>
                 <dd [hidden]="card.edit">{{card.japanese[0].reading}}</dd>
@@ -88,8 +89,8 @@
                 <input [hidden]="!card.edit" [value]="card.japanese[0].word ? card.japanese[0].word : ''" #kanji/>
               </dl>
               <button (click)="card.edit ? addCard(english_word.value, japanese_reading.value, kanji.value, '', card) :
-                                           addCard(card.senses[0].english_definitions.join('; '), card.japanese[0].reading, card.japanese[0].word, '', card);"
-                      class="btn btn-success" [disabled]="card.added">
+                                           addCard((card.dropdown ? card.selected.join('; ') : card.senses[0].english_definitions.join('; ')), card.japanese[0].reading, card.japanese[0].word, '', card);"
+                      class="btn btn-success" [disabled]="card.added || (card.dropdown && card.selected.length == 0)">
                 {{card.added ? 'Added' : 'Add'}}
               </button>
               <button (click)="card.added = false; card.edit = !card.edit;" class="btn btn-primary">

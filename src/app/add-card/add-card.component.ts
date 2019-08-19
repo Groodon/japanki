@@ -20,6 +20,7 @@ export class AddCardComponent implements OnInit {
   suggestionCards: Array<Object>[];
   CardOrders = CardOrders;
   currentOrder: number = CardOrders.Both;
+  customAdded: boolean = false;
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private cs: CardService,
               private js: JishoService, private router: Router) {

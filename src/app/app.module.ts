@@ -12,7 +12,6 @@ import { AddCardComponent } from './add-card/add-card.component';
 import { EditCardComponent } from './edit-card/edit-card.component';
 
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
-import { FlashMessagesModule } from 'angular2-flash-messages';
 import { SocialLoginModule } from "angularx-social-login";
 import {ErrorInterceptor} from "./_helpers/error.interceptor";
 import {JwtInterceptor} from "./_helpers/jwt.interceptors";
@@ -27,6 +26,7 @@ import { StudyCardsComponent } from './study-cards/study-cards.component';
 import { IgxRadioModule } from 'igniteui-angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {CookieService} from "ngx-cookie-service";
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
 @NgModule({
@@ -51,7 +51,8 @@ import {CookieService} from "ngx-cookie-service";
     SocialLoginModule,
     IgxRadioModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

@@ -35,6 +35,7 @@ export class AddCardComponent implements OnInit {
   getSuggestions(english_word) {
     this.js.getJapaneseWord(english_word).subscribe(
       res => {
+        console.log(res);
         this.suggestionCards = res.data;
         this.suggestionCards.map((card) => {
           card['added'] = false;
@@ -49,7 +50,7 @@ export class AddCardComponent implements OnInit {
   }
 
   addCard(english_word, japanese_reading, kanji, comment, added_card?) {
-    let now = moment().format('MM/DD/YYYY').toString();
+    let now = moment().startOf('day').format('YYYY-MM-DD[T]HH:mm:ss').toString();
 
     let card = {english_word, japanese_reading, kanji, jap_eng_next_study_time: now, eng_jap_next_study_time: now, comment, deck: this.deckId, order: this.currentOrder};
     this.cs.addCard(card)

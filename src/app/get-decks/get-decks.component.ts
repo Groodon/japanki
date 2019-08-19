@@ -41,10 +41,10 @@ export class GetDecksComponent implements OnInit {
           this.cards[deck._id].total_cards = data.length;
           this.cards[deck._id].study_cards = 0;
           for (let card of data) {
-            if ((card.order === CardOrders.Both || card.order === CardOrders.JapEng) && moment(card.jap_eng_next_study_time, 'MM/DD/YYYY') <= now) {
+            if ((card.order === CardOrders.Both || card.order === CardOrders.JapEng) && moment(card.jap_eng_next_study_time) <= now) {
               this.cards[deck._id].study_cards += 1;
             }
-            if ((card.order === CardOrders.Both || card.order === CardOrders.EngJap) && moment(card.eng_jap_next_study_time, 'MM/DD/YYYY') <= now) {
+            if ((card.order === CardOrders.Both || card.order === CardOrders.EngJap) && moment(card.eng_jap_next_study_time) <= now) {
               this.cards[deck._id].study_cards += 1;
             }
           }

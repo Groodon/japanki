@@ -19,7 +19,9 @@
     </form>
     <div class="btn-group btn-group-toggle mb-3" data-toggle="buttons">
 
-      <span class="badge badge-secondary mr-1"><h6>Cards to add:</h6></span>
+      <span class="badge badge-secondary d-inline-flex align-items-center mr-1 font-weight-light">
+        <div style="font-size: 14px">Cards to add:</div>
+      </span>
       <label class="btn btn-primary active btn-sm" (click)="setOrder(CardOrders.Both)">
         <input type="radio">Both
       </label>
@@ -38,8 +40,8 @@
             <div class="card-body">
               <dl>
                 <dt>English</dt>
-                <dd [hidden]="card.edit">{{card.senses[0].english_definitions[0]}}</dd>
-                <input [hidden]="!card.edit" [value]="card.senses[0].english_definitions[0]" #english_word/>
+                <dd [hidden]="card.edit">{{card.senses[0].english_definitions.join('; ')}}</dd>
+                <input [hidden]="!card.edit" [value]="card.senses[0].english_definitions.join('; ')" #english_word/>
 
                 <dt>Japanese reading</dt>
                 <dd [hidden]="card.edit">{{card.japanese[0].reading}}</dd>
@@ -50,14 +52,13 @@
                 <input [hidden]="!card.edit" [value]="card.japanese[0].word ? card.japanese[0].word : ''" #kanji/>
               </dl>
               <button (click)="card.edit ? addCard(english_word.value, japanese_reading.value, kanji.value, '', card) :
-                                           addCard(card.senses[0].english_definitions[0], card.japanese[0].reading, card.japanese[0].word, '', card)"
+                                           addCard(card.senses[0].english_definitions.join('; '), card.japanese[0].reading, card.japanese[0].word, '', card)"
                       class="btn btn-success" [disabled]="card.added">
                 {{card.added ? 'Added' : 'Add'}}
               </button>
-              <button (click)="card.edit = !card.edit" class="btn btn-primary">
+              <button (click)="card.added = (card.edit ? card.added : false); card.edit = !card.edit;" class="btn btn-primary">
                 {{card.edit ? 'Go back' : 'Edit'}}
               </button>
-
             </div>
           </div>
         </div>

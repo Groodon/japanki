@@ -4,7 +4,7 @@
 
 <div class="jumbotron text-center" style="min-height: 400px; position: relative">
 
-  <div *ngIf="status === STATUS.Studying" class="btn btn-primary btn-sm" (click)="edit = !edit;" style="position:absolute; top: 0; right: 0; margin: auto">
+  <div *ngIf="status === STATUS.Studying && !edit" class="btn btn-primary btn-sm" (click)="edit = !edit;" style="position:absolute; top: 0; right: 0; margin: auto">
     Edit Card
   </div>
 
@@ -28,7 +28,7 @@
 
       <div *ngIf="currentOrder === CARD_ORDERS.JapEng">
         <p *ngIf="(showing === SHOW_OPTIONS.Both || showing === SHOW_OPTIONS.Reading)">{{current_card.japanese_reading}}</p>
-        <p *ngIf="(showing === SHOW_OPTIONS.Both || showing === SHOW_OPTIONS.Kanji)">{{(current_card.kanji)}}</p>
+        <p *ngIf="(showing === SHOW_OPTIONS.Both || showing === SHOW_OPTIONS.Kanji)">{{(!current_card.kanji ? "[No kanji available]" : current_card.kanji)}}</p>
       </div>
       <div *ngIf="revealed || edit">
         <hr class="my-4">
@@ -37,7 +37,7 @@
         </div>
         <div *ngIf="currentOrder === CARD_ORDERS.EngJap">
           <p *ngIf="(showing === SHOW_OPTIONS.Both || showing === SHOW_OPTIONS.Reading)">{{current_card.japanese_reading}}</p>
-          <p *ngIf="(showing === SHOW_OPTIONS.Both || showing === SHOW_OPTIONS.Kanji)">{{current_card.kanji}}</p>
+          <p *ngIf="(showing === SHOW_OPTIONS.Both || showing === SHOW_OPTIONS.Kanji)">{{(!current_card.kanji ? "[No kanji available]" : current_card.kanji)}}</p>
         </div>
       </div>
 

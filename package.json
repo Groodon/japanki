@@ -29,6 +29,7 @@
     "chart.js": "^2.5.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "express-validator": "^6.1.1",
     "font-awesome": "^4.7.0",
     "igniteui-angular": "^8.1.2",
     "jquery": "^3.4.1",

@@ -16,7 +16,7 @@
       <a [routerLink]="['/decks/show', deck._id]" class="btn btn-primary btn-sm mr-1">
         Show ({{cards[deck._id] ? cards[deck._id].total_cards : 0}})
       </a>
-      <a [routerLink]="['/card/add', deck._id]" class="btn btn-primary btn-sm mr-1">
+      <a [routerLink]="['/card/add', deck._id]" class="btn btn-success btn-sm mr-1">
         Add card
       </a>
       <a (click) = "showDialog(deck._id)" class="btn btn-danger btn-sm mr-1">

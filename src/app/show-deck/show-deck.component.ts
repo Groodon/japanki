@@ -66,6 +66,7 @@ export class ShowDeckComponent implements OnInit {
   changeOrder(card, newOrder) {
     if (card.order !== newOrder) {
       card.order = newOrder;
+      console.log(card);
       this.cs.updateCard(card);
     }
   }

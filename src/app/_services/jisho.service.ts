@@ -9,6 +9,8 @@ export class JishoService {
   uri = 'search';
 
   getJapaneseWord(searchWord) {
+    let s: string = `${this.uri}/` + searchWord;
+    console.log(searchWord);
     return this.http.get<any>(`${this.uri}/` + searchWord);
   }
 }

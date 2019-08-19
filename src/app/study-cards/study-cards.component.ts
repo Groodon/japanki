@@ -62,14 +62,15 @@ export class StudyCardsComponent implements OnInit {
   createStudyDeck(cards) {
     let now = moment().startOf('day');
     for (let card of cards) {
-      if ((card.order === CardOrders.Both || card.order === CardOrders.JapEng) && moment(card.jap_eng_next_study_time,'MM/DD/YYYY')  <= now) {
+      console.log(moment(card.jap_eng_next_study_time), now, moment(card.jap_eng_next_study_time)  <= now, card);
+      if ((card.order === CardOrders.Both || card.order === CardOrders.JapEng) && moment(card.jap_eng_next_study_time)  <= now) {
         let copy1 = Object.assign({}, card);
         copy1.order = CardOrders.JapEng;
         delete copy1.eng_jap_last_wait_time;
         delete copy1.eng_jap_next_study_time;
         this.cards.push(copy1)
       }
-      if ((card.order == CardOrders.Both || card.order === CardOrders.EngJap) && moment(card.eng_jap_next_study_time,'MM/DD/YYYY')  <= now) {
+      if ((card.order == CardOrders.Both || card.order === CardOrders.EngJap) && moment(card.eng_jap_next_study_time)  <= now) {
         let copy2 = Object.assign({}, card);
         copy2.order = CardOrders.EngJap;
         delete copy2.jap_eng_last_wait_time;
@@ -98,11 +99,11 @@ export class StudyCardsComponent implements OnInit {
   setNextStudyTime(newWaitTime) {
     if (this.currentOrder === CardOrders.EngJap) {
       this.current_card.eng_jap_last_wait_time = newWaitTime;
-      this.current_card.eng_jap_next_study_time = moment(this.current_card.eng_jap_next_study_time,'MM/DD/YYYY')
+      this.current_card.eng_jap_next_study_time = moment(this.current_card.eng_jap_next_study_time)
         .add(newWaitTime, 'days').toString();
     } else {
       this.current_card.jap_eng_last_wait_time = newWaitTime;
-      this.current_card.jap_eng_next_study_time = moment(this.current_card.jap_eng_next_study_time,'MM/DD/YYYY')
+      this.current_card.jap_eng_next_study_time = moment(this.current_card.jap_eng_next_study_time)
         .add(newWaitTime, 'days').toString();
     }
   }

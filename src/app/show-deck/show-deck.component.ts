@@ -19,7 +19,7 @@ export class ShowDeckComponent implements OnInit {
     return str.replace(/(?:\r\n|\r|\n)/g, '<br>');
   }
 
-  constructor(private ds: DeckService, private cs: CardService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private ds: DeckService, private cs: CardService, private route: ActivatedRoute, public router: Router) { }
 
   ngOnInit() {
     this.deckId = this.route.snapshot.paramMap.get('id');

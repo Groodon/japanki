@@ -1,4 +1,5 @@
 # Japanki
+<a href="src/index.html">The Link</a>
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.3.
 Bootstrap 4.3.1

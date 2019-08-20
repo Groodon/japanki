@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   title = 'japanki';
   currentUser: User;
 
-  constructor(private loadingBar: SlimLoadingBarService, private router: Router, private authenticationService: AuthenticationService) {
+  constructor(private loadingBar: SlimLoadingBarService, private router: Router, public authenticationService: AuthenticationService) {
     this.router.events.subscribe((event: Event) => {
       this.navigationInterceptor(event);
     });

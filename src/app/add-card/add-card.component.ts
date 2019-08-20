@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {JishoService} from "../_services/jisho.service";
 import { CardOrders } from "../_models/app-enums";
 import * as moment from 'moment';
+import JishoCard from "../_models/JishoCard";
 
 @Component({
   selector: 'app-gst-add',
@@ -17,14 +18,14 @@ export class AddCardComponent implements OnInit {
 
   angForm: FormGroup;
   deckId: string;
-  suggestionCards: Array<Object>[];
+  suggestionCards: Array<JishoCard>;
   CardOrders = CardOrders;
   currentOrder: number = CardOrders.Both;
   customAdded: boolean = false;
   dropdownSettings = {};
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private cs: CardService,
-              private js: JishoService, private router: Router) {
+              private js: JishoService, public router: Router) {
     this.createForm();
   }
 
@@ -97,6 +98,10 @@ export class AddCardComponent implements OnInit {
     card.added = false;
   }
   onSelectAll(card) {
+    card.added = false;
+  }
+
+  onDeSelect(card) {
     card.added = false;
   }
 

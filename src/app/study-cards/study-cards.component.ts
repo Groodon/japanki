@@ -45,7 +45,7 @@ export class StudyCardsComponent implements OnInit {
   last_wait_time: number;
   edit: boolean = false;
 
-  constructor(private ds: DeckService, private route: ActivatedRoute, private cs: CardService, private router: Router) { }
+  constructor(private ds: DeckService, private route: ActivatedRoute, private cs: CardService, public router: Router) { }
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');

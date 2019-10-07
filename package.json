@@ -1,10 +1,15 @@
 {
   "name": "japanki",
   "version": "0.0.0",
+  "engines": {
+    "node": "10.16.0",
+    "npm": "6.9.0"
+  },
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node ./api/server.js",
     "build": "ng build",
+    "postinstall": "ng build --aot -prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -12,8 +17,10 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~8.0.1",
+    "@angular/cli": "^8.3.8",
     "@angular/common": "~8.0.1",
     "@angular/compiler": "~8.0.1",
+    "@angular/compiler-cli": "^8.0.3",
     "@angular/core": "~8.0.1",
     "@angular/forms": "~8.0.1",
     "@angular/platform-browser": "~8.0.1",
@@ -38,17 +45,19 @@
     "ng-multiselect-dropdown": "^0.2.3",
     "ng2-slim-loading-bar": "^4.0.0",
     "ngx-cookie-service": "^2.2.0",
+    "path": "^0.12.7",
     "popper": "^1.0.1",
     "popper.js": "^1.15.0",
     "rxjs": "~6.4.0",
     "rxjs-compat": "^6.5.2",
     "tslib": "^1.9.0",
+    "typescript": "~3.4.3",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.800.0",
-    "@angular/cli": "~8.0.3",
-    "@angular/compiler-cli": "~8.0.1",
+    "@angular/cli": "^8.3.8",
+    "@angular/compiler-cli": "^8.0.3",
     "@angular/language-service": "~8.0.1",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",

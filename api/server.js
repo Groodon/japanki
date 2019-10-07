@@ -11,7 +11,7 @@ const cardRoute = require('./routes/card.route');
 const userRoute = require('./routes/user.route');
 const deckRoute = require('./routes/deck.route');
 const searchRoute = require('./routes/search.route');
-
+// ???
 mongoose.Promise = global.Promise;
 mongoose.connect(config.DB, { useNewUrlParser: true }).then(
   () => {console.log('Database is connected') },

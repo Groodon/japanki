@@ -112,7 +112,7 @@ app.use('/users', userRoute);
 app.use('/decks', deckRoute);
 app.use('/search', searchRoute);
 // global error handler
-app.use(errorHandler);
+//app.use(errorHandler);
 // Serve only the static files form the dist directory
 app.use(express.static('./dist/japanki'));
 

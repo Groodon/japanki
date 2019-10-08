@@ -120,7 +120,7 @@ app.get('/*', function(req,res) {
   res.sendFile(path.join(__dirname,'/dist/japanki/index.html'));
 });
 
-port = process.env.PORT || 4000;
+port = process.env.PORT || 8080;
 // Start the app by listening on the default Heroku port
 app.listen(port, function(){
   console.log('Listening on port ' + port)

@@ -12,8 +12,7 @@ export class APIInterceptor implements HttpInterceptor {
     //  req.headers
     //  return next.handle(req);
     //}
-
-    const apiReq = req.clone({ url: `http://localhost:4000/${req.url}` });
+    const apiReq = req.clone({ url: `http://localhost:8080/${req.url}` });
     return next.handle(apiReq);
   }
 }

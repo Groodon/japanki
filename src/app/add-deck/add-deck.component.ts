@@ -24,6 +24,7 @@ export class AddDeckComponent implements OnInit {
   }
 
   addDeck(deck_name) {
+    console.log(1);
     this.ds.addDeck({deck_name: deck_name})
       .pipe(first())
       .subscribe(data => {

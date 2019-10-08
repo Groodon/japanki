@@ -5,6 +5,7 @@ let Card = require('../models/Card');
 
 // TODO: check if deck already exists?
 deckRoutes.route('/add').post(function (req, res) {
+  console.log("LOOOOL")
   User.findOneAndUpdate(
     { _id: req.user.sub },
     { $push: { decks: {deck_name: req.body.deck_name}}},

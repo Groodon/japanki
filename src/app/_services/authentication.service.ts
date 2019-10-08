@@ -54,6 +54,7 @@ export class AuthenticationService {
   }
 
   registerUser(username: string, password: string, email: string) {
+    console.log("asd")
     return this
       .http
       .post<any>(`users/register`, {username, password, email})

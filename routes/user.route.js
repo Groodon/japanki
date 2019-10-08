@@ -24,16 +24,19 @@ userRoutes.route('/register').post(
 
   function (req, res) {
     // Validate the email and password
+    console.log("asdasd")
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       let errorResponse = errors.array({ onlyFirstError: true });
       return res.status(422).json({message: errorResponse[0].msg});
     }
-
-    let query = User.findOne({email: req.body.email});
-    let result = query.exec();
-    result.then(result => {
+    console.log("a2")
+    //let query = User.findOne({email: req.body.email});
+    //let result = query.exec();
+    User.findOne({email: req.body.email}).then(result => {
+      console.log("a3")
       if (result) {
+        console.log("a4")
         res.status(400).send({'message': "This email is already registered"});
       } else {
         let user = new User(req.body);

@@ -5,10 +5,10 @@ let Card = require('../models/Card');
 
 // TODO: check if deck already exists?
 deckRoutes.route('/add').post(function (req, res) {
-  console.log("LOOOOL")
+  console.log("LOOOOL", req)
   User.findOneAndUpdate(
-    { _id: req.user.sub },
-    { $push: { decks: {deck_name: req.body.deck_name}}},
+    { _id: req.body.id },
+    { $push: { decks: {deck_name: req.body.deck.deck_name}}},
     function (error, success) {
       if (error) {
         res.status(400).send("Unable to update the database");
@@ -19,9 +19,10 @@ deckRoutes.route('/add').post(function (req, res) {
     }
 );
 
-deckRoutes.route('/all').get(function (req, res) {
-  User.findById(req.user.sub).then(user => {
+deckRoutes.route('/all').post(function (req, res) {
+  User.findById(req.body.id).then(user => {
     if (user) {
+      console.log("USER: ", user)
       res.status(200).send(user.decks);
     } else {
       res.status(400).send({'message': "Database error"});
@@ -37,9 +38,9 @@ deckRoutes.route('/get/:id').get(function (req, res) {
   }
 );
 
-deckRoutes.route('/delete/:id').get(function (req, res) {
+deckRoutes.route('/delete/:id').post(function (req, res) {
   User.findOneAndUpdate(
-    { _id: req.user.sub },
+    { _id: req.body.id },
     { $pull: { decks: {_id: req.params.id}}},
     function (error, success) {
       if (error) {

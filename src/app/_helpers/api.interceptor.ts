@@ -12,7 +12,7 @@ export class APIInterceptor implements HttpInterceptor {
     //  req.headers
     //  return next.handle(req);
     //}
-    const apiReq = req.clone({ url: `http://localhost:8080/${req.url}` });
+    const apiReq = req.clone({ url: `https://japanki.herokuapp.com/${req.url}` });
     return next.handle(apiReq);
   }
 }

@@ -104,7 +104,7 @@ db.once('open', function callback() {
 app.use(bodyParser.json());
 // Cross-Origin Resource Sharing
 app.use(cors());
-//app.use(jwt());
+app.use(jwt());
 
 // api routes
 app.use('/card', cardRoute);
@@ -112,7 +112,7 @@ app.use('/users', userRoute);
 app.use('/decks', deckRoute);
 app.use('/search', searchRoute);
 // global error handler
-//app.use(errorHandler);
+app.use(errorHandler);
 // Serve only the static files form the dist directory
 app.use(express.static('./dist/japanki'));
 

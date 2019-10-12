@@ -10,7 +10,8 @@ function jwt() {
       '/users/register',
       '/login',
       '/',
-      'home'
+      'home',
+      '/public/*'
     ]
   });
 }

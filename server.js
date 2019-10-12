@@ -102,6 +102,7 @@ db.once('open', function callback() {
   })
 });
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({encoded: false}));
 // Cross-Origin Resource Sharing
 app.use(cors());
 app.use(jwt());

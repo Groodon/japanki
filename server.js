@@ -113,7 +113,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({encoded: false}));
 // Cross-Origin Resource Sharing
 app.use(cors());
-app.use(jwt());
+//app.use(jwt());
 
 // api routes
 app.use('/card', cardRoute);

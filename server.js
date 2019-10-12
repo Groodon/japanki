@@ -8,6 +8,14 @@ const express = require('express'),
   errorHandler = require('./_helpers/error-handler'),
   app = express();
 
+// Serve only the static files form the dist directory
+app.use(express.static('./dist/japanki'));
+app.use(express.static(__dirname + '/public'));
+
+app.get('/*', function(req,res) {
+  res.sendFile(path.join(__dirname,'/dist/japanki/index.html'));
+});
+
 const cardRoute = require('./routes/card.route');
 const userRoute = require('./routes/user.route');
 const deckRoute = require('./routes/deck.route');
@@ -114,12 +122,7 @@ app.use('/decks', deckRoute);
 app.use('/search', searchRoute);
 // global error handler
 app.use(errorHandler);
-// Serve only the static files form the dist directory
-app.use(express.static('./dist/japanki'));
 
-app.get('/*', function(req,res) {
-  res.sendFile(path.join(__dirname,'/dist/japanki/index.html'));
-});
 
 port = process.env.PORT || 8080;
 // Start the app by listening on the default Heroku port

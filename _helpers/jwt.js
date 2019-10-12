@@ -11,7 +11,9 @@ function jwt() {
       '/login',
       '/',
       'home',
-      '/public/*'
+      '/favicon.ico/',
+      '/node_modules/*',
+      '/styles*'
     ]
   });
 }

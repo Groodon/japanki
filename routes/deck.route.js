@@ -19,6 +19,7 @@ deckRoutes.route('/add').post(function (req, res) {
 );
 
 deckRoutes.route('/all').post(function (req, res) {
+  console.log("asdasdasdas")
   User.findById(req.body.id).then(user => {
     if (user) {
       res.status(200).send(user.decks);
@@ -31,7 +32,12 @@ deckRoutes.route('/all').post(function (req, res) {
 
 deckRoutes.route('/get/:id').get(function (req, res) {
     Card.find({deck: req.params.id}).then(cards => {
-      res.status(200).send(cards);
+      if (cards) {
+        res.status(200).send(cards);
+      } else {
+        res.status(400).send({'message': 'Didn\'t find this deck'});
+      }
+
     });
   }
 );

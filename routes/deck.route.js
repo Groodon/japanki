@@ -19,7 +19,6 @@ deckRoutes.route('/add').post(function (req, res) {
 );
 
 deckRoutes.route('/all').post(function (req, res) {
-  console.log("asdasdasdas")
   User.findById(req.body.id).then(user => {
     if (user) {
       res.status(200).send(user.decks);

@@ -14,7 +14,6 @@ export class DeckService {
   constructor(private http: HttpClient, private as: AuthenticationService) { }
 
   addDeck(deck) {
-    console.log(`${this.uri}/add`);
     return this.http
       .post<any>(`${this.uri}/add`, {deck, id: this.as.currentUserValue.id});
   }

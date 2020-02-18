@@ -30,8 +30,6 @@ export class ShowDeckComponent implements OnInit {
         this.cards.map((card) => {
           card['edit'] = false;
         });
-
-        console.log(this.cards);
       });
   }
 
@@ -69,7 +67,6 @@ export class ShowDeckComponent implements OnInit {
   changeOrder(card, newOrder) {
     if (card.order !== newOrder) {
       card.order = newOrder;
-      console.log(card);
       this.cs.updateCard(card);
     }
   }

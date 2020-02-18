@@ -33,13 +33,13 @@ export class CardService {
     this
       .http
       .post(`${this.uri}/update`, card)
-      .subscribe(res => console.log('Done'),
+      .subscribe(
         error => console.log(error));
   }
 
   addCard2(card) {
     this.http.post(`${this.uri}/add`, card)
-      .subscribe(res => console.log('Done'),
+      .subscribe(
         error => console.log(error));
   }
 

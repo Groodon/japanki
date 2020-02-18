@@ -31,9 +31,7 @@ export class GetDecksComponent implements OnInit {
 
   getCardNumbers() {
     let now = moment().startOf('day');
-    console.log("decks: ", this.decks);
     for (let deck of this.decks) {
-      //console.log("deck: ", deck);
       this.ds
         .getDeck(deck._id)
         .subscribe((data: Card[]) => {
@@ -55,8 +53,6 @@ export class GetDecksComponent implements OnInit {
 
   showDialog(id) {
     let temp = this;
-    console.log("id", id);
-    console.log("decks: ", this.decks);
     this.confirmDialogService.confirmThis("Confirm deletion", "Are you sure you want to delete the deck \"" + this.decks.find(deck => deck._id === id).deck_name + "\"?", function () {
       temp.deleteDeck(id);
     }, function () {

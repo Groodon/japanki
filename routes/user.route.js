@@ -56,7 +56,6 @@ function authenticate({ email, password }, res) {
     if (result) {
       // First obj is a payload, sub is subject
       const token = jwt.sign({sub: result._id}, config.secret);
-      console.log(token, result._id)
       let o = {
         email,
         password,

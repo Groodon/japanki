@@ -20,7 +20,6 @@ cardRoutes.route('/add').post(function (req, res) {
 });
 
 cardRoutes.route('/add').get(function (req, res) {
-  console.log(req.body)
 });
 
 // Defined get data(index or listing) route
@@ -77,7 +76,6 @@ cardRoutes.route('/update').post(function (req, res) {
 // Defined delete | remove | destroy route
 cardRoutes.route('/delete/:id').get(function (req, res) {
   Card.findOneAndRemove({_id: req.params.id}, function(err, card){
-    console.log(req.params.id);
     if(err) res.json(err);
     else if (!card) res.status(404).send('card not found');
     else {

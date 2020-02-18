@@ -36,7 +36,6 @@ export class AddCardComponent implements OnInit {
   }
 
   getSuggestions(word) {
-    console.log(word)
     this.js.getJapaneseWord(word).subscribe(
       res => {
         this.suggestionCards = res.data;

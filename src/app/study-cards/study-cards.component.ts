@@ -60,18 +60,17 @@ export class StudyCardsComponent implements OnInit {
   // When a card has "both" orders, we make two cards out of it, one with each order; "JapEng" and "EngJap".
   // Some parameters are deleted from the card so this information does not change when card is sent to update on server.
   createStudyDeck(cards) {
-    let now = moment().startOf('day');
-    for (let card of cards) {
-      console.log(moment(card.jap_eng_next_study_time), now, moment(card.jap_eng_next_study_time)  <= now, card);
+    const now = moment().startOf('day');
+    for (const card of cards) {
       if ((card.order === CardOrders.Both || card.order === CardOrders.JapEng) && moment(card.jap_eng_next_study_time)  <= now) {
-        let copy1 = Object.assign({}, card);
+        const copy1 = Object.assign({}, card);
         copy1.order = CardOrders.JapEng;
         delete copy1.eng_jap_last_wait_time;
         delete copy1.eng_jap_next_study_time;
-        this.cards.push(copy1)
+        this.cards.push(copy1);
       }
-      if ((card.order == CardOrders.Both || card.order === CardOrders.EngJap) && moment(card.eng_jap_next_study_time)  <= now) {
-        let copy2 = Object.assign({}, card);
+      if ((card.order === CardOrders.Both || card.order === CardOrders.EngJap) && moment(card.eng_jap_next_study_time)  <= now) {
+        const copy2 = Object.assign({}, card);
         copy2.order = CardOrders.EngJap;
         delete copy2.jap_eng_last_wait_time;
         delete copy2.jap_eng_next_study_time;
@@ -97,22 +96,21 @@ export class StudyCardsComponent implements OnInit {
   }
 
   setNextStudyTime(newWaitTime) {
+    const now = moment().startOf('day');
     if (this.currentOrder === CardOrders.EngJap) {
       this.current_card.eng_jap_last_wait_time = newWaitTime;
-      this.current_card.eng_jap_next_study_time = moment(this.current_card.eng_jap_next_study_time)
-        .add(newWaitTime, 'days').toString();
+      this.current_card.eng_jap_next_study_time = now.add(newWaitTime, 'days').toString();
     } else {
       this.current_card.jap_eng_last_wait_time = newWaitTime;
-      this.current_card.jap_eng_next_study_time = moment(this.current_card.jap_eng_next_study_time)
-        .add(newWaitTime, 'days').toString();
+      this.current_card.jap_eng_next_study_time = now.add(newWaitTime, 'days').toString();
     }
   }
 
   // Update the new wait time on card the user answered on, this is the time that the user will wait until this card will appear again.
   updateCardTime(difficulty) {
     // Get the new amount of days until the next study session with this card and update the current card
-    let lastWaitTime = (this.currentOrder === CardOrders.EngJap ? this.current_card.eng_jap_last_wait_time : this.current_card.jap_eng_last_wait_time);
-    let newWaitTime = this.getNewWaitTime(difficulty, lastWaitTime);
+    const lastWaitTime = (this.currentOrder === CardOrders.EngJap ? this.current_card.eng_jap_last_wait_time : this.current_card.jap_eng_last_wait_time);
+    const newWaitTime = this.getNewWaitTime(difficulty, lastWaitTime);
     this.setNextStudyTime(newWaitTime);
 
     // Delete this parameter so wrong information is not updated on cards on server
@@ -136,7 +134,7 @@ export class StudyCardsComponent implements OnInit {
     }
 
     // Select random card
-    this.current_card_index = Math.floor(Math.random()*size);
+    this.current_card_index = Math.floor(Math.random() * size);
     this.current_card = this.cards[this.current_card_index];
 
     // So we can easily access these values in the html

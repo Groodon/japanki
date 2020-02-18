@@ -10,7 +10,6 @@ export class JishoService {
 
   getJapaneseWord(searchWord) {
     let s: string = `${this.uri}/` + searchWord;
-    console.log(searchWord);
     return this.http.get<any>(`${this.uri}/` + searchWord);
   }
 }

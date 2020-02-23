@@ -42,7 +42,16 @@
         <li *ngIf="!authenticationService.isLoggedIn" class="nav-item">
           <a routerLink="/register" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Register</a>
         </li>
-
+        <li>
+          <button class="loginBtn loginBtn--google" (click)="signInWithGoogle()">
+            Login with Google
+          </button>
+        </li>
+        <li>
+          <button class="loginBtn loginBtn--google" (click)="signOut()">
+            Sign Out
+          </button>
+        </li>
 
       </ul>
     </div>

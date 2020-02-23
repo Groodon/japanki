@@ -27,6 +27,7 @@
     "angular-webpack-config": "^6.0.1",
     "angular2-flash-messages": "^3.0.1",
     "angularx-social-login": "^1.2.7",
+    "auth0-js": "^9.12.2",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.3.1",
     "chart.js": "^2.5.0",

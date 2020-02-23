@@ -9,6 +9,9 @@ import { NavigationCancel,
   NavigationError,
   NavigationStart,
   Router } from '@angular/router';
+import {AuthService} from 'angularx-social-login';
+import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
+
 
 @Component({
   selector: 'app-root',
@@ -19,7 +22,7 @@ export class AppComponent implements OnInit {
   title = 'japanki';
   currentUser: User;
 
-  constructor(private loadingBar: SlimLoadingBarService, private router: Router, public authenticationService: AuthenticationService) {
+  constructor(private loadingBar: SlimLoadingBarService, private router: Router, public authenticationService: AuthenticationService, private authService: AuthService) {
     this.router.events.subscribe((event: Event) => {
       this.navigationInterceptor(event);
     });
@@ -47,6 +50,19 @@ export class AppComponent implements OnInit {
     this.authenticationService.logout();
     this.router.navigate(['/login']);
     return false;
+  }
+
+  signInWithGoogle(): void {
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    console.log("logged in :)", this.authService.authState);
+  }
+
+  signInWithFB(): void {
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  }
+
+  signOut(): void {
+    this.authService.signOut();
   }
 
   ngOnInit() {

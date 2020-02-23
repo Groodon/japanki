@@ -12,7 +12,9 @@ import { AddCardComponent } from './add-card/add-card.component';
 import { EditCardComponent } from './edit-card/edit-card.component';
 
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
-import { SocialLoginModule } from "angularx-social-login";
+import { SocialLoginModule, AuthServiceConfig  } from "angularx-social-login";
+import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
+
 import {ErrorInterceptor} from "./_helpers/error.interceptor";
 import {JwtInterceptor} from "./_helpers/jwt.interceptors";
 import {APIInterceptor} from "./_helpers/api.interceptor";
@@ -28,6 +30,20 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {CookieService} from "ngx-cookie-service";
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
+const config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider("471391585101-8rhggm7ek2va7uqbula56oj2rn80b3ah.apps.googleusercontent.com")
+  },
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider("Facebook-App-Id")
+  }
+]);
+
+export function provideConfig() {
+  return config;
+}
 
 @NgModule({
   declarations: [
@@ -58,6 +74,10 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: APIInterceptor, multi: true },
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    },
     CookieService, CardService, ConfirmDialogService],
   bootstrap: [AppComponent]
 })

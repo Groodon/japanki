@@ -1,4 +1,39 @@
 <ng2-slim-loading-bar color="blue"></ng2-slim-loading-bar>
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  <header class="mb-auto">
+    <div>
+      <h3 class="float-md-left mb-0"><a id="brand" routerLink="/" routerLinkActive="active">Japanki</a></h3>
+      <nav class="nav nav-masthead justify-content-center float-md-right">
+        <a routerLink="/" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          Home
+        </a>
+        <a *ngIf="authenticationService.isLoggedIn" routerLink="decks/add" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          Create deck
+        </a>
+        <a *ngIf="authenticationService.isLoggedIn" routerLink="decks/all" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          My decks
+        </a>
+        <a *ngIf="authenticationService.isLoggedIn" class="nav-link" href="#" (click)="logout()">Logout</a>
+        <a *ngIf="!authenticationService.isLoggedIn" routerLink="/login" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main role="main" class="px-3">
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+    <h1>Cover your page.</h1>
+    <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
+    <p class="lead">
+      <a href="#" class="btn btn-lg btn-secondary font-weight-bold border-white bg-white">Learn more</a>
+    </p>
+  </main>
+
+  <footer class="mt-auto text-white-50">
+    <p>Cover template for <a href="https://getbootstrap.com/" class="text-white">Bootstrap</a>, by <a href="https://twitter.com/mdo" class="text-white">@mdo</a>.</p>
+  </footer>
+</div>
 <div class="container">
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-2">
     <a class="navbar-brand" routerLink="/" routerLinkActive="active">Japanki</a>
@@ -59,6 +94,4 @@
 </div>
 
 
-<div class="container">
-  <router-outlet></router-outlet>
-</div>
+

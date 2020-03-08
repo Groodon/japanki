@@ -13,7 +13,7 @@ import { EditCardComponent } from './edit-card/edit-card.component';
 
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 import { SocialLoginModule, AuthServiceConfig  } from "angularx-social-login";
-import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
+import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 
 import {ErrorInterceptor} from "./_helpers/error.interceptor";
 import {JwtInterceptor} from "./_helpers/jwt.interceptors";

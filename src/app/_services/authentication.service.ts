@@ -23,6 +23,7 @@ export class AuthenticationService {
   }
 
   public get isLoggedIn(): boolean {
+    console.log("this", this.currentUserSubject)
     return this.currentUserSubject.value != null;
   }
 
@@ -38,6 +39,26 @@ export class AuthenticationService {
           this.cookieService.set('currentToken', JSON.stringify((user.token)));
           delete user.token;
           localStorage.setItem('currentUser', JSON.stringify(user));
+          // 'next' provides data, sets the value to user
+          this.currentUserSubject.next(user);
+        }
+
+        return user;
+      }));
+  }
+
+  // posts the user credentials to the api and checks the response for a JWT token
+  login2(token: string) {
+    return this.http.post<any>(`users/login`, { token })
+      .pipe(map(user => {
+        // User is the response we got from the post call
+        // login successful if there's a jwt token in the response
+        console.log("asdasd", user)
+        if (user && user.token) {
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          // Store the token in cookie to prevent XSS attacks
+          this.cookieService.set('currentToken', JSON.stringify((user.token)));
+          localStorage.setItem('currentUser', JSON.stringify(user.token));
           // 'next' provides data, sets the value to user
           this.currentUserSubject.next(user);
         }

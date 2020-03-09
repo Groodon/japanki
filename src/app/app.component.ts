@@ -11,6 +11,7 @@ import { NavigationCancel,
   Router } from '@angular/router';
 import {AuthService} from 'angularx-social-login';
 import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
+import {first} from 'rxjs/operators';
 
 
 @Component({
@@ -21,13 +22,14 @@ import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-logi
 export class AppComponent implements OnInit {
   title = 'japanki';
   currentUser: User;
+  user = '';
 
   constructor(private loadingBar: SlimLoadingBarService, private router: Router, public authenticationService: AuthenticationService, private authService: AuthService) {
     this.router.events.subscribe((event: Event) => {
       this.navigationInterceptor(event);
     });
-    this.authenticationService.currentUser.subscribe(x => {
-      this.currentUser = x;
+    this.authenticationService.currentUser.subscribe(user => {
+      this.currentUser = user;
     });
   }
   private navigationInterceptor(event: Event): void {
@@ -47,14 +49,19 @@ export class AppComponent implements OnInit {
 
   // Returns false to not redirect to href, as seen in html file.
   logout() {
+    console.log("logout");
     this.authenticationService.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate(['']);
     return false;
   }
 
   signInWithGoogle(): void {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
-    console.log("logged in :)", this.authService.authState);
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(user => {
+      this.authenticationService.login2(user.idToken).pipe(first()).subscribe(res => {
+        console.log("re", res);
+      });
+      console.log("u", user);
+    });
   }
 
   signInWithFB(): void {
@@ -62,9 +69,11 @@ export class AppComponent implements OnInit {
   }
 
   signOut(): void {
+    this.logout();
     this.authService.signOut();
   }
 
   ngOnInit() {
+
   }
 }

@@ -19,6 +19,7 @@ export class DeckService {
   }
 
   getDecks() {
+    console.log("xd", this.as.currentUserValue)
     return this
       .http
       .post(`${this.uri}/all`, {id: this.as.currentUserValue.id});
@@ -27,7 +28,7 @@ export class DeckService {
   getDeck(id) {
     return this
       .http
-      .get(`${this.uri}/get/${id}`)
+      .get(`${this.uri}/get/${id}`);
   }
 
   deleteDeck(id) {

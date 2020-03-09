@@ -1,4 +1,23 @@
 // user.route.js
+const CLIENT_ID = "471391585101-8rhggm7ek2va7uqbula56oj2rn80b3ah.apps.googleusercontent.com"
+
+const {OAuth2Client} = require('google-auth-library');
+const client = new OAuth2Client(CLIENT_ID);
+async function verify(token) {
+  console.log("verify")
+  const ticket = await client.verifyIdToken({
+    idToken: token,
+    audience: CLIENT_ID,  // Specify the CLIENT_ID of the app that accesses the backend
+    // Or, if multiple clients access the backend:
+    //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+  });
+  console.log("ticket done");
+  const payload = ticket.getPayload();
+  const userid = payload['sub'];
+  return payload;
+  // If request specified a G Suite domain:
+  //const domain = payload['hd'];
+}
 
 const express = require('express');
 const userRoutes = express.Router();
@@ -47,33 +66,55 @@ userRoutes.route('/register').post(
     });
 });
 
-
-function authenticate({ email, password }, res) {
-  let query = User.findOne({email: email, password: password});
-  let result = query.exec();
-
-  result.then(result => {
-    if (result) {
-      // First obj is a payload, sub is subject
-      const token = jwt.sign({sub: result._id}, config.secret);
-      let o = {
-        email,
-        password,
-        username: result.username,
-        id: result._id,
-        token
-      };
-      res.status(200).send(o);
-    } else {
-      res.status(400).send({'message': "Incorrect login information"});
-    }
-  })
+async function authenticate2({token}) {
+    console.log("auth2")
+    return verify(token).catch(console.error);
 }
 
+function authenticate({ sub, id }, res) {
+  console.log("authenticate");
+  const token = jwt.sign({ sub }, config.secret);
+  const o = { token, id };
+  console.log("sending now", o);
+  res.status(200).send(o);
+}
 
+//hehe
 userRoutes.route('/authenticate').post(function (req, res) {
   try {
     authenticate(req.body, res);
+  } catch(err)  {
+    console.log(err);
+    res.status(400).send("Unexpected error");
+  }
+});
+
+userRoutes.route('/login').post(function (req, res) {
+  try {
+    authenticate2(req.body).then(token => {
+      User.findOne({uid: token.sub}).then(result => {
+        if (result) {
+          console.log("1");
+          try {
+            authenticate({sub: token.sub, id: result._id }, res);
+          } catch(err) {
+            console.log(err);
+            res.status(400).send("Unexpected error");
+          }
+        } else {
+          console.log("2")
+          let user = new User({uid: token.sub, username: token.given_name});
+          user.save()
+            .then(user => {
+              authenticate({sub: token.sub, id: result._id }, res);
+            })
+            .catch(err => {
+              console.log("3")
+              res.status(400).send({'message': "Unable to save to database"});
+            });
+        }
+      })
+    });
   } catch(err)  {
     console.log(err);
     res.status(400).send("Unexpected error");

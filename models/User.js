@@ -7,18 +7,12 @@ let Deck = require('../models/Deck');
 
 // Define collection and schema for User
 let User = new Schema({
+  uid: {
+    type: String,
+    required: true
+  },
   username: {
     type: String,
-    required: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    unique: true,
-    lowercase: true,
     required: true
   },
   // One-to-many relationship by referencing cards in a deck

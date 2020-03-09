@@ -23,7 +23,6 @@ export class AuthenticationService {
   }
 
   public get isLoggedIn(): boolean {
-    console.log("this", this.currentUserSubject)
     return this.currentUserSubject.value != null;
   }
 
@@ -53,7 +52,6 @@ export class AuthenticationService {
       .pipe(map(user => {
         // User is the response we got from the post call
         // login successful if there's a jwt token in the response
-        console.log("asdasd", user)
         if (user && user.token) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           // Store the token in cookie to prevent XSS attacks

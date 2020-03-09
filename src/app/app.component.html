@@ -11,7 +11,7 @@
           My decks
         </a>
         <a *ngIf="authenticationService.isLoggedIn" class="nav-link" href="#" (click)="logout()">Logout</a>
-        <a *ngIf="!authenticationService.isLoggedIn" routerLink="/login" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Login</a>
+        <a *ngIf="!authenticationService.isLoggedIn" class="nav-link" href="#" (click)="signInWithGoogle()">Login</a>
       </nav>
     </div>
   </header>
@@ -19,64 +19,6 @@
   <div class="container">
     <router-outlet></router-outlet>
   </div>
-</div>
-<div class="container">
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-2">
-    <a class="navbar-brand" routerLink="/" routerLinkActive="active">Japanki</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div id="navbarNavDropdown" class="navbar-collapse collapse">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a routerLink="/" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-            Home
-          </a>
-        </li>
-        <li *ngIf="authenticationService.isLoggedIn" class="nav-item">
-          <a routerLink="decks/add" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-            Create deck
-          </a>
-        </li>
-        <li *ngIf="authenticationService.isLoggedIn" class="nav-item">
-          <a routerLink="decks/all" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-            My decks
-          </a>
-        </li>
-      </ul>
-      <ul class="navbar-nav">
-        <div *ngIf="authenticationService.isLoggedIn" class="dropdown">
-          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{this.currentUser}}
-          </a>
-
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#" (click)="logout()">Logout</a>
-          </div>
-        </div>
-
-        <li *ngIf="!authenticationService.isLoggedIn" class="nav-item">
-          <a routerLink="/login" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Login</a>
-        </li>
-        <li *ngIf="!authenticationService.isLoggedIn" class="nav-item">
-          <a routerLink="/register" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Register</a>
-        </li>
-        <li>
-          <button class="loginBtn loginBtn--google" (click)="signInWithGoogle()">
-            Login with Google
-          </button>
-        </li>
-        <li>
-          <button class="loginBtn loginBtn--google" (click)="signOut()">
-            Sign Out
-          </button>
-        </li>
-
-      </ul>
-    </div>
-  </nav>
 </div>
 
 

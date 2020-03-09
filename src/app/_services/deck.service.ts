@@ -19,7 +19,6 @@ export class DeckService {
   }
 
   getDecks() {
-    console.log("xd", this.as.currentUserValue)
     return this
       .http
       .post(`${this.uri}/all`, {id: this.as.currentUserValue.id});

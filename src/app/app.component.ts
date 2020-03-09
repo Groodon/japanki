@@ -49,8 +49,8 @@ export class AppComponent implements OnInit {
 
   // Returns false to not redirect to href, as seen in html file.
   logout() {
-    console.log("logout");
     this.authenticationService.logout();
+    this.authService.signOut();
     this.router.navigate(['']);
     return false;
   }
@@ -58,19 +58,12 @@ export class AppComponent implements OnInit {
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(user => {
       this.authenticationService.login2(user.idToken).pipe(first()).subscribe(res => {
-        console.log("re", res);
       });
-      console.log("u", user);
     });
   }
 
   signInWithFB(): void {
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
-  }
-
-  signOut(): void {
-    this.logout();
-    this.authService.signOut();
   }
 
   ngOnInit() {

@@ -4,14 +4,12 @@ const CLIENT_ID = "471391585101-8rhggm7ek2va7uqbula56oj2rn80b3ah.apps.googleuser
 const {OAuth2Client} = require('google-auth-library');
 const client = new OAuth2Client(CLIENT_ID);
 async function verify(token) {
-  console.log("verify")
   const ticket = await client.verifyIdToken({
     idToken: token,
     audience: CLIENT_ID,  // Specify the CLIENT_ID of the app that accesses the backend
     // Or, if multiple clients access the backend:
     //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
   });
-  console.log("ticket done");
   const payload = ticket.getPayload();
   const userid = payload['sub'];
   return payload;
@@ -67,15 +65,12 @@ userRoutes.route('/register').post(
 });
 
 async function authenticate2({token}) {
-    console.log("auth2")
     return verify(token).catch(console.error);
 }
 
 function authenticate({ sub, id }, res) {
-  console.log("authenticate");
   const token = jwt.sign({ sub }, config.secret);
   const o = { token, id };
-  console.log("sending now", o);
   res.status(200).send(o);
 }
 
@@ -94,7 +89,6 @@ userRoutes.route('/login').post(function (req, res) {
     authenticate2(req.body).then(token => {
       User.findOne({uid: token.sub}).then(result => {
         if (result) {
-          console.log("1");
           try {
             authenticate({sub: token.sub, id: result._id }, res);
           } catch(err) {
@@ -102,14 +96,12 @@ userRoutes.route('/login').post(function (req, res) {
             res.status(400).send("Unexpected error");
           }
         } else {
-          console.log("2")
           let user = new User({uid: token.sub, username: token.given_name});
           user.save()
             .then(user => {
               authenticate({sub: token.sub, id: result._id }, res);
             })
             .catch(err => {
-              console.log("3")
               res.status(400).send({'message': "Unable to save to database"});
             });
         }

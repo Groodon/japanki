@@ -74,7 +74,7 @@ function authenticate({ sub, id }, res) {
   res.status(200).send(o);
 }
 
-//hehe
+//hehehe
 userRoutes.route('/authenticate').post(function (req, res) {
   try {
     authenticate(req.body, res);

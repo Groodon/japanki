@@ -29,6 +29,7 @@ import { IgxRadioModule } from 'igniteui-angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {CookieService} from "ngx-cookie-service";
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { HomeComponent } from './home/home.component';
 
 const config = new AuthServiceConfig([
   {
@@ -56,7 +57,8 @@ export function provideConfig() {
     GetDecksComponent,
     ShowDeckComponent,
     ConfirmDialogComponent,
-    StudyCardsComponent
+    StudyCardsComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

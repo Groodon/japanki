@@ -68,10 +68,10 @@ export class GetDecksComponent implements OnInit {
       });
   }
 
-  deleteRow(id){
-    for(let i = 0; i < this.decks.length; ++i){
+  deleteRow(id) {
+    for (let i = 0; i < this.decks.length; ++i) {
       if (this.decks[i]._id === id) {
-        this.decks.splice(i,1);
+        this.decks.splice(i, 1);
       }
     }
   }

@@ -5,20 +5,22 @@
 <div class="card">
   <div class="card-body">
     <form [formGroup]="angForm" novalidate>
-      <div class="row">
-        <div class="form-group col-md-9" style="width: auto;">
+      <div class="d-flex">
+        <div class="form-group p-2 flex-grow-1" style="width: auto;">
 
           <input placeholder="Search (Japanese/English)" type="text" class="form-control" formControlName="search_word" #search_word />
         </div>
-        <div class="form-group col-md-3">
+        <div class="form-group p-2">
           <button (click)="getSuggestions(search_word.value)"
                   [disabled]="angForm.pristine || angForm.invalid"
                   class="btn btn-secondary">
-            Get suggestions
+            <i class="fa fa-search"></i> Search
           </button>
         </div>
       </div>
     </form>
+    <h3>Add a card</h3>
+
     <div class="btn-group btn-group-toggle mb-3" data-toggle="buttons">
 
       <!--<span class="badge badge-secondary d-inline-flex align-items-center mr-1 font-weight-light">
@@ -27,7 +29,7 @@
       <label class="btn btn-secondary active btn-sm" (click)="setOrder(CardOrders.Both)">
         <input type="radio">Both
       </label>
-      <label class="btn btn-secondary btn-sm" (click)="setOrder(CardOrders.EngJap)">
+      <label class="btn btn-secondary btn-sm" data-toggle="tooltip" (click)="setOrder(CardOrders.EngJap)">
         <input type="radio">Eng -> Jap
       </label>
       <label class="btn btn-secondary btn-sm" (click)="setOrder(CardOrders.JapEng)">
@@ -37,12 +39,12 @@
 
     <div class="container">
       <div class="row">
-        <div class="col-sm-4 mb-2">
-          <div class="card h-100">
+        <div class="col-sm-6 mb-2">
+          <div class="card h-100 border-light">
             <div class="card-body">
               <dl>
                 <dt>English</dt>
-                <input (change)="customAdded=false;" #custom_english_word/>
+                <input class="flex-grow-1" (change)="customAdded=false;" #custom_english_word/>
 
                 <dt>Japanese reading</dt>
                 <input (change)="customAdded=false;" #custom_japanese_reading/>
@@ -60,8 +62,8 @@
           </div>
         </div>
         </div>
-        <div class="col-sm-4 mb-2"*ngFor="let card of suggestionCards">
-          <div class="card h-100">
+        <div class="col-sm-6 mb-2" *ngFor="let card of suggestionCards">
+          <div class="card h-100 border-light">
             <div class="card-body">
               <dl>
                 <dt>English</dt>

@@ -27,6 +27,7 @@ let User = require('../models/User');
 
 let pwErrorMsg = 'Password should not be empty, minimum eight characters, at least one letter and one number';
 
+// Legacy code (remove?)
 userRoutes.route('/register').post(
   [check('email').isEmail()
     .withMessage('Incorrect email'),
@@ -98,10 +99,11 @@ userRoutes.route('/login').post(function (req, res) {
         } else {
           let user = new User({uid: token.sub, username: token.given_name});
           user.save()
-            .then(user => {
-              authenticate({sub: token.sub, id: result._id }, res);
+            .then(u => {
+              authenticate({sub: token.sub, id: u._id }, res);
             })
             .catch(err => {
+              console.log(err);
               res.status(400).send({'message': "Unable to save to database"});
             });
         }

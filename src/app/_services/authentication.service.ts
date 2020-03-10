@@ -46,7 +46,7 @@ export class AuthenticationService {
       }));
   }
 
-  // posts the user credentials to the api and checks the response for a JWT token
+  // posts the user credentials to the api and checks the response for a JWT token.
   login2(token: string) {
     return this.http.post<any>(`users/login`, { token })
       .pipe(map(user => {

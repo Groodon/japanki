@@ -23,8 +23,16 @@ export class AppComponent implements OnInit {
   title = 'japanki';
   currentUser: User;
   user = '';
+  returnUrl: string;
+  error: string;
+  loading: boolean;
 
-  constructor(private loadingBar: SlimLoadingBarService, private router: Router, public authenticationService: AuthenticationService, private authService: AuthService) {
+
+  constructor(
+    private loadingBar: SlimLoadingBarService,
+    private router: Router,
+    public authenticationService: AuthenticationService,
+    private authService: AuthService) {
     this.router.events.subscribe((event: Event) => {
       this.navigationInterceptor(event);
     });
@@ -57,8 +65,16 @@ export class AppComponent implements OnInit {
 
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(user => {
-      this.authenticationService.login2(user.idToken).pipe(first()).subscribe(res => {
-      });
+      this.authenticationService.login2(user.idToken).pipe(first())
+        .subscribe(
+          data => {
+            this.router.navigate([this.returnUrl]);
+          },
+          error => {
+            console.log("e", error)
+            this.error = error;
+            this.loading = false;
+          });
     });
   }
 

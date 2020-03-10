@@ -99,7 +99,7 @@ userRoutes.route('/login').post(function (req, res) {
           let user = new User({uid: token.sub, username: token.given_name});
           user.save()
             .then(user => {
-              authenticate({sub: token.sub, id: result._id }, res);
+              authenticate({sub: token.sub, id: user._id }, res);
             })
             .catch(err => {
               res.status(400).send({'message': "Unable to save to database"});

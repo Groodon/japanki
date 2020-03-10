@@ -1,22 +1,22 @@
-<button (click)="router.navigate(['/decks/all'])" class="btn btn-primary mt-1 mr-1 mb-2 btn-sm">
+<button (click)="router.navigate(['/decks/all'])" class="btn btn-secondary mt-1 mr-1 mb-2 btn-sm">
   < Back to decks
 </button>
 
 <div class="jumbotron text-center" style="min-height: 400px; position: relative; background: #333;">
 
-  <div *ngIf="status === STATUS.Studying && !edit" class="btn btn-primary btn-sm" (click)="edit = !edit;" style="position:absolute; top: 0; right: 0; margin: auto">
+  <div *ngIf="status === STATUS.Studying && !edit" class="btn btn-secondary btn-sm" (click)="edit = !edit;" style="position:absolute; top: 0; right: 0; margin: auto">
     Edit Card
   </div>
 
   <span [hidden]="edit">
     <div *ngIf="status === STATUS.Studying" class="btn-group btn-group-toggle" data-toggle="buttons" style="position:absolute; top: 0; left: 0; margin: auto">
-    <label class="btn btn-primary active btn-sm" (click)="showing=SHOW_OPTIONS.Both">
+    <label class="btn btn-secondary active btn-sm" (click)="showing=SHOW_OPTIONS.Both">
       <input type="radio">Both
     </label>
-    <label class="btn btn-primary btn-sm" (click)="showing=SHOW_OPTIONS.Reading">
+    <label class="btn btn-secondary btn-sm" (click)="showing=SHOW_OPTIONS.Reading">
       <input type="radio">Reading
     </label>
-    <label class="btn btn-primary btn-sm" (click)="showing=SHOW_OPTIONS.Kanji">
+    <label class="btn btn-secondary btn-sm" (click)="showing=SHOW_OPTIONS.Kanji">
       <input type="radio">Kanji
     </label>
   </div>

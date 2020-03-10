@@ -46,7 +46,7 @@ export class AuthenticationService {
       }));
   }
 
-  // posts the user credentials to the api and checks the response for a JWT token
+  // posts the user credentials to the api and checks the response for a JWT token.
   login2(token: string) {
     return this.http.post<any>(`users/login`, { token })
       .pipe(map(user => {
@@ -56,7 +56,7 @@ export class AuthenticationService {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           // Store the token in cookie to prevent XSS attacks
           this.cookieService.set('currentToken', JSON.stringify((user.token)));
-          localStorage.setItem('currentUser', JSON.stringify(user.token));
+          localStorage.setItem('currentUser', JSON.stringify(user));
           // 'next' provides data, sets the value to user
           this.currentUserSubject.next(user);
         }
@@ -75,7 +75,7 @@ export class AuthenticationService {
   registerUser(username: string, password: string, email: string) {
     return this
       .http
-      .post<any>(`users/register`, {username, password, email})
+      .post<any>(`users/register`, {username, password, email});
 
   }
 }

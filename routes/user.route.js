@@ -88,6 +88,7 @@ userRoutes.route('/authenticate').post(function (req, res) {
 userRoutes.route('/login').post(function (req, res) {
   try {
     authenticate2(req.body).then(token => {
+      console.log(token)
       User.findOne({uid: token.sub}).then(result => {
         if (result) {
           try {

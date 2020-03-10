@@ -12,33 +12,29 @@ import { AddCardComponent } from './add-card/add-card.component';
 import { EditCardComponent } from './edit-card/edit-card.component';
 
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
-import { SocialLoginModule, AuthServiceConfig  } from "angularx-social-login";
-import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+import { SocialLoginModule, AuthServiceConfig  } from 'angularx-social-login';
+import { GoogleLoginProvider } from 'angularx-social-login';
 
-import {ErrorInterceptor} from "./_helpers/error.interceptor";
-import {JwtInterceptor} from "./_helpers/jwt.interceptors";
-import {APIInterceptor} from "./_helpers/api.interceptor";
+import {ErrorInterceptor} from './_helpers/error.interceptor';
+import {JwtInterceptor} from './_helpers/jwt.interceptors';
+import {APIInterceptor} from './_helpers/api.interceptor';
 import { RegisterUserComponent } from './register-user/register-user.component';
 import { AddDeckComponent } from './add-deck/add-deck.component';
 import { GetDecksComponent } from './get-decks/get-decks.component';
 import { ShowDeckComponent } from './show-deck/show-deck.component';
-import {ConfirmDialogComponent} from "./confirm-dialog/confirm-dialog.component";
-import {ConfirmDialogService} from "./confirm-dialog/confirm-dialog.service";
+import {ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.component';
+import {ConfirmDialogService} from './confirm-dialog/confirm-dialog.service';
 import { StudyCardsComponent } from './study-cards/study-cards.component';
 import { IgxRadioModule } from 'igniteui-angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {CookieService} from "ngx-cookie-service";
+import {CookieService} from 'ngx-cookie-service';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { HomeComponent } from './home/home.component';
 
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider("471391585101-8rhggm7ek2va7uqbula56oj2rn80b3ah.apps.googleusercontent.com")
-  },
-  {
-    id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider("Facebook-App-Id")
+    provider: new GoogleLoginProvider('471391585101-8rhggm7ek2va7uqbula56oj2rn80b3ah.apps.googleusercontent.com')
   }
 ]);
 

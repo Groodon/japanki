@@ -68,10 +68,10 @@ export class AppComponent implements OnInit {
       this.authenticationService.login2(user.idToken).pipe(first())
         .subscribe(
           data => {
-            this.router.navigate([this.returnUrl]);
+            this.router.navigate(['']);
           },
           error => {
-            console.log("e", error)
+            console.log(error);
             this.error = error;
             this.loading = false;
           });

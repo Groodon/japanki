@@ -87,6 +87,7 @@ userRoutes.route('/authenticate').post(function (req, res) {
 userRoutes.route('/login').post(function (req, res) {
   try {
     authenticate2(req.body).then(token => {
+      console.log(token)
       User.findOne({uid: token.sub}).then(result => {
         if (result) {
           try {
@@ -98,8 +99,8 @@ userRoutes.route('/login').post(function (req, res) {
         } else {
           let user = new User({uid: token.sub, username: token.given_name});
           user.save()
-            .then(user => {
-              authenticate({sub: token.sub, id: user._id }, res);
+            .then(u => {
+              authenticate({sub: token.sub, id: u._id }, res);
             })
             .catch(err => {
               res.status(400).send({'message': "Unable to save to database"});

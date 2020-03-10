@@ -1,34 +1,36 @@
-<button (click)="router.navigate(['/decks/show/' + deckId])" class="btn btn-primary mt-1 mr-1 mb-2 btn-sm">
+<button (click)="router.navigate(['/decks/show/' + deckId])" class="btn btn-secondary mt-1 mr-1 mb-2 btn-sm">
   Show deck
 </button>
 
 <div class="card">
   <div class="card-body">
     <form [formGroup]="angForm" novalidate>
-      <div class="form-group">
-        <label class="col-md-4">Search (Japanese/English)</label>
-        <input type="text" class="form-control" formControlName="search_word" #search_word />
-      </div>
-      <div class="form-group">
-        <button (click)="getSuggestions(search_word.value)"
-                [disabled]="angForm.pristine || angForm.invalid"
-                class="btn btn-primary">
-          Get suggestions
-        </button>
+      <div class="row">
+        <div class="form-group col-md-9" style="width: auto;">
+
+          <input placeholder="Search (Japanese/English)" type="text" class="form-control" formControlName="search_word" #search_word />
+        </div>
+        <div class="form-group col-md-3">
+          <button (click)="getSuggestions(search_word.value)"
+                  [disabled]="angForm.pristine || angForm.invalid"
+                  class="btn btn-secondary">
+            Get suggestions
+          </button>
+        </div>
       </div>
     </form>
     <div class="btn-group btn-group-toggle mb-3" data-toggle="buttons">
 
-      <span class="badge badge-secondary d-inline-flex align-items-center mr-1 font-weight-light">
+      <!--<span class="badge badge-secondary d-inline-flex align-items-center mr-1 font-weight-light">
         <div style="font-size: 14px">Cards to add:</div>
-      </span>
-      <label class="btn btn-primary active btn-sm" (click)="setOrder(CardOrders.Both)">
+      </span>-->
+      <label class="btn btn-secondary active btn-sm" (click)="setOrder(CardOrders.Both)">
         <input type="radio">Both
       </label>
-      <label class="btn btn-primary btn-sm" (click)="setOrder(CardOrders.EngJap)">
+      <label class="btn btn-secondary btn-sm" (click)="setOrder(CardOrders.EngJap)">
         <input type="radio">Eng -> Jap
       </label>
-      <label class="btn btn-primary btn-sm" (click)="setOrder(CardOrders.JapEng)">
+      <label class="btn btn-secondary btn-sm" (click)="setOrder(CardOrders.JapEng)">
         <input type="radio">Jap -> Eng
       </label>
     </div>

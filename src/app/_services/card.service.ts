@@ -32,9 +32,8 @@ export class CardService {
   updateCard(card) {
     this
       .http
-      .post(`${this.uri}/update`, card)
-      .subscribe(
-        error => console.log(error));
+      .put(`${this.uri}/update`, card)
+      .subscribe();
   }
 
   addCard2(card) {

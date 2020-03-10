@@ -19,10 +19,13 @@ deckRoutes.route('/add').post(function (req, res) {
 );
 
 deckRoutes.route('/all').post(function (req, res) {
+  console.log("all", req.body)
   User.findById(req.body.id).then(user => {
     if (user) {
+      console.log("yay");
       res.status(200).send(user.decks);
     } else {
+      console.log("aw")
       res.status(400).send({'message': "Database error"});
     }
   });

@@ -43,7 +43,7 @@ cardRoutes.route('/edit/:id').get(function (req, res) {
 });
 
 //  Defined update route
-cardRoutes.route('/update').post(function (req, res) {
+cardRoutes.route('/update').put(function (req, res) {
   Card.findById(req.body._id, function(err, card) {
     if (!card) {
       return res.status(400).send(err);
@@ -64,7 +64,7 @@ cardRoutes.route('/update').post(function (req, res) {
         card.order = req.body.order;
 
       card.save().then(card => {
-        res.json('Update complete');
+        res.status(200).send();
       })
         .catch(err => {
           res.status(400).send("unable to update the database");

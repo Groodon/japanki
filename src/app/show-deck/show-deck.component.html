@@ -1,61 +1,63 @@
-<button (click)="router.navigate(['/decks/all'])" class="btn btn-primary mr-1 mb-2 btn-sm">
-  < Back to decks
+<button (click)="router.navigate(['/decks/all'])" class="btn btn-secondary mr-1 mb-2 btn-sm">
+  <i class="fa fa-chevron-left"></i>
+  Back to decks
 </button>
-<a [routerLink]="['/study', deckId]" class="btn btn-info btn-sm mr-1 mb-2">
+<a [routerLink]="['/study', deckId]" class="btn btn-secondary btn-sm mr-1 mb-2">
+  <i class="fa fa-book"></i>
   Study
 </a>
 <button (click)="router.navigate(['/card/add/' + deckId])" class="btn btn-success mr-1 mb-2 btn-sm">
+  <i class="fa fa-plus"></i>
   Add card
 </button>
 
 <table class="table table-hover" style="width: 100%; table-layout: fixed; word-wrap: break-word;">
   <thead>
   <tr class="font-weight-bold">
-    <td>English</td>
-    <td>Japanese reading</td>
-    <td>Kanji</td>
+    <td>Card text</td>
     <td>Actions</td>
-    <td>Order</td>
   </tr>
   </thead>
 
   <tbody>
   <tr *ngFor="let card of cards" [attr.id]="card._id">
     <td >
+      <div class="flex-row d-flex">
       <div [hidden]="card.edit">{{ card.english_word }}</div>
-      <input [hidden]="!card.edit" [value]="card.english_word" #english_word/>
-    </td>
+      <input class="flex-grow-1" [hidden]="!card.edit" placeholder="English" [value]="card.english_word" #english_word/>
 
-    <td>
+      </div>
+        <div class="flex-row d-flex">
       <div [hidden]="card.edit">{{ card.japanese_reading }}</div>
-      <input [hidden]="!card.edit" [value]="card.japanese_reading" #japanese_reading/>
-    </td>
-
-    <td >
-      <div [hidden]="card.edit">{{ card.kanji }}</div>
-      <input [hidden]="!card.edit" [value]="(card.kanji ? card.kanji : '')" #kanji/>
+      <input class="flex-grow-1" [hidden]="!card.edit" placeholder="Japanese reading" [value]="card.japanese_reading" #japanese_reading/>
+        </div>
+      <div class="flex-row d-flex">
+      <div  [hidden]="card.edit">{{ card.kanji }}</div>
+      <input class="flex-grow-1" [hidden]="!card.edit" placeholder="Kanji" [value]="(card.kanji ? card.kanji : '')" #kanji/>
+          </div>
     </td>
     <td>
-      <a (click)="updateCard(card, english_word.value, japanese_reading.value, kanji.value)" class="btn btn-info btn-sm mr-1">
-        {{card.edit ? "Save" : "Edit"}}
-      </a>
-      <a (click) = "deleteCard(card._id)" class="btn btn-danger btn-sm mr-1">
-        Delete
-      </a>
-    </td>
-    <td >
-      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+      <div class="btn-group btn-group-toggle mr-1 mb-1" data-toggle="buttons" [hidden]="card.edit">
 
-        <label class="btn btn-primary btn-sm" [class.active]="card.order === CardOrders.Both" (click)="changeOrder(card, CardOrders.Both)">
+        <label class="btn btn-secondary btn-sm" [class.active]="card.order === CardOrders.Both" (click)="changeOrder(card, CardOrders.Both)">
           <input type="radio">Both
         </label>
-        <label class="btn btn-primary btn-sm" [class.active]="card.order === CardOrders.EngJap" (click)="changeOrder(card, CardOrders.EngJap)">
+        <label class="btn btn-secondary btn-sm" [class.active]="card.order === CardOrders.EngJap" (click)="changeOrder(card, CardOrders.EngJap)">
           <input type="radio">Eng-Jap
         </label>
-        <label class="btn btn-primary btn-sm" [class.active]="card.order === CardOrders.JapEng" (click)="changeOrder(card, CardOrders.JapEng)">
+        <label class="btn btn-secondary btn-sm" [class.active]="card.order === CardOrders.JapEng" (click)="changeOrder(card, CardOrders.JapEng)">
           <input type="radio">Jap-Eng
         </label>
       </div>
+      <a (click)="updateCard(card, english_word.value, japanese_reading.value, kanji.value)" class="btn btn-secondary btn-sm mr-1 mb-1">
+        <i class="fa fa-pencil" [hidden]="card.edit"></i>
+        {{card.edit ? "Save" : "Edit"}}
+      </a>
+      <a (click)="card.edit = false" class="btn btn-secondary btn-sm mr-1 mb-1" [hidden]="!card.edit">
+        Cancel
+      </a>
+      <a (click) = "deleteCard(card._id)" class="btn btn-danger btn-sm mr-1 mb-1" [hidden]="card.edit"><i class="fa fa-fw fa-trash-o"></i>Delete
+      </a>
     </td>
   </tr>
   </tbody>

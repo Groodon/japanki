@@ -6,7 +6,7 @@
         <input type="text" class="form-control" formControlName="deck_name" #deck_name />
       </div>
       <div *ngIf="angForm.controls['deck_name'].invalid && (angForm.controls['deck_name'].dirty || angForm.controls['deck_name'].touched)" class="alert alert-danger">
-        <div *ngIf="angForm.controls['deck_name'].errors.required">
+        <div style="color:black;" *ngIf="angForm.controls['deck_name'].errors.required">
           Deck name is required.
         </div>
       </div>

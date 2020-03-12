@@ -28,4 +28,9 @@ body {
 
 input {
   color: black;
+  min-width: 0;
+}
+
+div.alert {
+  color: black;
 }

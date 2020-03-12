@@ -15,6 +15,7 @@ export class ShowDeckComponent implements OnInit {
   cards: Card[];
   CardOrders = CardOrders;
   deckId: string;
+  loading = false;
   newLineHtml(str) {
     return str.replace(/(?:\r\n|\r|\n)/g, '<br>');
   }
@@ -33,7 +34,7 @@ export class ShowDeckComponent implements OnInit {
       });
   }
 
-  deleteRow(id){
+  deleteRow(id) {
     for(let i = 0; i < this.cards.length; ++i){
       if (this.cards[i]._id === id) {
         this.cards.splice(i,1);

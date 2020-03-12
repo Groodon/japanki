@@ -23,6 +23,8 @@ export class AddCardComponent implements OnInit {
   currentOrder: number = CardOrders.Both;
   customAdded: boolean = false;
   dropdownSettings = {};
+  loading = false;
+  resultEmpty=false;
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private cs: CardService,
               private js: JishoService, public router: Router) {
@@ -36,8 +38,16 @@ export class AddCardComponent implements OnInit {
   }
 
   getSuggestions(word) {
+    this.loading = true;
     this.js.getJapaneseWord(word).subscribe(
       res => {
+        if (!res.data.length) {
+          this.resultEmpty = true;
+          this.loading = false;
+          return;
+        }
+        this.resultEmpty = false;
+        this.loading = false;
         this.suggestionCards = res.data;
         this.suggestionCards.map((card) => {
           card['added'] = false;
@@ -55,7 +65,7 @@ export class AddCardComponent implements OnInit {
 
         });
       }
-    )
+    );
   }
 
   setOrder(order) {

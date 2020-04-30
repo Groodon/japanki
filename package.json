@@ -40,7 +40,7 @@
     "google-auth-library": "^5.10.1",
     "heroku": "^7.33.1",
     "igniteui-angular": "^8.1.2",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.24.0",
     "mongoose": "^5.6.0",

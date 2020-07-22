@@ -1,62 +1,37 @@
 const express = require('express');
 const deckRoutes = express.Router();
+const deckController = require('../controllers/deck.controller');
+const jwt = require('jsonwebtoken');
+
 let User = require('../models/User');
 let Card = require('../models/Card');
 
-// TODO: check if deck already exists?
-deckRoutes.route('/add').post(function (req, res) {
-  User.findOneAndUpdate(
-    { _id: req.body.id },
-    { $push: { decks: {deck_name: req.body.deck.deck_name}}},
-    function (error, success) {
-      if (error) {
-        res.status(400).send("Unable to update the database");
-      } else {
-        res.status(200).json({'message': 'deck added successfully'});
-      }
-    });
-    }
-);
 
-deckRoutes.route('/all').post(function (req, res) {
-  User.findById(req.body.id).then(user => {
-    if (user) {
-      res.status(200).send(user.decks);
-    } else {
-      res.status(400).send({'message': "Database error"});
-    }
-  });
+const config = require('../config.json');
+const accessTokenSecret = config.secret;
+
+const authenticateJWT = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+
+  if (authHeader) {
+      const token = authHeader.split(' ')[1];
+
+      jwt.verify(token, accessTokenSecret, (err, user) => {
+          if (err) {
+              return res.sendStatus(403);
+          }
+          req.user = user;
+          next();
+      });
+  } else {
+      res.sendStatus(401);
   }
-);
+}
 
-deckRoutes.route('/get/:id').get(function (req, res) {
-    Card.find({deck: req.params.id}).then(cards => {
-      if (cards) {
-        res.status(200).send(cards);
-      } else {
-        res.status(400).send({'message': 'Didn\'t find this deck'});
-      }
-
-    });
-  }
-);
-
-deckRoutes.route('/delete/:id').post(function (req, res) {
-  User.findOneAndUpdate(
-    { _id: req.body.id },
-    { $pull: { decks: {_id: req.params.id}}},
-    function (error, success) {
-      if (error) {
-        res.status(400).send("Unable to update the database");
-      } else {
-        // Delete all cards in deck
-        Card.find({ deck: req.params.id }).remove().exec().then(
-          res.json({'message': 'deck removed successfully'})
-        );
-
-      }
-    });
-});
+deckRoutes.post('/', authenticateJWT, deckController.addDeck);
+deckRoutes.get('/', authenticateJWT, deckController.getDecks);
+deckRoutes.delete('/:id', authenticateJWT, deckController.removeDeck);
+deckRoutes.get('/:id', authenticateJWT, deckController.getDeck);
 
 
 module.exports = deckRoutes;

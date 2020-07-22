@@ -26,35 +26,16 @@ export class AuthenticationService {
     return this.currentUserSubject.value != null;
   }
 
-  // posts the user credentials to the api and checks the response for a JWT token
-  login(email: string, password: string) {
-    return this.http.post<any>(`users/authenticate`, { email, password })
-      .pipe(map(user => {
-        // User is the response we got from the post call
-        // login successful if there's a jwt token in the response
-        if (user && user.token) {
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
-          // Store the token in cookie to prevent XSS attacks
-          this.cookieService.set('currentToken', JSON.stringify((user.token)));
-          delete user.token;
-          localStorage.setItem('currentUser', JSON.stringify(user));
-          // 'next' provides data, sets the value to user
-          this.currentUserSubject.next(user);
-        }
-
-        return user;
-      }));
-  }
-
   // posts the user credentials to the api and checks the response for a JWT token.
-  login2(token: string) {
-    return this.http.post<any>(`users/login`, { token })
+  login(idToken: string) {
+    return this.http.post<any>(`users/login`, { idToken })
       .pipe(map(user => {
+        console.log(user, user.token)
         // User is the response we got from the post call
         // login successful if there's a jwt token in the response
         if (user && user.token) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
-          // Store the token in cookie to prevent XSS attacks
+          // Store the token in cookie to prevent XSS attacks (run script on the frontend that sends the token to the attacker)
           this.cookieService.set('currentToken', JSON.stringify((user.token)));
           localStorage.setItem('currentUser', JSON.stringify(user));
           // 'next' provides data, sets the value to user

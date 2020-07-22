@@ -13,7 +13,7 @@ export class CardService {
   constructor(private http: HttpClient) { }
 
   addCard(card) {
-    return this.http.post(`${this.uri}/add`, card);
+    return this.http.post(`${this.uri}/`, card);
   }
 
   getCards() {
@@ -22,29 +22,17 @@ export class CardService {
       .get(`${this.uri}`);
   }
 
-  editCard(id) {
-    return this
-      .http
-      .get(`${this.uri}/edit/${id}`);
-  }
-
   // TODO: error handling
   updateCard(card) {
     this
       .http
-      .put(`${this.uri}/update`, card)
+      .put(`${this.uri}/${card._id}`, card)
       .subscribe();
-  }
-
-  addCard2(card) {
-    this.http.post(`${this.uri}/add`, card)
-      .subscribe(
-        error => console.log(error));
   }
 
   deleteCard(id) {
     return this
       .http
-      .get(`${this.uri}/delete/${id}`);
+      .delete(`${this.uri}/${id}`);
   }
 }

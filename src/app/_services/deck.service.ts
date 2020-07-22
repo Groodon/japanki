@@ -15,24 +15,24 @@ export class DeckService {
 
   addDeck(deck) {
     return this.http
-      .post<any>(`${this.uri}/add`, {deck, id: this.as.currentUserValue.id});
+      .post<any>(`${this.uri}/`, {deck, id: this.as.currentUserValue.id});
   }
 
   getDecks() {
     return this
       .http
-      .post(`${this.uri}/all`, {id: this.as.currentUserValue.id});
+      .get(`${this.uri}/`);
   }
 
   getDeck(id) {
     return this
       .http
-      .get(`${this.uri}/get/${id}`);
+      .get(`${this.uri}/${id}`);
   }
 
   deleteDeck(id) {
     return this
       .http
-      .post(`${this.uri}/delete/${id}`, {id: this.as.currentUserValue.id});
+      .delete(`${this.uri}/${id}`);
   }
 }

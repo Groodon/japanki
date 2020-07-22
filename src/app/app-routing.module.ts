@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AddCardComponent } from './add-card/add-card.component';
-import { EditCardComponent } from './edit-card/edit-card.component';
-import {LoginComponent} from './login/login.component';
-import {RegisterUserComponent} from './register-user/register-user.component';
 import { AuthGuard } from './_guards/auth.guard';
 import {AddDeckComponent} from './add-deck/add-deck.component';
 import {GetDecksComponent} from './get-decks/get-decks.component';
@@ -33,11 +30,6 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'card/edit/:id',
-    component: EditCardComponent,
-    canActivate: [AuthGuard]
-  },
-  {
     path: 'card/add/:id',
     component: AddCardComponent,
     canActivate: [AuthGuard]
@@ -45,14 +37,6 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent
-  },
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'register',
-    component: RegisterUserComponent
   },
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

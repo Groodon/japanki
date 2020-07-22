@@ -13,8 +13,6 @@ async function verify(token) {
   const payload = ticket.getPayload();
   const userid = payload['sub'];
   return payload;
-  // If request specified a G Suite domain:
-  //const domain = payload['hd'];
 }
 
 const express = require('express');
@@ -25,83 +23,38 @@ const { check, validationResult } = require('express-validator');
 // Require Card model in our routes module
 let User = require('../models/User');
 
-let pwErrorMsg = 'Password should not be empty, minimum eight characters, at least one letter and one number';
 
-// Legacy code (remove?)
-userRoutes.route('/register').post(
-  [check('email').isEmail()
-    .withMessage('Incorrect email'),
-  check('password').exists()
-    .withMessage(pwErrorMsg + 1)
-
-    .isLength({ min: 8 })
-    .withMessage(pwErrorMsg + 2)
-
-    .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)
-    .withMessage(pwErrorMsg + 3)],
-
-  function (req, res) {
-    // Validate the email and password
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      let errorResponse = errors.array({ onlyFirstError: true });
-      return res.status(422).json({message: errorResponse[0].msg});
-    }
-    //let query = User.findOne({email: req.body.email});
-    //let result = query.exec();
-    User.findOne({email: req.body.email}).then(result => {
-      if (result) {
-        res.status(400).send({'message': "This email is already registered"});
-      } else {
-        let user = new User(req.body);
-        user.save()
-          .then(user => {
-            res.status(200).json({'user': 'user added successfully'});
-          })
-          .catch(err => {
-            res.status(400).send({'message': "Unable to save to database"});
-          });
-      }
-    });
-});
-
-async function authenticate2({token}) {
-    return verify(token).catch(console.error);
+async function verifyIdToken({idToken}) {
+    return verify(idToken).catch(console.error);
 }
 
-function authenticate({ sub, id }, res) {
+function jwtResponse({ sub, id }, res) {
   const token = jwt.sign({ sub }, config.secret);
   const o = { token, id };
   res.status(200).send(o);
 }
 
-//hehehe
-userRoutes.route('/authenticate').post(function (req, res) {
-  try {
-    authenticate(req.body, res);
-  } catch(err)  {
-    console.log(err);
-    res.status(400).send("Unexpected error");
-  }
-});
-
+/*
+  Verifies the google id token sent from the client to authenticate the user
+  Creates a new user if the uid is not in our database
+  Returns the jwt with the uid as the username
+ */
 userRoutes.route('/login').post(function (req, res) {
   try {
-    authenticate2(req.body).then(token => {
-      console.log(token)
-      User.findOne({uid: token.sub}).then(result => {
+    verifyIdToken(req.body).then(userInfo => {
+      User.findOne({uid: userInfo.sub}).then(result => {
         if (result) {
           try {
-            authenticate({sub: token.sub, id: result._id }, res);
+            jwtResponse({sub: userInfo.sub, id: result._id }, res);
           } catch(err) {
             console.log(err);
             res.status(400).send("Unexpected error");
           }
         } else {
-          let user = new User({uid: token.sub, username: token.given_name});
+          let user = new User({uid: userInfo.sub, username: userInfo.given_name});
           user.save()
             .then(u => {
-              authenticate({sub: token.sub, id: u._id }, res);
+              jwtResponse({sub: userInfo.sub, id: u._id }, res);
             })
             .catch(err => {
               console.log(err);

@@ -65,7 +65,7 @@ export class AppComponent implements OnInit {
 
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(user => {
-      this.authenticationService.login2(user.idToken).pipe(first())
+      this.authenticationService.login(user.idToken).pipe(first())
         .subscribe(
           data => {
             this.router.navigate(['']);

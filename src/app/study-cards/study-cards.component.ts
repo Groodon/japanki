@@ -81,7 +81,7 @@ export class StudyCardsComponent implements OnInit {
   }
 
   getNewWaitTime(difficulty, lastWaitTime) {
-    switch(difficulty) {
+    switch (difficulty) {
       case DIFFICULTY.Easy: {
         return (lastWaitTime === 0 ? 4 : lastWaitTime * 4);
       }
@@ -111,6 +111,7 @@ export class StudyCardsComponent implements OnInit {
     // Get the new amount of days until the next study session with this card and update the current card
     const lastWaitTime = (this.currentOrder === CardOrders.EngJap ? this.current_card.eng_jap_last_wait_time : this.current_card.jap_eng_last_wait_time);
     const newWaitTime = this.getNewWaitTime(difficulty, lastWaitTime);
+    // TODO: Update last wait time on cards that you fail on so that they are shown when studying
     this.setNextStudyTime(newWaitTime);
 
     // Delete this parameter so wrong information is not updated on cards on server

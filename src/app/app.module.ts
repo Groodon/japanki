@@ -5,11 +5,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import { CardService } from './_services/card.service';
-import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddCardComponent } from './add-card/add-card.component';
-import { EditCardComponent } from './edit-card/edit-card.component';
 
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 import { SocialLoginModule, AuthServiceConfig  } from 'angularx-social-login';
@@ -18,7 +16,6 @@ import { GoogleLoginProvider } from 'angularx-social-login';
 import {ErrorInterceptor} from './_helpers/error.interceptor';
 import {JwtInterceptor} from './_helpers/jwt.interceptors';
 import {APIInterceptor} from './_helpers/api.interceptor';
-import { RegisterUserComponent } from './register-user/register-user.component';
 import { AddDeckComponent } from './add-deck/add-deck.component';
 import { GetDecksComponent } from './get-decks/get-decks.component';
 import { ShowDeckComponent } from './show-deck/show-deck.component';
@@ -46,9 +43,6 @@ export function provideConfig() {
   declarations: [
     AppComponent,
     AddCardComponent,
-    EditCardComponent,
-    LoginComponent,
-    RegisterUserComponent,
     AddDeckComponent,
     GetDecksComponent,
     ShowDeckComponent,

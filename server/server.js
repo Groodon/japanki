@@ -32,11 +32,11 @@ app.use('/decks', deckRoute);
 app.use('/search', searchRoute);
 
 
-app.use(express.static('./dist/japanki'));
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.resolve(__dirname, '../app/dist/japanki')));
+app.use(express.static(path.resolve(__dirname, '../app/public')));
 
 app.get('/*', function(req,res) {
-  res.sendFile(path.join(__dirname,'/dist/japanki/index.html'));
+  res.sendFile(path.resolve(__dirname, '../app/dist/japanki/index.html'));
 });
 
 app.use(errorHandler);

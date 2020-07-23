@@ -2,10 +2,9 @@
   "name": "japanki",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "start": "node server",
-    "heroku-postbuild": "cd app/ && npm install && npm run heroku-postbuild"
+    "build": "cd app/ && npm install && npm run heroku-postbuild"
   },
   "repository": {
     "type": "git",

@@ -4,7 +4,6 @@ const express = require('express'),
   bodyParser = require('body-parser'),
   cors = require('cors'),
   mongoose = require('mongoose'),
-  jwt = require('./_helpers/jwt'),
   errorHandler = require('./_helpers/error-handler'),
   app = express();
 
@@ -40,7 +39,6 @@ app.get('/*', function(req,res) {
   res.sendFile(path.join(__dirname,'/dist/japanki/index.html'));
 });
 
-app.use(jwt());
 app.use(errorHandler);
 
 // global error handler

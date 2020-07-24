@@ -16,13 +16,7 @@ let User = new Schema({
     required: true
   },
   // One-to-many relationship by referencing cards in a deck
-  decks: [{
-    deck_name:
-    {
-      type: String,
-      required: true
-    }
-  }]
+  decks: []
 },{
   collection: 'users'
 });

@@ -25,8 +25,8 @@ export class ShowDeckComponent implements OnInit {
     this.deckId = this.route.snapshot.paramMap.get('id');
     this.ds
       .getDeck(this.deckId)
-      .subscribe((data: Card[]) => {
-        this.cards = data;
+      .subscribe((deck: any) => {
+        this.cards = deck.cards;
         this.cards.map((card) => {
           card['edit'] = false;
         });
@@ -46,17 +46,17 @@ export class ShowDeckComponent implements OnInit {
       card.english_word = english_word;
       card.japanese_reading = japanese_reading;
       card.kanji = kanji;
-      this.cs.updateCard(card);
+      this.cs.updateCard(card, this.deckId);
     }
     card.edit = !card.edit;
   }
 
-  deleteCard(id) {
+  deleteCard(cardId) {
     this.cs
-      .deleteCard(id)
+      .deleteCard(cardId, this.deckId)
       .subscribe(
         res => {
-          this.deleteRow(id);
+          this.deleteRow(cardId);
 
         },
         error => {
@@ -67,7 +67,7 @@ export class ShowDeckComponent implements OnInit {
   changeOrder(card, newOrder) {
     if (card.order !== newOrder) {
       card.order = newOrder;
-      this.cs.updateCard(card);
+      this.cs.updateCard(card, this.deckId);
     }
   }
 

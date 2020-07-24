@@ -13,7 +13,7 @@ const authenticateJWT = (req, res, next) => {
           if (err) {
               return res.sendStatus(403);
           }
-
+          console.log("asdasdasdads", user.sub);
           req.user = user;
           next();
       });

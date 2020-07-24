@@ -26,7 +26,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({encoded: false}));
 
 // api routes
-app.use('/card', cardRoute);
+app.use('/deck/', cardRoute);
 app.use('/users', userRoute);
 app.use('/decks', deckRoute);
 app.use('/search', searchRoute);

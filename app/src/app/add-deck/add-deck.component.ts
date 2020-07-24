@@ -23,8 +23,8 @@ export class AddDeckComponent implements OnInit {
     });
   }
 
-  addDeck(deck_name) {
-    this.ds.addDeck({deck_name: deck_name})
+  addDeck(name) {
+    this.ds.addDeck({name: name})
       .pipe(first())
       .subscribe(data => {
           this.router.navigate([this.returnUrl]);

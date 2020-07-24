@@ -6,9 +6,9 @@ const cardController = require('../controllers/card.controller');
 const jwtAuth = require('../_helpers/jwt-authentication');
 
 // Defined store route
-cardRoutes.post('/', jwtAuth, cardController.addCard);
-cardRoutes.put('/:id', jwtAuth, cardController.updateCard);
-cardRoutes.delete('/:id', jwtAuth, cardController.deleteCard);
+cardRoutes.post('/:deckId/card/', jwtAuth, cardController.addCard);
+cardRoutes.put('/:deckId/card/:cardId', jwtAuth, cardController.updateCard);
+cardRoutes.delete('/:deckId/card/:cardId', jwtAuth, cardController.deleteCard);
 
 
 

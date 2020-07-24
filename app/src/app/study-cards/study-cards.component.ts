@@ -44,15 +44,16 @@ export class StudyCardsComponent implements OnInit {
   showing: number = SHOW_OPTIONS.Both;
   last_wait_time: number;
   edit: boolean = false;
+  deckId: string;
 
   constructor(private ds: DeckService, private route: ActivatedRoute, private cs: CardService, public router: Router) { }
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
+    this.deckId = this.route.snapshot.paramMap.get('id');
     this.ds
-      .getDeck(id)
-      .subscribe((cards: Card[]) => {
-        this.createStudyDeck(cards);
+      .getDeck(this.deckId)
+      .subscribe((deck: any) => {
+        this.createStudyDeck(deck.cards);
       });
   }
 
@@ -117,7 +118,7 @@ export class StudyCardsComponent implements OnInit {
     // Delete this parameter so wrong information is not updated on cards on server
     delete this.current_card.order;
 
-    this.cs.updateCard(this.current_card);
+    this.cs.updateCard(this.current_card, this.deckId);
     this.cards.splice(this.current_card_index, 1);
   }
 
@@ -154,7 +155,7 @@ export class StudyCardsComponent implements OnInit {
     this.current_card.english_word = english_word;
     this.current_card.japanese_reading = japanese_reading;
     this.current_card.kanji = kanji;
-    this.cs.updateCard(newCard);
+    this.cs.updateCard(newCard, this.deckId);
     this.edit = !this.edit;
   }
 

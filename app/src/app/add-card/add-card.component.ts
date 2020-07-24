@@ -66,12 +66,10 @@ export class AddCardComponent implements OnInit {
     let now = moment().startOf('day').format('YYYY-MM-DD[T]HH:mm:ss').toString();
 
     let card = {english_word, japanese_reading, kanji, jap_eng_next_study_time: now, eng_jap_next_study_time: now, comment, deck: this.deckId, order: this.currentOrder};
-    this.cs.addCard(card)
+    this.cs.addCard(card, this.deckId)
       .subscribe(
         res => {
-          if (added_card) {
-            added_card.added = true;
-          }
+          added_card.added = true;
         },
           error => console.log(error));
   }

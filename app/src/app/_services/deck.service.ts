@@ -15,7 +15,7 @@ export class DeckService {
 
   addDeck(deck) {
     return this.http
-      .post<any>(`${this.uri}/`, {deck, id: this.as.currentUserValue.id});
+      .post<any>(`${this.uri}/`, {deck});
   }
 
   getDecks() {

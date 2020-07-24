@@ -12,8 +12,8 @@ export class CardService {
 
   constructor(private http: HttpClient) { }
 
-  addCard(card) {
-    return this.http.post(`${this.uri}/`, card);
+  addCard(card, deckId) {
+    return this.http.post(`deck/${deckId}/card/`, {card});
   }
 
   getCards() {
@@ -23,16 +23,16 @@ export class CardService {
   }
 
   // TODO: error handling
-  updateCard(card) {
+  updateCard(card, deckId) {
     this
       .http
-      .put(`${this.uri}/${card._id}`, card)
+      .put(`deck/${deckId}/card/${card._id}`, {card})
       .subscribe();
   }
 
-  deleteCard(id) {
+  deleteCard(cardId, deckId) {
     return this
       .http
-      .delete(`${this.uri}/${id}`);
+      .delete(`deck/${deckId}/card/${cardId}`);
   }
 }

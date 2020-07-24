@@ -48,4 +48,9 @@ let Card = new Schema({
   collection: 'cards'
 });
 
+Card.pre('findOneAndUpdate', function () {
+  console.log("asdasdasdasdasdasdasd", flat(this._update))
+  this._update = flat(this._update);
+});
+
 module.exports = mongoose.model('Card', Card);

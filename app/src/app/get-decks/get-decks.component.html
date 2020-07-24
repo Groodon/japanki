@@ -9,7 +9,7 @@
 <div *ngFor="let deck of decks" [attr.id]="deck._id">
   <hr/>
   <div class="d-flex">
-    <th class="mr-auto p-2"><a [routerLink]="['/study', deck._id]">{{ deck.deck_name }} ({{cards[deck._id] ? cards[deck._id].study_cards : 0}})</a></th>
+    <th class="mr-auto p-2"><a [routerLink]="['/study', deck._id]">{{ deck.name }} ({{cards[deck._id] ? cards[deck._id].study_cards : 0}})</a></th>
     <td class="p-2">
       <div class="dropdown">
         <button class="btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

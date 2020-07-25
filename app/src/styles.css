@@ -18,8 +18,17 @@ h3, a:hover, hr {
   text-decoration-color: var(--japan-red);
 }
 
+button:focus{ 
+  outline-width: thin;
+  outline-color: rgb(66, 65, 65);
+}
+
 .btn-secondary:hover {
   background-color: #00C896 !important;
+}
+
+.mat-primary {
+  background-color: limegreen !important;
 }
 
 .box {

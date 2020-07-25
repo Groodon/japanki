@@ -47,9 +47,12 @@ export class GetDecksComponent implements OnInit {
 
   showDialog(id: string) {
     const text = `Are you sure you want to delete the deck ${this.decks.find(deck => deck._id === id).name}?`
+    const title = 'Delete';
+    const cancelButtonText = 'Cancel';
+    const acceptButtonText = 'Delete';
 
     const dialogRef = this.dialog.open(ConfirmationModalComponent, {
-      data: {text: text}
+      data: {text: text, title: title, cancelButtonText: cancelButtonText, acceptButtonText: acceptButtonText}
     });
 
     dialogRef.afterClosed().subscribe(result => {

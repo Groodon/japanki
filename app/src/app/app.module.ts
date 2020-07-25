@@ -28,6 +28,7 @@ import {CookieService} from 'ngx-cookie-service';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { HomeComponent } from './home/home.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 
 const config = new AuthServiceConfig([
@@ -67,6 +68,7 @@ export function provideConfig() {
     FormsModule,
     MatDialogModule,
     BrowserAnimationsModule,
+    MatButtonModule,
     NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [

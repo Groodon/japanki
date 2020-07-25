@@ -4,6 +4,8 @@ import {DeckService} from "../_services/deck.service";
 import {ConfirmDialogService} from "../confirm-dialog/confirm-dialog.service";
 import * as moment from 'moment';
 import {CardOrders} from "../_models/app-enums";
+import {MatDialog} from '@angular/material/dialog';
+import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
 
 @Component({
   selector: 'app-get-decks',
@@ -15,7 +17,7 @@ export class GetDecksComponent implements OnInit {
   decks: Deck[];
   cards: Object = {};
 
-  constructor(private ds: DeckService, private confirmDialogService: ConfirmDialogService) { }
+  constructor(private ds: DeckService, private confirmDialogService: ConfirmDialogService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.ds
@@ -24,8 +26,6 @@ export class GetDecksComponent implements OnInit {
         this.decks = data;
         this.getCardNumbers();
       });
-
-
   }
 
   getCardNumbers() {
@@ -42,20 +42,25 @@ export class GetDecksComponent implements OnInit {
           this.cards[deck._id].study_cards += 1;
         }
       }
-
     }
   }
 
-  showDialog(id) {
-    let temp = this;
-    this.confirmDialogService.confirmThis("Confirm deletion", "Are you sure you want to delete the deck \"" + this.decks.find(deck => deck._id === id).name + "\"?", function () {
-      temp.deleteDeck(id);
-    }, function () {
-    })
+  showDialog(id: string) {
+    const text = `Are you sure you want to delete the deck ${this.decks.find(deck => deck._id === id).name}?`
+
+    const dialogRef = this.dialog.open(ConfirmationModalComponent, {
+      data: {text: text}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteDeck(id);
+      }
+    });
   }
 
-  deleteDeck(id) {
-    this.ds.deleteDeck(id).subscribe(res => {
+  deleteDeck(id: string) {
+    this.ds.deleteDeck(id).subscribe(() => {
       this.deleteRow(id);
     },
       error => {
@@ -63,7 +68,7 @@ export class GetDecksComponent implements OnInit {
       });
   }
 
-  deleteRow(id) {
+  deleteRow(id: string) {
     for (let i = 0; i < this.decks.length; ++i) {
       if (this.decks[i]._id === id) {
         this.decks.splice(i, 1);

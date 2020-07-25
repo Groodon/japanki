@@ -2,7 +2,19 @@
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
   <header class="mb-4">
     <div>
-      <h3 class="float-md-left mb-0"><a id="brand" routerLink="/" routerLinkActive="active">Japanki</a></h3>
+      <h3 class="float-md-left mb-0">
+        
+      <a id="brand" routerLink="/" routerLinkActive="active">
+        Japank
+        <span class="wrapper">
+              <div class="box">
+              <p class="letter bounce">.</p>
+              <p class="letter">ı</p>
+              </div>
+        </span>
+      </a>
+      
+      </h3>
       <nav class="nav nav-masthead justify-content-center float-md-right">
         <a *ngIf="authenticationService.isLoggedIn" routerLink="/" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
           Home

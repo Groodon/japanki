@@ -16,12 +16,6 @@ export class CardService {
     return this.http.post(`deck/${deckId}/card/`, {card});
   }
 
-  getCards() {
-    return this
-      .http
-      .get(`${this.uri}`);
-  }
-
   // TODO: error handling
   updateCard(card, deckId) {
     this

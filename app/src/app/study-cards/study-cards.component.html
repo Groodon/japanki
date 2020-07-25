@@ -23,21 +23,21 @@
 
     <div *ngIf="status === STATUS.Studying">
       <div *ngIf="currentOrder === CARD_ORDERS.EngJap">
-        <p>{{current_card.english_word}}</p>
+        <p>{{currentCard.englishWord}}</p>
       </div>
 
       <div *ngIf="currentOrder === CARD_ORDERS.JapEng">
-        <p *ngIf="(showing === SHOW_OPTIONS.Both || showing === SHOW_OPTIONS.Reading)">{{current_card.japanese_reading}}</p>
-        <p *ngIf="(showing === SHOW_OPTIONS.Both || showing === SHOW_OPTIONS.Kanji)">{{(!current_card.kanji ? "[No kanji available]" : current_card.kanji)}}</p>
+        <p *ngIf="(showing === SHOW_OPTIONS.Both || showing === SHOW_OPTIONS.Reading)">{{currentCard.japaneseReading}}</p>
+        <p *ngIf="(showing === SHOW_OPTIONS.Both || showing === SHOW_OPTIONS.Kanji)">{{(!currentCard.kanji ? "[No kanji available]" : currentCard.kanji)}}</p>
       </div>
       <div *ngIf="revealed || edit">
         <hr class="my-4">
         <div *ngIf="currentOrder === CARD_ORDERS.JapEng">
-          <p *ngIf="!edit">{{current_card.english_word}}</p>
+          <p *ngIf="!edit">{{currentCard.englishWord}}</p>
         </div>
         <div *ngIf="currentOrder === CARD_ORDERS.EngJap">
-          <p *ngIf="(showing === SHOW_OPTIONS.Both || showing === SHOW_OPTIONS.Reading)">{{current_card.japanese_reading}}</p>
-          <p *ngIf="(showing === SHOW_OPTIONS.Both || showing === SHOW_OPTIONS.Kanji)">{{(!current_card.kanji ? "[No kanji available]" : current_card.kanji)}}</p>
+          <p *ngIf="(showing === SHOW_OPTIONS.Both || showing === SHOW_OPTIONS.Reading)">{{currentCard.japaneseReading}}</p>
+          <p *ngIf="(showing === SHOW_OPTIONS.Both || showing === SHOW_OPTIONS.Kanji)">{{(!currentCard.kanji ? "[No kanji available]" : currentCard.kanji)}}</p>
         </div>
       </div>
 
@@ -45,15 +45,52 @@
         <button *ngIf="!revealed" (click)="revealed = true;" class="btn btn-primary mr-1">
           Show Answer
         </button>
-        <button *ngIf="revealed" (click)="changeCard(DIFFICULTY.Fail)" class="btn btn-danger mr-1">
-          Fail (soon)
-        </button>
-        <button *ngIf="revealed" (click)="changeCard(DIFFICULTY.Hard)" class="btn btn-warning mr-1">
-          Hard ({{last_wait_time === 0 ? 1 : last_wait_time*2}} {{last_wait_time === 0 ? 'day' : 'days'}})
-        </button>
-        <button *ngIf="revealed" (click)="changeCard(DIFFICULTY.Easy)" class="btn btn-success mr-1">
-          Easy ({{last_wait_time === 0 ? 4 : last_wait_time*4}} days)
-        </button>
+        <div *ngIf="revealed">
+          <div *ngIf="currentCardStatus === CARD_STATUS.New">
+            <button (click)="changeCard(DIFFICULTY.Fail)" class="btn btn-danger mr-1">
+              Fail (soon)
+            </button>
+            <button (click)="changeCard(DIFFICULTY.Hard)" class="btn btn-warning mr-1">
+              Hard (~10min)
+            </button>
+            <button (click)="changeCard(DIFFICULTY.Easy)" class="btn btn-success mr-1">
+              Easy ({{last_wait_time === 0 ? 4 : last_wait_time*4}} days)
+            </button>
+          </div>
+          
+          <div *ngIf="currentCardStatus === CARD_STATUS.CompletedOnce">
+            <button (click)="changeCard(DIFFICULTY.Fail)" class="btn btn-danger mr-1">
+              Fail (soon)
+            </button>
+            <button (click)="changeCard(DIFFICULTY.Hard)" class="btn btn-warning mr-1">
+              Hard (1 day)
+            </button>
+            <button (click)="changeCard(DIFFICULTY.Easy)" class="btn btn-success mr-1">
+              Easy ({{last_wait_time === 0 ? 4 : last_wait_time*4}} days)
+            </button>
+          </div>
+
+          <div *ngIf="currentCardStatus === CARD_STATUS.Completed && last_wait_time !== 0">
+            <button (click)="changeCard(DIFFICULTY.Fail)" class="btn btn-danger mr-1">
+              Fail (soon)
+            </button>
+            <button (click)="changeCard(DIFFICULTY.Hard)" class="btn btn-warning mr-1">
+              Hard ({{Math.floor(lastWaitTime*1.5 + 1)}} {{last_wait_time === 0 ? 'day' : 'days'}})
+            </button>
+            <button (click)="changeCard(DIFFICULTY.Easy)" class="btn btn-success mr-1">
+              Easy ({{last_wait_time === 0 ? 4 : last_wait_time*4}} days)
+            </button>
+          </div>
+
+          <div *ngIf="currentCardStatus === CARD_STATUS && last_wait_time === 0">
+            <button (click)="changeCard(DIFFICULTY.Fail)" class="btn btn-danger mr-1">
+              Fail (soon)
+            </button>
+            <button (click)="changeCard(DIFFICULTY.Easy)" class="btn btn-success mr-1">
+              Easy (1 day)
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -65,14 +102,14 @@
 
   <div [hidden]="!edit" style="display: inline-block;">
     <div style="text-align: right;">
-      English: <input [value]="current_card.english_word" #english_word/>
+      English: <input [value]="currentCard.englishWord" #englishWord/>
       <hr class="my-4">
-      Japanese reading: <input [value]="current_card.japanese_reading" #japanese_reading/><br/>
-      Kanji: <input [value]="(current_card.kanji ? current_card.kanji : '')" #kanji/>
+      Japanese reading: <input [value]="currentCard.japaneseReading" #japaneseReading/><br/>
+      Kanji: <input [value]="(currentCard.kanji ? currentCard.kanji : '')" #kanji/>
     </div>
 
     <div class="bottom-align-text" style="position:absolute; bottom: 0; left: 0; right: 0; margin: auto">
-      <button (click)="updateCard(english_word.value, japanese_reading.value, kanji.value);" class="btn btn-success mr-1">
+      <button (click)="updateCard(englishWord.value, japaneseReading.value, kanji.value);" class="btn btn-success mr-1">
         Save card
       </button>
       <button (click)="edit = !edit" class="btn btn-primary mr-1">

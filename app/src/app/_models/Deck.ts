@@ -1,4 +1,8 @@
+import Card from './Card';
+
 export default class Deck {
   _id: string;
-  deck_name: string;
+  name: string;
+  cards: Card[];
+  order: number;
 }

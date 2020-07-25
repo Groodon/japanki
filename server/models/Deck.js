@@ -1,6 +1,5 @@
 // require loads the module
 const mongoose = require('mongoose');
-const flat = require('flat');
 // Each schema maps to a MongoDB collection and
 // defines the shape of the documents within that collection.
 const Schema = mongoose.Schema;
@@ -17,10 +16,12 @@ let Deck = new Schema({
     required: true
   },
   cards: [Card.schema]
-});
-
-Deck.pre('findOneAndUpdate', function () {
-  console.log("asdasdasdasdasdasdasd", flat(this._update))
+  ,
+  // Default order is Jap->Eng which is value 1.
+  order: {
+    type: Number,
+    default: 1
+  }
 });
 
 module.exports = mongoose.model('Deck', Deck);

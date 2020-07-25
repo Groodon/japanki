@@ -20,7 +20,6 @@ export class AddCardComponent implements OnInit {
   deckId: string;
   suggestionCards: Array<JishoCard>;
   CardOrders = CardOrders;
-  currentOrder: number = CardOrders.Both;
   customAdded: boolean = false;
   dropdownSettings = {};
 
@@ -58,14 +57,10 @@ export class AddCardComponent implements OnInit {
     )
   }
 
-  setOrder(order) {
-    this.currentOrder = order;
-  }
-
   addCard(english_word, japanese_reading, kanji, comment, added_card?) {
     let now = moment().startOf('day').format('YYYY-MM-DD[T]HH:mm:ss').toString();
 
-    let card = {english_word, japanese_reading, kanji, jap_eng_next_study_time: now, eng_jap_next_study_time: now, comment, deck: this.deckId, order: this.currentOrder};
+    let card = {english_word, japanese_reading, kanji, jap_eng_next_study_time: now, eng_jap_next_study_time: now, deck: this.deckId};
     this.cs.addCard(card, this.deckId)
       .subscribe(
         res => {

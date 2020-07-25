@@ -23,20 +23,20 @@
 
     <div *ngIf="status === STATUS.Studying">
       <div *ngIf="currentOrder === CARD_ORDERS.EngJap">
-        <p>{{currentCard.englishWord}}</p>
+        <p>{{currentCard.english_word}}</p>
       </div>
 
       <div *ngIf="currentOrder === CARD_ORDERS.JapEng">
-        <p *ngIf="(showing === SHOW_OPTIONS.Both || showing === SHOW_OPTIONS.Reading)">{{currentCard.japaneseReading}}</p>
+        <p *ngIf="(showing === SHOW_OPTIONS.Both || showing === SHOW_OPTIONS.Reading)">{{currentCard.japanese_reading}}</p>
         <p *ngIf="(showing === SHOW_OPTIONS.Both || showing === SHOW_OPTIONS.Kanji)">{{(!currentCard.kanji ? "[No kanji available]" : currentCard.kanji)}}</p>
       </div>
       <div *ngIf="revealed || edit">
         <hr class="my-4">
         <div *ngIf="currentOrder === CARD_ORDERS.JapEng">
-          <p *ngIf="!edit">{{currentCard.englishWord}}</p>
+          <p *ngIf="!edit">{{currentCard.english_word}}</p>
         </div>
         <div *ngIf="currentOrder === CARD_ORDERS.EngJap">
-          <p *ngIf="(showing === SHOW_OPTIONS.Both || showing === SHOW_OPTIONS.Reading)">{{currentCard.japaneseReading}}</p>
+          <p *ngIf="(showing === SHOW_OPTIONS.Both || showing === SHOW_OPTIONS.Reading)">{{currentCard.japanese_reading}}</p>
           <p *ngIf="(showing === SHOW_OPTIONS.Both || showing === SHOW_OPTIONS.Kanji)">{{(!currentCard.kanji ? "[No kanji available]" : currentCard.kanji)}}</p>
         </div>
       </div>
@@ -102,14 +102,14 @@
 
   <div [hidden]="!edit" style="display: inline-block;">
     <div style="text-align: right;">
-      English: <input [value]="currentCard.englishWord" #englishWord/>
+      English: <input [value]="currentCard.english_word" #english_word/>
       <hr class="my-4">
-      Japanese reading: <input [value]="currentCard.japaneseReading" #japaneseReading/><br/>
+      Japanese reading: <input [value]="currentCard.japanese_reading" #japanese_reading/><br/>
       Kanji: <input [value]="(currentCard.kanji ? currentCard.kanji : '')" #kanji/>
     </div>
 
     <div class="bottom-align-text" style="position:absolute; bottom: 0; left: 0; right: 0; margin: auto">
-      <button (click)="updateCard(englishWord.value, japaneseReading.value, kanji.value);" class="btn btn-success mr-1">
+      <button (click)="updateCard(english_word.value, japanese_reading.value, kanji.value);" class="btn btn-success mr-1">
         Save card
       </button>
       <button (click)="edit = !edit" class="btn btn-primary mr-1">

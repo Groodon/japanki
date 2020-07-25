@@ -17,8 +17,12 @@ if (process.env.NODE_ENV !== 'production') {
   let s3 = new aws.S3({
     mongoUri: process.env.MONGODB_URI
   });
+  console.log(s3);
   mongoUri = s3.mongoUri;
 }
+let s3 = new aws.S3({
+  mongoUri: process.env.MONGODB_URI
+});
 
 const cardRoute = require('./routes/card.route');
 const userRoute = require('./routes/user.route');

@@ -14,15 +14,9 @@ let mongoUri;
 if (process.env.NODE_ENV !== 'production') {
   mongoUri = require('./config.json').mongoUri;
 } else {
-  let s3 = new aws.S3({
-    mongoUri: process.env.MONGODB_URI
-  });
-  console.log(s3);
-  mongoUri = s3.mongoUri;
+  mongoUri = process.env.MONGODB_URI
+  console.log(process.env);
 }
-let s3 = new aws.S3({
-  mongoUri: process.env.MONGODB_URI
-});
 
 const cardRoute = require('./routes/card.route');
 const userRoute = require('./routes/user.route');

@@ -6,10 +6,7 @@ let jwtSecret;
 if (process.env.NODE_ENV !== 'production') {
     jwtSecret = require('../config.json').secret;
 } else {
-    let s3 = new aws.S3({
-        jwtSecret: process.env.JWT_SECRET
-    });
-    jwtSecret = s3.jwtSecret
+    jwtSecret = process.env.JWT_SECRET
 }
 
 const authenticateJWT = (req, res, next) => {

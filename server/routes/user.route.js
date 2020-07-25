@@ -1,6 +1,6 @@
 // user.route.js
 const CLIENT_ID = "471391585101-8rhggm7ek2va7uqbula56oj2rn80b3ah.apps.googleusercontent.com"
-
+const aws = require('aws-sdk');
 const {OAuth2Client} = require('google-auth-library');
 const client = new OAuth2Client(CLIENT_ID);
 async function verify(token) {

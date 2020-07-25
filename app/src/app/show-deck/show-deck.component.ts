@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CardService} from "../_services/card.service";
-import Card from "../Card";
+import Card from "../_models/Card";
 import {DeckService} from "../_services/deck.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CardOrders} from "../_models/app-enums";

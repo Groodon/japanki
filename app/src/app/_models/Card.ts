@@ -10,4 +10,6 @@ export default class Card {
   eng_jap_last_wait_time: number;
   order: number;
   comment: string;
+  jap_eng_status: number;
+  eng_jap_status: number;
 }

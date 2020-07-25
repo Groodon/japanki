@@ -9,7 +9,7 @@ import {AuthenticationService} from "./authentication.service";
 })
 export class DeckService {
 
-  uri = 'decks';
+  uri = 'deck';
 
   constructor(private http: HttpClient, private as: AuthenticationService) { }
 
@@ -24,15 +24,15 @@ export class DeckService {
       .get(`${this.uri}/`);
   }
 
-  getDeck(id) {
+  getDeck(deckId) {
     return this
       .http
-      .get(`${this.uri}/${id}`);
+      .get(`${this.uri}/${deckId}`);
   }
 
-  deleteDeck(id) {
+  deleteDeck(deckId) {
     return this
       .http
-      .delete(`${this.uri}/${id}`);
+      .delete(`${this.uri}/${deckId}`);
   }
 }

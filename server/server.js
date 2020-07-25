@@ -5,14 +5,15 @@ const express = require('express'),
   cors = require('cors'),
   mongoose = require('mongoose'),
   errorHandler = require('./_helpers/error-handler'),
-  app = express();
+  app = express(),
+  config = require('./config.json');
 
 const cardRoute = require('./routes/card.route');
 const userRoute = require('./routes/user.route');
 const deckRoute = require('./routes/deck.route');
 const searchRoute = require('./routes/search.route');
 
-let uri = 'mongodb://heroku_h4b5g9nj:5uonj9efjhacsoirr0630ql6bj@ds331758.mlab.com:31758/heroku_h4b5g9nj';
+let uri = config.mongoUri
 mongoose.connect(uri, { useNewUrlParser: true }).then(
   () => {console.log('Database is connected') },
   err => { console.log('Can not connect to the database'+ err)}
@@ -26,9 +27,9 @@ app.use(cors());
 app.use(bodyParser.urlencoded({encoded: false}));
 
 // api routes
-app.use('/deck/', cardRoute);
+app.use('/deck', cardRoute);
 app.use('/users', userRoute);
-app.use('/decks', deckRoute);
+app.use('/deck', deckRoute);
 app.use('/search', searchRoute);
 
 

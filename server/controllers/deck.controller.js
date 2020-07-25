@@ -19,7 +19,7 @@ Controller.getDecks = (req, res) => {
 }
 
 Controller.getDeck = (req, res) => {
-  Deck.findOne({_id: req.params.id}, (error, deck) => {
+  Deck.findOne({_id: req.params.deckId}, (error, deck) => {
     if (deck && deck.owner == req.user.sub) {
       res.status(200).send(deck);
     } else {
@@ -51,35 +51,25 @@ Controller.addDeck = (req, res) => {
 }
 
 Controller.removeDeck = (req, res) => {
-    User.findOneAndUpdate(
-        { uid: req.user.sub },
-        { $pull: { decks: {_id: req.params.id}}},
-        function (error, success) {
-          if (error) {
-            res.status(400).send("Unable to update the database");
-          } else {
-            // Delete all cards in deck
-            Card.find({ deck: req.params.id }).remove().exec().then(
-              res.json({'message': 'deck removed successfully'})
-            );
-    
-          }
-    });
-
-    Deck.findOne({_id: req.body.deckId}, (error, deck) => {
-      if (deck && deck.owner == req.params.id) {
-        deck.cards.push(Card(req.body.card));
-        deck.save((err) => {
-          if (err) {
-            res.status(400).send({"message": "unable to save card"})
-          } else {
-            res.sendStatus(200)
-          }
+    Deck.deleteOne(
+      { _id: req.params.deckId, owner: req.user.sub }, 
+      (error) => {
+        if (error) {
+          res.status(400).send("Unable to update the database");
+        } else {
+          User.findOneAndUpdate(
+            { uid: req.user.sub },
+            { $pull: { decks: {_id: req.params.deckId}}},
+            (error) => {
+              if (error) {
+                res.status(400).send("Unable to update the database");
+              } else {
+                res.status(200).send();
+              }
         });
-      } else {
-        res.status(400).send({"message": "Unable to find deck or unauthorized user"});
+        }
       }
-    });
+    )
 }
 
 module.exports = Controller;

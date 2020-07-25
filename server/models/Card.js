@@ -31,26 +31,17 @@ let Card = new Schema({
     type: Number,
     default: 0
   },
-  deck: {
-    // This string is a reference to which deck it belongs to
-    type: String,
-    required: true
-  },
-  order: {
+  eng_jap_status: {
     type: Number,
-    required: true
+    default: 0
   },
-
-  comment: {
-    type: String
+  jap_eng_status: {
+    type: Number,
+    default: 0
   }
 },{
   collection: 'cards'
 });
 
-Card.pre('findOneAndUpdate', function () {
-  console.log("asdasdasdasdasdasdasd", flat(this._update))
-  this._update = flat(this._update);
-});
 
 module.exports = mongoose.model('Card', Card);

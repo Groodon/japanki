@@ -19,21 +19,6 @@
         </div>
       </div>
     </form>
-    <div class="btn-group btn-group-toggle mb-3" data-toggle="buttons">
-
-      <!--<span class="badge badge-secondary d-inline-flex align-items-center mr-1 font-weight-light">
-        <div style="font-size: 14px">Cards to add:</div>
-      </span>-->
-      <label class="btn btn-secondary active btn-sm" (click)="setOrder(CardOrders.Both)">
-        <input type="radio">Both
-      </label>
-      <label class="btn btn-secondary btn-sm" (click)="setOrder(CardOrders.EngJap)">
-        <input type="radio">Eng -> Jap
-      </label>
-      <label class="btn btn-secondary btn-sm" (click)="setOrder(CardOrders.JapEng)">
-        <input type="radio">Jap -> Eng
-      </label>
-    </div>
 
     <div class="container">
       <div class="row">
@@ -51,7 +36,7 @@
                 <input  (change)="customAdded=false;" #custom_kanji/>
               </dl>
               <dl>
-                <button (click)="addCard(custom_english_word.value, custom_japanese_reading.value, custom_kanji.value, '');
+                <button (click)="addCard(custom_english_word.value, custom_japanese_reading.value, custom_kanji.value);
                   customAdded = true;" class="btn btn-success" [disabled]="customAdded">
                   {{customAdded ? 'Added' : 'Add'}}
                 </button>

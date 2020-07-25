@@ -6,14 +6,19 @@ const express = require('express'),
   mongoose = require('mongoose'),
   errorHandler = require('./_helpers/error-handler'),
   app = express(),
-  config = require('./config.json');
+  config = require('./config.json'),
+  aws = require('aws-sdk');
 
 const cardRoute = require('./routes/card.route');
 const userRoute = require('./routes/user.route');
 const deckRoute = require('./routes/deck.route');
 const searchRoute = require('./routes/search.route');
 
-let uri = config.mongoUri
+let s3 = new aws.S3({
+  mongoUri: process.env.MONGODB_URI
+});
+
+let uri = s3.mongoUri || config.mongoUri;
 mongoose.connect(uri, { useNewUrlParser: true }).then(
   () => {console.log('Database is connected') },
   err => { console.log('Can not connect to the database'+ err)}

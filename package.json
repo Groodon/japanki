@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "node server/server.js",
-    "build": "set NODE_ENV=dev && cd app/ && npm install && npm run heroku-postbuild"
+    "build": "set NODE_ENV=production && cd app/ && npm install && npm run heroku-postbuild"
   },
   "repository": {
     "type": "git",

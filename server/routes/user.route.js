@@ -18,8 +18,18 @@ async function verify(token) {
 const express = require('express');
 const userRoutes = express.Router();
 const jwt = require('jsonwebtoken');
-const config = require('../config.json');
 const { check, validationResult } = require('express-validator');
+
+let jwtSecret;
+
+if (process.env.NODE_ENV !== 'production') {
+    jwtSecret = require('../config.json').secret;
+} else {
+    let s3 = new aws.S3({
+        jwtSecret: process.env.JWT_SECRET
+    });
+    jwtSecret = s3.jwtSecret
+}
 // Require Card model in our routes module
 let User = require('../models/User');
 
@@ -29,7 +39,7 @@ async function verifyIdToken({idToken}) {
 }
 
 function jwtResponse({ sub, id }, res) {
-  const token = jwt.sign({ sub }, config.secret);
+  const token = jwt.sign({ sub }, jwtSecret);
   const o = { token, id };
   res.status(200).send(o);
 }

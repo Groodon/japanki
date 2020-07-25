@@ -76,8 +76,8 @@
                 <dd [hidden]="card.edit">{{card.japanese[0].word ? card.japanese[0].word : '-'}}</dd>
                 <input [hidden]="!card.edit" [value]="card.japanese[0].word ? card.japanese[0].word : ''" #kanji/>
               </dl>
-              <button (click)="card.edit ? addCard(english_word.value, japanese_reading.value, kanji.value, '', card) :
-                                           addCard((card.dropdown ? card.selected.join('; ') : card.senses[0].english_definitions.join('; ')), card.japanese[0].reading, card.japanese[0].word, '', card);"
+              <button (click)="card.edit ? addCard(english_word.value, japanese_reading.value, kanji.value, card) :
+                                           addCard((card.dropdown ? card.selected.join('; ') : card.senses[0].english_definitions.join('; ')), card.japanese[0].reading, card.japanese[0].word, card);"
                       class="btn btn-success" [disabled]="card.added || (card.dropdown && card.selected.length == 0)">
                 {{card.added ? 'Added' : 'Add'}}
               </button>

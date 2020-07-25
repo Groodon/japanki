@@ -8,6 +8,10 @@ const express = require('express'),
   app = express(),
   aws = require('aws-sdk');
 
+  if (process.env.NODE_ENV !== 'production') {
+    const config = require('./config.json');
+  }
+
 const cardRoute = require('./routes/card.route');
 const userRoute = require('./routes/user.route');
 const deckRoute = require('./routes/deck.route');
@@ -17,7 +21,7 @@ let s3 = new aws.S3({
   mongoUri: process.env.MONGODB_URI
 });
 
-let uri = s3.mongoUri || require('./config.json').mongoUri;
+let uri = s3.mongoUri || config.mongoUri;
 mongoose.connect(uri, { useNewUrlParser: true }).then(
   () => {console.log('Database is connected') },
   err => { console.log('Can not connect to the database'+ err)}

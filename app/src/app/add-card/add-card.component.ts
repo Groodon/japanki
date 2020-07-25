@@ -57,7 +57,7 @@ export class AddCardComponent implements OnInit {
     )
   }
 
-  addCard(english_word, japanese_reading, kanji, comment, added_card?) {
+  addCard(english_word, japanese_reading, kanji, added_card?) {
     let now = moment().startOf('day').format('YYYY-MM-DD[T]HH:mm:ss').toString();
 
     let card = {english_word, japanese_reading, kanji, jap_eng_next_study_time: now, eng_jap_next_study_time: now, deck: this.deckId};

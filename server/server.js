@@ -6,7 +6,6 @@ const express = require('express'),
   mongoose = require('mongoose'),
   errorHandler = require('./_helpers/error-handler'),
   app = express(),
-  config = require('./config.json'),
   aws = require('aws-sdk');
 
 const cardRoute = require('./routes/card.route');
@@ -18,7 +17,7 @@ let s3 = new aws.S3({
   mongoUri: process.env.MONGODB_URI
 });
 
-let uri = s3.mongoUri || config.mongoUri;
+let uri = s3.mongoUri || require('./config.json').mongoUri;
 mongoose.connect(uri, { useNewUrlParser: true }).then(
   () => {console.log('Database is connected') },
   err => { console.log('Can not connect to the database'+ err)}

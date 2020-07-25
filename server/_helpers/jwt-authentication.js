@@ -1,11 +1,10 @@
 const jwt = require('jsonwebtoken');
 const aws = require('aws-sdk');
-const config = require('../config.json');
 
 let s3 = new aws.S3({
     jwtSecret: process.env.JWT_SECRET
 });
-const accessTokenSecret = s3.jwtSecret || config.secret;
+const accessTokenSecret = s3.jwtSecret || require('../config.json').secret;
 
 const authenticateJWT = (req, res, next) => {
   const authHeader = req.headers.authorization;

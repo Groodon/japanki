@@ -1,0 +1,32 @@
+<!-- RENDER ONLY IF DECK IS NOT UNDEFINED -->
+<div *ngIf="deck !== undefined">
+    <form [formGroup]="editForm" (ngSubmit)="onSubmit(editForm.value)">
+        Change deck order:
+        <div >
+            <mat-button-toggle-group name="order" aria-label="Font Style">
+                <mat-button-toggle value="both">Both</mat-button-toggle>
+                <mat-button-toggle value="engjap">Eng -> Jap</mat-button-toggle>
+                <mat-button-toggle value="japeng">Jap -> Eng</mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+        <!-- <td >
+            <div class="btn-group btn-group-toggle" data-toggle="buttons" >
+                <label class="btn btn-primary btn-sm"  >
+                    <input type="radio" id="both" formControlName="order" value="both">Both
+                </label>
+                <label class="btn btn-primary btn-sm"  >
+                    <input type="radio" id="engjap" formControlName="order" value="engjap">Eng -> Jap
+                </label>
+                <label class="btn btn-primary btn-sm"  >
+                    <input type="radio" id="japeng" formControlName="order" value="japeng">Jap -> Eng
+                </label>
+            </div>
+        </td> -->
+        <div>
+            <label for="name">Deck name</label>
+            <input [value]="deck?.name" type="text" class="form-control" formControlName="name" id="name">
+        </div>
+        <button class="button" type="submit">Purchase</button>
+    </form>
+</div>
+

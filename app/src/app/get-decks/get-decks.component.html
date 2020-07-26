@@ -19,6 +19,7 @@
           <a class="dropdown-item" [routerLink]="['/study', deck._id]"><i class="fa fa-book fa-fw"></i> Study ({{cards[deck._id] ? cards[deck._id].study_cards : 0}})</a>
           <a class="dropdown-item" [routerLink]="['/decks/show', deck._id]"><i class="fa fa-eye fa-fw"></i> Show ({{cards[deck._id] ? cards[deck._id].total_cards : 0}})</a>
           <a class="dropdown-item" [routerLink]="['/card/add', deck._id]"><i class="fa fa-fw fa-plus"></i> Add card</a>
+          <a class="dropdown-item" [routerLink]="['/decks', deck._id, 'edit']"><i class="fa fa-fw fa-cog"></i> Edit</a>
           <a class="dropdown-item" id="delete" (click) = "showDialog(deck._id)"><i class="fa fa-fw fa-trash-o"></i> Delete</a>
         </div>
       </div>

@@ -19,8 +19,10 @@ Controller.getDecks = (req, res) => {
 }
 
 Controller.getDeck = (req, res) => {
+  console.log(req.params.deckId);
   Deck.findOne({_id: req.params.deckId}, (error, deck) => {
     if (deck && deck.owner == req.user.sub) {
+      console.log(deck);
       res.status(200).send(deck);
     } else {
       res.status(400).send({"message": "Unable to find deck or unauthorized user"});
@@ -70,6 +72,20 @@ Controller.removeDeck = (req, res) => {
         }
       }
     )
+}
+
+Controller.updateDeck = (req, res) => {
+  Deck.findOneAndUpdate(
+    { _id: req.params.deckId, owner: req.user.sub },
+    req.body.data,
+    (error) => {
+      if (error) {
+        res.status(400).send("Unable to update the database");
+      } else {
+        res.status(200).send();
+      }
+    }
+  )
 }
 
 module.exports = Controller;

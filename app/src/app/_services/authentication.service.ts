@@ -30,7 +30,6 @@ export class AuthenticationService {
   login(idToken: string) {
     return this.http.post<any>(`users/login`, { idToken })
       .pipe(map(user => {
-        console.log(user, user.token)
         // User is the response we got from the post call
         // login successful if there's a jwt token in the response
         if (user && user.token) {

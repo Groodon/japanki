@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 // defines the shape of the documents within that collection.
 const Schema = mongoose.Schema;
 let Card = require('../models/Card');
+let cardOrder = require('./app-enums');
 
 // Define collection and schema for Deck
 let Deck = new Schema({
@@ -20,7 +21,7 @@ let Deck = new Schema({
   // Default order is Jap->Eng which is value 1.
   order: {
     type: Number,
-    default: 1
+    default: cardOrder.JapEng
   }
 });
 

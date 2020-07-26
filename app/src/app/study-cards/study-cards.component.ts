@@ -64,7 +64,6 @@ export class StudyCardsComponent implements OnInit {
       .getDeck(this.deckId)
       .subscribe((deck: any) => {
         this.deck = deck;
-        console.log(this.deck);
         this.createStudyDeck(deck.cards);
       });
   }

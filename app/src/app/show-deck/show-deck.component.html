@@ -15,7 +15,6 @@
     <td>Japanese reading</td>
     <td>Kanji</td>
     <td>Actions</td>
-    <td>Order</td>
   </tr>
   </thead>
 
@@ -42,20 +41,6 @@
       <a (click) = "deleteCard(card._id)" class="btn btn-danger btn-sm mr-1">
         Delete
       </a>
-    </td>
-    <td >
-      <div class="btn-group btn-group-toggle" data-toggle="buttons">
-
-        <label class="btn btn-primary btn-sm" [class.active]="card.order === CardOrders.Both" (click)="changeOrder(card, CardOrders.Both)">
-          <input type="radio">Both
-        </label>
-        <label class="btn btn-primary btn-sm" [class.active]="card.order === CardOrders.EngJap" (click)="changeOrder(card, CardOrders.EngJap)">
-          <input type="radio">Eng-Jap
-        </label>
-        <label class="btn btn-primary btn-sm" [class.active]="card.order === CardOrders.JapEng" (click)="changeOrder(card, CardOrders.JapEng)">
-          <input type="radio">Jap-Eng
-        </label>
-      </div>
     </td>
   </tr>
   </tbody>

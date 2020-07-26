@@ -15,7 +15,6 @@ if (process.env.NODE_ENV !== 'production') {
   mongoUri = require('./config.json').mongoUri;
 } else {
   mongoUri = process.env.MONGODB_URI
-  console.log(process.env);
 }
 
 const cardRoute = require('./routes/card.route');

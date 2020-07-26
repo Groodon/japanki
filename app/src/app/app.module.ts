@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import { CardService } from './_services/card.service';
@@ -27,6 +28,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {CookieService} from 'ngx-cookie-service';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { HomeComponent } from './home/home.component';
+import { DeckOptionsComponent } from './deck-options/deck-options.component';
 
 const config = new AuthServiceConfig([
   {
@@ -48,7 +50,8 @@ export function provideConfig() {
     ShowDeckComponent,
     ConfirmDialogComponent,
     StudyCardsComponent,
-    HomeComponent
+    HomeComponent,
+    DeckOptionsComponent
   ],
   imports: [
     BrowserModule,
@@ -60,6 +63,7 @@ export function provideConfig() {
     IgxRadioModule,
     FormsModule,
     BrowserAnimationsModule,
+    MatButtonToggleModule,
     NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [

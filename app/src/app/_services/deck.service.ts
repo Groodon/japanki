@@ -35,4 +35,10 @@ export class DeckService {
       .http
       .delete(`${this.uri}/${deckId}`);
   }
+
+  updateDeck(deckId, data) {
+    return this
+      .http
+      .put(`${this.uri}/${deckId}`, {data})
+  }
 }

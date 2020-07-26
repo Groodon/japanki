@@ -3,23 +3,71 @@
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-
 body {
   height: 100%;
-  text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
-  box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
-
-  --japan-red: rgb(190, 69, 54);
-}
-
-html * {
+  --japan-red: #C70025;
   background-color: #333;
   color: white;
 }
 
-h3, a:hover, hr {
-  color: var(--japan-red);
+h3, a, hr {
+  color: white;
 }
 
+h3, a:hover, hr {
+  text-decoration-color: var(--japan-red);
+}
+
+button:focus{ 
+  outline-width: thin;
+  outline-color: rgb(66, 65, 65);
+}
+
+.btn-secondary:hover {
+  background-color: #00C896 !important;
+}
+
+.mat-primary {
+  background-color: limegreen !important;
+}
+
+.box {
+  display: inline-block;
+}
+
+.letter {
+  text-align : center;
+  font-size  : 1em;
+  margin     : 0;
+  color      : white;
+  font-weight: 500;
+  line-height: 0.7;
+  margin-left: -6px;
+}
+
+.bounce {
+  color    : #C70025;
+  animation                : bounce 0.3s 2 alternate ease-out, color-change 2s 1 normal;
+}
+
+@keyframes bounce {
+  from {
+      transform: translate3d(0, 0, 0);
+  }
+
+  to {
+      transform: translate3d(0, -10px, 0);
+  }
+}
+
+@keyframes color-change {
+  from {
+      color: #ffffff;
+  }
+
+  to {
+      color: #ff0000;
+  }
+}
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

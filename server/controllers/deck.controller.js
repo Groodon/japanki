@@ -19,10 +19,8 @@ Controller.getDecks = (req, res) => {
 }
 
 Controller.getDeck = (req, res) => {
-  console.log(req.params.deckId);
   Deck.findOne({_id: req.params.deckId}, (error, deck) => {
     if (deck && deck.owner == req.user.sub) {
-      console.log(deck);
       res.status(200).send(deck);
     } else {
       res.status(400).send({"message": "Unable to find deck or unauthorized user"});

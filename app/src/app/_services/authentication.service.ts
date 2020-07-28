@@ -28,7 +28,7 @@ export class AuthenticationService {
 
   // posts the user credentials to the api and checks the response for a JWT token.
   login(idToken: string) {
-    return this.http.post<any>(`users/login`, { idToken })
+    return this.http.post<any>(`user/login`, { idToken })
       .pipe(map(user => {
         // User is the response we got from the post call
         // login successful if there's a jwt token in the response

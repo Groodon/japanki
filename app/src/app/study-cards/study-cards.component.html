@@ -2,23 +2,15 @@
   < Back to decks
 </button>
 
-<div class="jumbotron text-center" style="min-height: 400px; position: relative; background: #333;">
+<div *ngIf="deck" class="jumbotron text-center" style="min-height: 400px; position: relative; background: #333;">
 
   <div *ngIf="status === STATUS.Studying && !edit" class="btn btn-secondary btn-sm" (click)="edit = !edit;" style="position:absolute; top: 0; right: 0; margin: auto">
     Edit Card
   </div>
 
   <span [hidden]="edit">
-    <div *ngIf="status === STATUS.Studying" class="btn-group btn-group-toggle" data-toggle="buttons" style="position:absolute; top: 0; left: 0; margin: auto">
-    <label class="btn btn-secondary active btn-sm" (click)="showing=SHOW_OPTIONS.Both">
-      <input type="radio">Both
-    </label>
-    <label class="btn btn-secondary btn-sm" (click)="showing=SHOW_OPTIONS.Reading">
-      <input type="radio">Reading
-    </label>
-    <label class="btn btn-secondary btn-sm" (click)="showing=SHOW_OPTIONS.Kanji">
-      <input type="radio">Kanji
-    </label>
+    <div *ngIf="status === STATUS.Studying"  style="position:absolute; top: 0; left: 0; margin: auto">
+      <mat-checkbox [checked]="true" (change)="hideHiragana = !hideHiragana">Hide the hiragana (if kanji exists)</mat-checkbox>
   </div>
 
     <div *ngIf="status === STATUS.Studying">
@@ -27,8 +19,8 @@
       </div>
 
       <div *ngIf="currentOrder === CARD_ORDERS.JapEng">
-        <p *ngIf="(showing === SHOW_OPTIONS.Both || showing === SHOW_OPTIONS.Reading)">{{currentCard.japanese_reading}}</p>
-        <p *ngIf="(showing === SHOW_OPTIONS.Both || showing === SHOW_OPTIONS.Kanji)">{{(!currentCard.kanji ? "[No kanji available]" : currentCard.kanji)}}</p>
+        <p *ngIf="(!hideHiragana || currentCard.kanji === '')">{{currentCard.japanese_reading}}</p>
+        <p *ngIf="(!(currentCard.kanji === ''))">{{currentCard.kanji}}</p>
       </div>
       <div *ngIf="revealed || edit">
         <hr class="my-4">
@@ -36,8 +28,8 @@
           <p *ngIf="!edit">{{currentCard.english_word}}</p>
         </div>
         <div *ngIf="currentOrder === CARD_ORDERS.EngJap">
-          <p *ngIf="(showing === SHOW_OPTIONS.Both || showing === SHOW_OPTIONS.Reading)">{{currentCard.japanese_reading}}</p>
-          <p *ngIf="(showing === SHOW_OPTIONS.Both || showing === SHOW_OPTIONS.Kanji)">{{(!currentCard.kanji ? "[No kanji available]" : currentCard.kanji)}}</p>
+          <p *ngIf="(!hideHiragana || currentCard.kanji === '')">{{currentCard.japanese_reading}}</p>
+          <p *ngIf="(!(currentCard.kanji === ''))">{{currentCard.kanji}}</p>
         </div>
       </div>
 
@@ -82,7 +74,7 @@
             </button>
           </div>
 
-          <div *ngIf="currentCardStatus === CARD_STATUS && last_wait_time === 0">
+          <div *ngIf="currentCardStatus === CARD_STATUS.Completed && last_wait_time === 0">
             <button (click)="changeCard(DIFFICULTY.Fail)" class="btn btn-danger mr-1">
               Fail (soon)
             </button>

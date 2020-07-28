@@ -22,7 +22,28 @@ let Deck = new Schema({
   order: {
     type: Number,
     default: cardOrder.JapEng
+  },
+  hide_hiragana: {
+    type: Boolean,
+    default: false
+  },
+  new_studied: {
+    type: Number,
+    default: 0
+  },
+  rep_studied: {
+    type: Number,
+    default: 0
+  },
+  new_max: {
+    type: Number,
+    default: 30
+  },
+  rep_max: {
+    type: Number,
+    default: 100
   }
+  
 });
 
 module.exports = mongoose.model('Deck', Deck);

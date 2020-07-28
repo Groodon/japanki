@@ -1,4 +1,3 @@
-let Card = require('../models/Card');
 let User = require('../models/User');
 const Deck = require('../models/Deck');
 
@@ -84,6 +83,32 @@ Controller.updateDeck = (req, res) => {
       }
     }
   )
+}
+
+Controller.incrementDeck = (req, res) => {
+  Deck.findOneAndUpdate(
+    { _id: req.params.deckId, owner: req.user.sub },
+    { $inc : req.body.data},
+    (error) => {
+      if (error) {
+        res.status(400).send("Unable to update the database");
+      } else {
+        res.status(200).send();
+      }
+    }
+  )
+}
+
+Controller.updateDecks = (req, res) => {
+  Deck.updateMany({ owner: req.user.sub},
+    req.body.data,
+    (error) => {
+      if (error) {
+        res.status(400).send("Unable to update the database");
+      } else {
+        res.status(200).send();
+      }
+    })
 }
 
 module.exports = Controller;

@@ -36,7 +36,7 @@ app.use(bodyParser.urlencoded({encoded: false}));
 
 // api routes
 app.use('/deck', cardRoute);
-app.use('/users', userRoute);
+app.use('/user', userRoute);
 app.use('/deck', deckRoute);
 app.use('/search', searchRoute);
 

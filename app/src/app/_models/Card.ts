@@ -12,4 +12,8 @@ export default class Card {
   comment: string;
   jap_eng_status: number;
   eng_jap_status: number;
+  jap_eng_seen: boolean;
+  eng_jap_seen: boolean;
+  jap_eng_failed: boolean;
+  eng_jap_failed: boolean;
 }

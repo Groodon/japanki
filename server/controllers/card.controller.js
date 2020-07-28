@@ -1,7 +1,6 @@
 // Require Card model in our routes module
 let Card = require('../models/Card');
 let Deck = require('../models/Deck');
-let User = require('../models/User');
 
 const Controller = {};
 
@@ -41,7 +40,10 @@ Controller.updateCard = (req, res) => {
     { $set: { 'cards.$.kanji': req.body.card.kanji, 'cards.$.english_word': req.body.card.english_word, 
       'cards.$.japanese_reading': req.body.card.japanese_reading, 'cards.$.jap_eng_next_study_time': req.body.card.jap_eng_next_study_time,
       'cards.$.eng_jap_next_study_time': req.body.card.eng_jap_next_study_time, 'cards.$.jap_eng_last_wait_time': req.body.card.jap_eng_last_wait_time,
-      'cards.$.eng_jap_last_wait_time': req.body.card.eng_jap_last_wait_time
+      'cards.$.eng_jap_last_wait_time': req.body.card.eng_jap_last_wait_time, 'cards.$.eng_jap_status': req.body.card.eng_jap_status,
+      'cards.$.jap_eng_status': req.body.card.jap_eng_status, 'cards.$.jap_eng_failed': req.body.card.jap_eng_failed,
+      'cards.$.eng_jap_failed': req.body.card.eng_jap_failed, 'cards.$.jap_eng_seen': req.body.card.jap_eng_seen,
+      'cards.$.eng_jap_seen': req.body.card.eng_jap_seen
     } },
     (error) => {
       if (error) {

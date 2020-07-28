@@ -8,6 +8,8 @@ deckRoutes.get('/', jwtAuth, deckController.getDecks);
 deckRoutes.delete('/:deckId', jwtAuth, deckController.removeDeck);
 deckRoutes.get('/:deckId', jwtAuth, deckController.getDeck);
 deckRoutes.put('/:deckId', jwtAuth, deckController.updateDeck);
+deckRoutes.put('/', jwtAuth, deckController.updateDecks);
+deckRoutes.put('/increment/:deckId', jwtAuth, deckController.incrementDeck);
 
 
 module.exports = deckRoutes;

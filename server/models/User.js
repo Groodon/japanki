@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 // Each schema maps to a MongoDB collection and
 // defines the shape of the documents within that collection.
 const Schema = mongoose.Schema;
-let Deck = require('../models/Deck');
 
 // Define collection and schema for User
 let User = new Schema({
@@ -16,7 +15,11 @@ let User = new Schema({
     required: true
   },
   // One-to-many relationship by referencing cards in a deck
-  decks: []
+  decks: [],
+  last_login: {
+    type: String,
+    default: ""
+  }
 },{
   collection: 'users'
 });

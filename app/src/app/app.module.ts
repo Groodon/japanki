@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import { CardService } from './_services/card.service';
@@ -14,6 +17,7 @@ import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 import { SocialLoginModule, AuthServiceConfig  } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
 
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import {ErrorInterceptor} from './_helpers/error.interceptor';
 import {JwtInterceptor} from './_helpers/jwt.interceptors';
 import {APIInterceptor} from './_helpers/api.interceptor';
@@ -73,6 +77,9 @@ export function provideConfig() {
     BrowserAnimationsModule,
     MatButtonModule,
     MatButtonToggleModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
     NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [

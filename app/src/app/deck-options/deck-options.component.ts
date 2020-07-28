@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {DeckService} from "../_services/deck.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CardOrders} from "../_models/app-enums";
-import { FormBuilder, FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import Deck from '../_models/Deck';
 
 @Component({
@@ -11,6 +11,7 @@ import Deck from '../_models/Deck';
   styleUrls: ['./deck-options.component.css']
 })
 export class DeckOptionsComponent implements OnInit {
+
   deckId: string;
   deck: Deck;
   editForm;
@@ -18,11 +19,9 @@ export class DeckOptionsComponent implements OnInit {
 
   constructor(private ds: DeckService, private route: ActivatedRoute, private formBuilder: FormBuilder) {
     this.editForm = this.formBuilder.group({
-      name: '',
-      order: '',
-      both: 0,
-      japeng: 0,
-      engjap: 0
+      name: ['', Validators.required],
+      order: 0,
+      hide_hiragana: false
     })
    }
 
@@ -33,26 +32,19 @@ export class DeckOptionsComponent implements OnInit {
       .getDeck(this.deckId)
       .subscribe((deck: any) => {
         this.editForm.controls['name'].setValue(deck.name);
+        this.editForm.controls['order'].setValue(deck.order);
+        this.editForm.controls['hide_hiragana'].setValue(deck.hide_hiragana);
         this.deck = deck;
-        console.log(this.editForm)
-        console.log(this.deck, this.deck.order, CardOrders.JapEng);
       });
   }
 
-  
-  changeOrder(newOrder) {
-    // if (card.order !== newOrder) {
-    //   card.order = newOrder;
-    //   this.ds.updateDeck(card, this.deckId);
-    // }
-  }
-
-  onSubmit(customerData) {
-    // Process checkout data here
-    //this.items = this.cartService.clearCart();
-    //this.checkoutForm.reset();
-    console.log(this.editForm);
-    console.log('Your order has been submitted', customerData);
+  onSubmit(deckData) {
+    console.log('Your order has been submitted', deckData);
+    this.ds
+      .updateDeck(this.deckId, deckData)
+      .subscribe(() => {
+        console.log("updated")
+      });
   }
 
 }

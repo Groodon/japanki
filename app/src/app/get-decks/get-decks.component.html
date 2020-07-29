@@ -6,9 +6,10 @@
     <a [routerLink]="['/decks/add']"><button class="btn btn-secondary"><i class="fa fa-plus" id="add-button"></i> Create deck</button></a>
   </td>
 </div>
-<div *ngFor="let deck of decks" [attr.id]="deck._id">
-  <hr/>
-  <div class="d-flex">
+<!-- <hr/> -->
+<div *ngFor="let deck of decks" [attr.id]="deck._id" class="deck-list__item">
+  <!-- <hr/> -->
+  <div class="d-flex deck-list">
     <th class="mr-auto p-2"><a [routerLink]="['/study', deck._id]">{{ deck.name }} ({{cards[deck._id] ? cards[deck._id].study_cards : 0}})</a></th>
     <td class="p-2">
       <div class="dropdown">
@@ -25,5 +26,5 @@
     </td>
   </div>
 </div>
-<hr/>
+<!-- <hr/> -->
 <app-confirm-dialog></app-confirm-dialog>

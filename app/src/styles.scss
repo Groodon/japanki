@@ -1,0 +1,146 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/ng2-slim-loading-bar/style.css";
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+body {
+  height: 100%;
+  --japan-red: #C70025;
+  color: rgb(102, 102, 105);
+  /* color: #4e4e50; */
+  background-color: #1a1a1d;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'%3E%3Cpolygon fill='%23c3073f' points='957 450 539 900 1396 900'/%3E%3Cpolygon fill='%23950740' points='957 450 872.9 900 1396 900'/%3E%3Cpolygon fill='%23bb1741' points='-60 900 398 662 816 900'/%3E%3Cpolygon fill='%238d113d' points='337 900 398 662 816 900'/%3E%3Cpolygon fill='%23b42042' points='1203 546 1552 900 876 900'/%3E%3Cpolygon fill='%2386183a' points='1203 546 1552 900 1162 900'/%3E%3Cpolygon fill='%23ac2644' points='641 695 886 900 367 900'/%3E%3Cpolygon fill='%237e1c37' points='587 900 641 695 886 900'/%3E%3Cpolygon fill='%23a42c45' points='1710 900 1401 632 1096 900'/%3E%3Cpolygon fill='%23771f34' points='1710 900 1401 632 1365 900'/%3E%3Cpolygon fill='%239c3046' points='1210 900 971 687 725 900'/%3E%3Cpolygon fill='%236f2232' points='943 900 1210 900 971 687'/%3E%3C/svg%3E");
+  background-attachment: fixed;
+  background-size: cover;
+
+}
+
+.cover-container {
+  background-color: rgba(30,31,35,0.4);
+}
+
+h3, a, hr {
+  color: white;
+}
+
+h1 {
+  color: rgb(219, 211, 208);
+}
+
+h3, a:hover, hr {
+  text-decoration-color: var(--japan-red);
+}
+
+button:focus{ 
+  outline-width: thin;
+  outline-color: rgb(66, 65, 65);
+}
+
+.btn-secondary:hover {
+  background-color: #5ABAB6 !important;
+}
+
+.mat-primary {
+  background-color: #FF6F84 !important;
+}
+
+.deck-list__item {
+  margin-top: 3px;
+  margin-bottom: 3px;
+  border-radius: 2px;
+}
+
+.deck-list__item:nth-of-type(even) {
+  background-color: #9c3046;
+}
+
+.deck-list__item:nth-of-type(odd) {
+  background-color: #6f2232;
+}
+
+// .deck-list__item:nth-of-type(2) {
+//   border-radius: 8px 8px 0px 0px;
+// }
+
+// .deck-list__item:last-of-type {
+//   border-radius: 0px 0px 8px 8px;
+// }
+
+.box {
+  display: inline-block;
+}
+
+.main {
+  height: 100%;
+}
+
+.hero-container {
+  height: 100%;
+}
+
+.hero--align-middle {
+  position: relative;
+  top: 30%;
+}
+
+.hero-header {
+  font-size: 50px;
+}
+
+.lead {
+  font-size: 30px;
+  line-height: 1.2;
+}
+
+.letter, .letter--large {
+  text-align : center;
+  font-size  : 1em;
+  margin     : 0;
+  color      : white;
+  font-weight: 500;
+  line-height: 0.7;
+}
+
+.bounce, .bounce--large {
+  color    : #C70025;
+  /* animation                : bounce 0.3s 2 alternate ease-out, color-change 2s 1 normal; */
+}
+
+.letter {
+  margin-left: -6px;
+}
+
+.letter--large { 
+  margin-left: -10px;
+}
+
+@keyframes bounce {
+  from {
+      transform: translate3d(0, 0, 0);
+  }
+
+  to {
+      transform: translate3d(0, -10px, 0);
+  }
+}
+
+@keyframes color-change {
+  from {
+      color: #ffffff;
+  }
+
+  to {
+      color: #ff0000;
+  }
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.selection {
+  color: #1a1a1d;
+  color: #c3073f;
+  color: #9c3046;
+  color: #950740;
+  color: #6f2232;
+  color: #4e4e50;
+}

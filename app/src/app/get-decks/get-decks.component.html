@@ -6,9 +6,8 @@
     <a [routerLink]="['/decks/add']"><button class="btn btn-secondary"><i class="fa fa-plus" id="add-button"></i> Create deck</button></a>
   </td>
 </div>
-<div *ngFor="let deck of decks" [attr.id]="deck._id">
-  <hr/>
-  <div class="d-flex">
+<div *ngFor="let deck of decks" [attr.id]="deck._id" class="deck-list__item">
+  <div class="d-flex deck-list">
     <th class="mr-auto p-2"><a [routerLink]="['/study', deck._id]">
       {{ deck.name }} ({{cards[deck._id].newCards}}, {{cards[deck._id].failedCards}}, {{cards[deck._id].repCards}})</a></th>
     <td class="p-2">
@@ -27,5 +26,5 @@
     </td>
   </div>
 </div>
-<hr/>
+<!-- <hr/> -->
 <app-confirm-dialog></app-confirm-dialog>

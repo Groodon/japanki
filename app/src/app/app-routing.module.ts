@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AddCardComponent } from './add-card/add-card.component';
+import { DeckOptionsComponent } from './deck-options/deck-options.component'
 import { AuthGuard } from './_guards/auth.guard';
 import {AddDeckComponent} from './add-deck/add-deck.component';
 import {GetDecksComponent} from './get-decks/get-decks.component';
@@ -32,6 +33,11 @@ const routes: Routes = [
   {
     path: 'card/add/:id',
     component: AddCardComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'decks/:id/edit',
+    component: DeckOptionsComponent,
     canActivate: [AuthGuard]
   },
   {

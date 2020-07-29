@@ -31,17 +31,15 @@ export class GetDecksComponent implements OnInit {
   getCardNumbers() {
     let now = moment().startOf('day');
     for (let deck of this.decks) {
+      let studyDecks = this.ds.getSeperateStudyDecks(deck);
+      
       this.cards[deck._id] = deck;
       this.cards[deck._id].total_cards = deck.cards.length;
       this.cards[deck._id].study_cards = 0;
-      for (let card of deck.cards) {
-        if ((deck.order === CardOrders.Both || deck.order === CardOrders.JapEng) && moment(card.jap_eng_next_study_time) <= now) {
-          this.cards[deck._id].study_cards += 1;
-        }
-        if ((deck.order === CardOrders.Both || deck.order === CardOrders.EngJap) && moment(card.eng_jap_next_study_time) <= now) {
-          this.cards[deck._id].study_cards += 1;
-        }
-      }
+      this.cards[deck._id].newCards = studyDecks['newCards'].length;
+      this.cards[deck._id].failedCards = studyDecks['failedCards'].length;
+      this.cards[deck._id].repCards = studyDecks['repCards'].length;
+      console.log("hej", this.cards[deck._id]);
     }
   }
 

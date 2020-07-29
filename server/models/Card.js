@@ -7,13 +7,16 @@ const Schema = mongoose.Schema;
 // Define collection and schema for Card
 let Card = new Schema({
   english_word: {
-    type: String
+    type: String,
+    default: ""
   },
   japanese_reading: {
-    type: String
+    type: String,
+    default: ""
   },
   kanji: {
-    type: String
+    type: String,
+    default: ""
   },
   jap_eng_next_study_time: {
     type: String,
@@ -38,6 +41,22 @@ let Card = new Schema({
   jap_eng_status: {
     type: Number,
     default: 0
+  },
+  jap_eng_failed: {
+    type: Boolean,
+    default: false
+  },
+  eng_jap_failed: {
+    type: Boolean,
+    default: false
+  },
+  jap_eng_seen: {
+    type: Boolean,
+    default: false
+  },
+  eng_jap_seen: {
+    type: Boolean,
+    default: false
   }
 },{
   collection: 'cards'

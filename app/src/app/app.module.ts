@@ -2,6 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonToggleModule } from '@angular/material/button-toggle'
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import { CardService } from './_services/card.service';
@@ -13,6 +17,7 @@ import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 import { SocialLoginModule, AuthServiceConfig  } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
 
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import {ErrorInterceptor} from './_helpers/error.interceptor';
 import {JwtInterceptor} from './_helpers/jwt.interceptors';
 import {APIInterceptor} from './_helpers/api.interceptor';
@@ -27,6 +32,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {CookieService} from 'ngx-cookie-service';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { HomeComponent } from './home/home.component';
+import { DeckOptionsComponent } from './deck-options/deck-options.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
@@ -52,7 +58,8 @@ export function provideConfig() {
     ConfirmDialogComponent,
     StudyCardsComponent,
     HomeComponent,
-    ConfirmationModalComponent
+    ConfirmationModalComponent,
+    DeckOptionsComponent
   ],
   entryComponents: [
     ConfirmationModalComponent
@@ -69,6 +76,10 @@ export function provideConfig() {
     MatDialogModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    MatButtonToggleModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
     NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [

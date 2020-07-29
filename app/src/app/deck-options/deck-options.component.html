@@ -1,0 +1,21 @@
+<!-- RENDER ONLY IF DECK IS NOT UNDEFINED -->
+<div *ngIf="deck !== undefined">
+    <form [formGroup]="editForm" (ngSubmit)="editForm.valid && onSubmit(editForm.value)">
+        <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name">
+            <mat-error *ngIf="editForm.get('name').invalid">
+                Name is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        Decide which language is shown first or if both orders should be included:
+        <mat-button-toggle-group formControlName="order" name="order" aria-label="Font Style">
+            <mat-button-toggle [value]="CardOrders.EngJap">Eng -> Jap</mat-button-toggle>
+            <mat-button-toggle [value]="CardOrders.JapEng">Jap -> Eng</mat-button-toggle>
+            <mat-button-toggle [value]="CardOrders.Both">Both</mat-button-toggle>
+        </mat-button-toggle-group>
+        <mat-checkbox formControlName="hide_hiragana" [checked]="deck.hide_hiragana">Hide the hiragana (if kanji exists)</mat-checkbox>
+        <button class="button" type="submit">Save</button>
+    </form>
+</div>
+

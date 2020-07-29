@@ -7,7 +7,18 @@ import { User } from '../_models';
 export class UserService {
   constructor(private http: HttpClient) { }
 
+  uri = 'user';
+
   getAll() {
-    return this.http.get<User[]>(`${config.apiUrl}/users`);
+    return this.http.get<User[]>(`${this.uri}/users`);
+  }
+
+  getUser() {
+    console.log("user time")
+    return this.http.get<User>(`${this.uri}/`)
+  }
+
+  updateUser(data) {
+    return this.http.put<User>(`${this.uri}/`, data)
   }
 }

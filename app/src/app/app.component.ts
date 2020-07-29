@@ -1,7 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {SlimLoadingBarService} from 'ng2-slim-loading-bar';
 import { AuthenticationService } from './_services';
+import { UserService } from "./_services/user.service";
+import { DeckService } from "./_services/deck.service";
 import { User } from './_models';
+import * as moment from 'moment';
 
 import { NavigationCancel,
   Event,
@@ -32,7 +35,9 @@ export class AppComponent implements OnInit {
     private loadingBar: SlimLoadingBarService,
     private router: Router,
     public authenticationService: AuthenticationService,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private userService: UserService,
+    private deckService: DeckService) {
     this.router.events.subscribe((event: Event) => {
       this.navigationInterceptor(event);
     });
@@ -83,6 +88,22 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.authenticationService.currentUser.subscribe(user => {
+      // When user changed (when starting app and when logging in/out)
+      // Get user info of last_login
+      // last_login is a string with the time
+      if (user !== null) {
+        this.userService.getUser().subscribe(currentUser => {
+          const now = moment().startOf('day');
+          console.log("now", now, "data", moment(currentUser.last_login))
+          if (now > moment(currentUser.last_login)) {
+            console.log("gonna update")
+            this.userService.updateUser({last_login: now.format('YYYY-MM-DD[T]HH:mm:ss').toString()}).subscribe(() => {
+              this.deckService.updateDecks({new_studied: 0, rep_studied: 0}).subscribe(() => console.log("done"));
+            })
+          }
+        })
+      }
+    })
   }
 }

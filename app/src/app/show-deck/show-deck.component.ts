@@ -3,7 +3,6 @@ import {CardService} from "../_services/card.service";
 import Card from "../_models/Card";
 import {DeckService} from "../_services/deck.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {CardOrders} from "../_models/app-enums";
 
 @Component({
   selector: 'app-show-deck',
@@ -13,7 +12,6 @@ import {CardOrders} from "../_models/app-enums";
 export class ShowDeckComponent implements OnInit {
 
   cards: Card[];
-  CardOrders = CardOrders;
   deckId: string;
   newLineHtml(str) {
     return str.replace(/(?:\r\n|\r|\n)/g, '<br>');
@@ -64,11 +62,5 @@ export class ShowDeckComponent implements OnInit {
         });
   }
 
-  changeOrder(card, newOrder) {
-    if (card.order !== newOrder) {
-      card.order = newOrder;
-      this.cs.updateCard(card, this.deckId);
-    }
-  }
 
 }

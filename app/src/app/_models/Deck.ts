@@ -5,4 +5,8 @@ export default class Deck {
   name: string;
   cards: Card[];
   order: number;
+  new_studied: number;
+  rep_studied: number;
+  new_max: number;
+  rep_max: number;
 }

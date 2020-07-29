@@ -35,8 +35,9 @@ export class AuthenticationService {
         if (user && user.token) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           // Store the token in cookie to prevent XSS attacks (run script on the frontend that sends the token to the attacker)
-          this.cookieService.set('currentToken', JSON.stringify((user.token)));
+          this.cookieService.set('currentToken', JSON.stringify((user.token)), 1, '/', null, false, "Lax");
           localStorage.setItem('currentUser', JSON.stringify(user));
+          console.log("token is set", this.cookieService.get('currentToken'));
           // 'next' provides data, sets the value to user
           this.currentUserSubject.next(user);
         }

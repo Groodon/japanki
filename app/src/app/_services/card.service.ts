@@ -32,7 +32,6 @@ export class CardService {
     return this.http.post(`deck/${deckId}/card/`, {card});
   }
 
-  // TODO: error handling
   updateCard(card, deckId) {
     return this
       .http
@@ -128,7 +127,7 @@ export class CardService {
 
   getNewStudyDate(newWaitTime) {
     const now = moment().startOf('day');
-    return now.add(newWaitTime, 'days').toString();
+    return now.add(newWaitTime, 'days').format('YYYY-MM-DD[T]HH:mm:ss').toString();
   }
 
   studiedRepCard(failed, cardStatus) {

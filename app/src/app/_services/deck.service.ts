@@ -164,7 +164,7 @@ export class DeckService {
     return newCards.concat(repCards, failedCards);
   }
 
-  getSeperateStudyDecks(deck: Deck) {
+  getSeperateStudyDecks(deck) {
     let orderCards = this.getOrderCards(deck);
     let completeStudyDeck = {};
     completeStudyDeck['newCards'] = this.getNewCardsToStudy(orderCards, deck.new_studied, deck.new_max);

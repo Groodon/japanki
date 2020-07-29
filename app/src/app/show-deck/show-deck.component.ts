@@ -44,7 +44,7 @@ export class ShowDeckComponent implements OnInit {
       card.english_word = english_word;
       card.japanese_reading = japanese_reading;
       card.kanji = kanji;
-      this.cs.updateCard(card, this.deckId);
+      this.cs.updateCard(card, this.deckId).subscribe();
     }
     card.edit = !card.edit;
   }

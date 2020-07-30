@@ -13,7 +13,6 @@ export class JwtInterceptor implements HttpInterceptor {
     // add authorization header with jwt token if available
     let currentUser = this.authenticationService.currentUserValue;
     let currentToken = JSON.parse(this.cookieService.get('currentToken') || "null");
-
     if (currentUser && currentToken) {
       request = request.clone({
         setHeaders: {

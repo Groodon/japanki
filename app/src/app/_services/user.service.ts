@@ -14,7 +14,6 @@ export class UserService {
   }
 
   getUser() {
-    console.log("user time")
     return this.http.get<User>(`${this.uri}/`)
   }
 

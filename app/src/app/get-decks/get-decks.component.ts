@@ -48,9 +48,10 @@ export class GetDecksComponent implements OnInit {
     const title = 'Delete';
     const cancelButtonText = 'Cancel';
     const acceptButtonText = 'Delete';
+    const confirmIsRed = true;
 
     const dialogRef = this.dialog.open(ConfirmationModalComponent, {
-      data: {text: text, title: title, cancelButtonText: cancelButtonText, acceptButtonText: acceptButtonText}
+      data: {text, title, cancelButtonText, acceptButtonText, confirmIsRed}
     });
 
     dialogRef.afterClosed().subscribe(result => {

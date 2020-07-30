@@ -10,7 +10,7 @@
 
   <span [hidden]="edit">
     <div *ngIf="status === STATUS.Studying"  style="position:absolute; top: 0; left: 0; margin: auto">
-      <mat-checkbox [checked]="true" (change)="hideHiragana = !hideHiragana">Hide the hiragana (if kanji exists)</mat-checkbox>
+      <mat-checkbox [checked]="hideHiragana" (change)="hideHiragana = !hideHiragana">Hide the hiragana (if kanji exists)</mat-checkbox>
   </div>
 
     <div *ngIf="status === STATUS.Studying">

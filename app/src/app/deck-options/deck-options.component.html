@@ -1,20 +1,47 @@
-<!-- RENDER ONLY IF DECK IS NOT UNDEFINED -->
+<button (click)="router.navigate(['/decks/all'])" class="btn btn-secondary mt-1 mr-1 mb-2 btn-sm">
+    < Back to decks
+</button>
 <div *ngIf="deck !== undefined">
-    <form [formGroup]="editForm" (ngSubmit)="editForm.valid && onSubmit(editForm.value)">
-        <mat-form-field>
-            <mat-label>Name</mat-label>
-            <input matInput formControlName="name">
-            <mat-error *ngIf="editForm.get('name').invalid">
-                Name is <strong>required</strong>
-            </mat-error>
-        </mat-form-field>
-        Decide which language is shown first or if both orders should be included:
-        <mat-button-toggle-group formControlName="order" name="order" aria-label="Font Style">
-            <mat-button-toggle [value]="CardOrders.EngJap">Eng -> Jap</mat-button-toggle>
-            <mat-button-toggle [value]="CardOrders.JapEng">Jap -> Eng</mat-button-toggle>
-            <mat-button-toggle [value]="CardOrders.Both">Both</mat-button-toggle>
-        </mat-button-toggle-group>
-        <mat-checkbox formControlName="hide_hiragana" [checked]="deck.hide_hiragana">Hide the hiragana (if kanji exists)</mat-checkbox>
+    <form [formGroup]="editForm" (ngSubmit)="editForm.valid && showDialog(editForm.value)">
+        <div>
+            <mat-form-field>
+                <mat-label>Deck name</mat-label>
+                <input type="text" matInput formControlName="name">
+                <mat-error *ngIf="editForm.get('name').invalid">
+                    Name is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Repetition cards per day</mat-label>
+                <input type="number" matInput formControlName="rep_max">
+                <mat-error *ngIf="editForm.get('rep_max').invalid">
+                    Number is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>New cards per day</mat-label>
+                <input type="number" matInput formControlName="new_max">
+                <mat-error *ngIf="editForm.get('new_max').invalid">
+                    Number is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <p>
+                Card order:
+                <mat-button-toggle-group formControlName="order" name="order" aria-label="Font Style">
+                    <mat-button-toggle [value]="CardOrders.EngJap">Eng -> Jap</mat-button-toggle>
+                    <mat-button-toggle [value]="CardOrders.JapEng">Jap -> Eng</mat-button-toggle>
+                    <mat-button-toggle [value]="CardOrders.Both">Both</mat-button-toggle>
+                </mat-button-toggle-group>
+            </p>
+        </div>
+        
+        
+        <div>
+            <mat-checkbox formControlName="hide_hiragana" [checked]="deck.hide_hiragana">Hide the hiragana (if kanji exists)</mat-checkbox>
+        </div>
+        
         <button class="button" type="submit">Save</button>
     </form>
 </div>

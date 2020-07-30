@@ -4,6 +4,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {CardOrders} from "../_models/app-enums";
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import Deck from '../_models/Deck';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
 
 @Component({
   selector: 'app-deck-options',
@@ -17,9 +19,11 @@ export class DeckOptionsComponent implements OnInit {
   editForm;
   CardOrders = CardOrders;
 
-  constructor(private ds: DeckService, private route: ActivatedRoute, private formBuilder: FormBuilder) {
+  constructor(private ds: DeckService, private route: ActivatedRoute, private formBuilder: FormBuilder, public dialog: MatDialog, public router: Router) {
     this.editForm = this.formBuilder.group({
       name: ['', Validators.required],
+      new_max: [0, Validators.required],
+      rep_max: [0, Validators.required],
       order: 0,
       hide_hiragana: false
     })
@@ -32,10 +36,30 @@ export class DeckOptionsComponent implements OnInit {
       .getDeck(this.deckId)
       .subscribe((deck: any) => {
         this.editForm.controls['name'].setValue(deck.name);
+        this.editForm.controls['new_max'].setValue(deck.new_max);
+        this.editForm.controls['rep_max'].setValue(deck.rep_max);
         this.editForm.controls['order'].setValue(deck.order);
         this.editForm.controls['hide_hiragana'].setValue(deck.hide_hiragana);
         this.deck = deck;
       });
+  }
+
+  showDialog(deckData) {
+    const text = `Are you sure you want to update the deck ${this.deck.name}?`
+    const title = 'Update';
+    const cancelButtonText = 'Cancel';
+    const acceptButtonText = 'Update';
+    const confirmIsRed = false;
+
+    const dialogRef = this.dialog.open(ConfirmationModalComponent, {
+      data: {text, title, cancelButtonText, acceptButtonText, confirmIsRed}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.onSubmit(deckData);
+      }
+    });
   }
 
   onSubmit(deckData) {

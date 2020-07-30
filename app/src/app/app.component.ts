@@ -5,6 +5,7 @@ import { UserService } from "./_services/user.service";
 import { DeckService } from "./_services/deck.service";
 import { User } from './_models';
 import * as moment from 'moment';
+import { CookieService } from 'ngx-cookie-service';
 
 import { NavigationCancel,
   Event,
@@ -37,7 +38,8 @@ export class AppComponent implements OnInit {
     public authenticationService: AuthenticationService,
     private authService: AuthService,
     private userService: UserService,
-    private deckService: DeckService) {
+    private deckService: DeckService, 
+    private cookieService: CookieService) {
     this.router.events.subscribe((event: Event) => {
       this.navigationInterceptor(event);
     });

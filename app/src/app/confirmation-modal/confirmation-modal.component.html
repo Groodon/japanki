@@ -3,6 +3,6 @@
   {{data.text}}
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-raised-button color="primary" mat-dialog-close>{{data.cancelButtonText}}</button>
-  <button mat-raised-button color="warn" [mat-dialog-close]="true" cdkFocusInitial>{{data.acceptButtonText}}</button>
+  <button mat-raised-button color="{{data.confirmIsRed ? 'primary' : 'warn'}}" mat-dialog-close>{{data.cancelButtonText}}</button>
+  <button mat-raised-button color="{{data.confirmIsRed ? 'warn' : 'primary'}}" [mat-dialog-close]="true" cdkFocusInitial>{{data.acceptButtonText}}</button>
 </mat-dialog-actions>

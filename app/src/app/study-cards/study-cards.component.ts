@@ -59,6 +59,7 @@ export class StudyCardsComponent implements OnInit {
       .subscribe((deck: any) => {
         this.deck = deck;
         this.hideHiragana = deck.hide_hiragana;
+        console.log("hide", deck.hide_hiragana)
         this.createStudyDeck(deck);
         console.log(deck);
       });
@@ -111,16 +112,10 @@ export class StudyCardsComponent implements OnInit {
   }
 
   updateCard(english_word, japanese_reading, kanji) {
-    // TODO: this does not work properly
-    let newCard = {};
-    newCard['_id'] = this.currentCard._id;
-    newCard['english_word'] = english_word;
-    newCard['japanese_reading'] = japanese_reading;
-    newCard['kanji'] = kanji;
     this.currentCard.english_word = english_word;
     this.currentCard.japanese_reading = japanese_reading;
     this.currentCard.kanji = kanji;
-    this.cs.updateCard(newCard, this.deckId);
+    this.cs.updateCard(this.currentCard, this.deckId).subscribe();
     this.edit = !this.edit;
   }
 

@@ -45,6 +45,7 @@
     "igniteui-angular": "^8.2.31",
     "jquery": "^3.5.1",
     "jsonwebtoken": "^8.5.1",
+    "material-design-icons": "^3.0.1",
     "moment": "^2.27.0",
     "mongoose": "^5.9.25",
     "ng-multiselect-dropdown": "^0.2.10",

@@ -3,16 +3,52 @@
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+:root {
+  --main-bg-color: #1a1a1d;
+  --secondary-bg-color: #333;
+  --japan-red: #C70025;
+  --main-gray: #4e4e50;
+  --gray-variance: rgb(102, 102, 105);
+  --primary-color: #c3073f;
+  --primary-accent: #9c3046;
+  --secondary-color: #950740;
+  --secondary-accent: #6f2232;
+
+  --pyramid-main-1: #c3073f;
+  --pyramid-accent-1: #950740;
+  --pyramid-main-2: #bb1741;
+  --pyramid-accent-2: #8d113d;
+  --pyramid-main-3: #b42042;
+  --pyramid-accent-3: #86183a;
+  --pyramid-main-4: #ac2644;
+  --pyramid-accent-4: #7e1c37;
+  --pyramid-main-5: #a42c45;
+  --pyramid-accent-5: #771f34;
+  --pyramid-main-6: #9c3046;
+  --pyramid-accent-6: #6f2232;
+
+  --primary-button: #FF6F84;
+  --secondary-button:#4C394C;
+  --cancel-button: red;
+  --accept-button: #5ABAB6;
+  --limbo-button: #FBB364;
+}
+
 body {
   height: 100%;
-  --japan-red: #C70025;
   color: rgb(102, 102, 105);
-  /* color: #4e4e50; */
   background-color: #1a1a1d;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'%3E%3Cpolygon fill='%23c3073f' points='957 450 539 900 1396 900'/%3E%3Cpolygon fill='%23950740' points='957 450 872.9 900 1396 900'/%3E%3Cpolygon fill='%23bb1741' points='-60 900 398 662 816 900'/%3E%3Cpolygon fill='%238d113d' points='337 900 398 662 816 900'/%3E%3Cpolygon fill='%23b42042' points='1203 546 1552 900 876 900'/%3E%3Cpolygon fill='%2386183a' points='1203 546 1552 900 1162 900'/%3E%3Cpolygon fill='%23ac2644' points='641 695 886 900 367 900'/%3E%3Cpolygon fill='%237e1c37' points='587 900 641 695 886 900'/%3E%3Cpolygon fill='%23a42c45' points='1710 900 1401 632 1096 900'/%3E%3Cpolygon fill='%23771f34' points='1710 900 1401 632 1365 900'/%3E%3Cpolygon fill='%239c3046' points='1210 900 971 687 725 900'/%3E%3Cpolygon fill='%236f2232' points='943 900 1210 900 971 687'/%3E%3C/svg%3E");
-  background-attachment: fixed;
-  background-size: cover;
+  // background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'%3E%3Cpolygon fill='%23c3073f' points='957 450 539 900 1396 900'/%3E%3Cpolygon fill='%23950740' points='957 450 872.9 900 1396 900'/%3E%3Cpolygon fill='%23bb1741' points='-60 900 398 662 816 900'/%3E%3Cpolygon fill='%238d113d' points='337 900 398 662 816 900'/%3E%3Cpolygon fill='%23b42042' points='1203 546 1552 900 876 900'/%3E%3Cpolygon fill='%2386183a' points='1203 546 1552 900 1162 900'/%3E%3Cpolygon fill='%23ac2644' points='641 695 886 900 367 900'/%3E%3Cpolygon fill='%237e1c37' points='587 900 641 695 886 900'/%3E%3Cpolygon fill='%23a42c45' points='1710 900 1401 632 1096 900'/%3E%3Cpolygon fill='%23771f34' points='1710 900 1401 632 1365 900'/%3E%3Cpolygon fill='%239c3046' points='1210 900 971 687 725 900'/%3E%3Cpolygon fill='%236f2232' points='943 900 1210 900 971 687'/%3E%3C/svg%3E");
+  // background-attachment: fixed;
+  // background-size: cover;
+}
 
+.background--svg {
+  bottom: 0;
+  position: fixed;
+  min-width: 1550px;
+  max-height: 920px;
+  z-index: -1;
 }
 
 .cover-container {
@@ -27,21 +63,68 @@ h1 {
   color: rgb(219, 211, 208);
 }
 
-h3, a:hover, hr {
+h3, #brand:hover, hr {
   text-decoration-color: var(--japan-red);
+}
+
+a {
+  color: #fff;
+  font-weight: 400;
+}
+
+th {
+  align-self: center;
+}
+
+.failed-card {
+  color: var(--cancel-button);
+}
+
+.new-card {
+  color: var(--accept-button);
+}
+
+.rep-card {
+  color: var(--limbo-button);
+}
+
+.card {
+  background-color: var(--secondary-bg-color);
+  color: #fff;
+}
+
+a:hover {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
 }
 
 button:focus{ 
   outline-width: thin;
-  outline-color: rgb(66, 65, 65);
+  // outline-color: rgb(66, 65, 65);
+  outline-color: #fff;
 }
 
-.btn-secondary:hover {
-  background-color: #5ABAB6 !important;
-}
+// .btn-secondary:hover {
+//   background-color: var(--accept-button) !important;
+// }
 
 .mat-primary {
-  background-color: #FF6F84 !important;
+  background-color: var(--limbo-button) !important;
+  color: var(--secondary-bg-color) !important;
+}
+
+.mat-accent {
+  background-color: var(--primary-button) !important;
+}
+
+.mat-warn {
+  background-color: var(--cancel-button) !important;
+}
+
+.mat-raised-button:hover {
+  color: #fff !important;
+  background-color: var(--secondary-bg-color) !important;
 }
 
 .deck-list__item {
@@ -51,20 +134,12 @@ button:focus{
 }
 
 .deck-list__item:nth-of-type(even) {
-  background-color: #9c3046;
+  background-color: var(--primary-accent);
 }
 
 .deck-list__item:nth-of-type(odd) {
-  background-color: #6f2232;
+  background-color: var(--secondary-accent);
 }
-
-// .deck-list__item:nth-of-type(2) {
-//   border-radius: 8px 8px 0px 0px;
-// }
-
-// .deck-list__item:last-of-type {
-//   border-radius: 0px 0px 8px 8px;
-// }
 
 .box {
   display: inline-block;
@@ -135,12 +210,3 @@ button:focus{
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-.selection {
-  color: #1a1a1d;
-  color: #c3073f;
-  color: #9c3046;
-  color: #950740;
-  color: #6f2232;
-  color: #4e4e50;
-}

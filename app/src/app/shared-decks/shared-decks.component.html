@@ -1,0 +1,22 @@
+<div class="d-flex">
+    <th class="mr-auto p-2">
+      <h3>Shared Decks</h3>
+    </th>
+  </div>
+  <div *ngFor="let deck of sharedDecks" [attr.id]="deck._id" class="deck-list__item">
+    <div class="d-flex deck-list">
+        <th class="mr-auto p-2">
+            <a [routerLink]="['/decks/show', deck.deck_id]">
+                {{ deck.name }}
+            </a>
+        </th>
+        <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon" (click)="showSaveDialog(deck.deck_id)">
+          <mat-icon>
+            save_alt
+          </mat-icon>
+        </button>
+    </div>
+  </div>
+  <!-- <hr/> -->
+  <app-confirm-dialog></app-confirm-dialog>
+  

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Deck from '../_models/Deck'
 import {DeckService} from "../_services/deck.service";
+import { SharedDeckService } from "../_services/shared-deck.service";
 import {ConfirmDialogService} from "../confirm-dialog/confirm-dialog.service";
 import * as moment from 'moment';
 import {CardOrders} from "../_models/app-enums";
@@ -17,7 +18,7 @@ export class GetDecksComponent implements OnInit {
   decks: Deck[];
   cards: Object = {};
 
-  constructor(private ds: DeckService, private confirmDialogService: ConfirmDialogService, public dialog: MatDialog) { }
+  constructor(private ds: DeckService, public dialog: MatDialog, private sds: SharedDeckService) { }
 
   ngOnInit() {
     this.ds
@@ -39,11 +40,10 @@ export class GetDecksComponent implements OnInit {
       this.cards[deck._id].newCards = studyDecks['newCards'].length;
       this.cards[deck._id].failedCards = studyDecks['failedCards'].length;
       this.cards[deck._id].repCards = studyDecks['repCards'].length;
-      console.log("hej", this.cards[deck._id]);
     }
   }
 
-  showDialog(id: string) {
+  showDeleteDialog(id: string) {
     const text = `Are you sure you want to delete the deck ${this.decks.find(deck => deck._id === id).name}?`
     const title = 'Delete';
     const cancelButtonText = 'Cancel';
@@ -61,13 +61,41 @@ export class GetDecksComponent implements OnInit {
     });
   }
 
+  showShareDialog(id: string) {
+    const text = `Are you sure you want to share the deck ${this.decks.find(deck => deck._id === id).name}?`
+    const title = 'Share';
+    const cancelButtonText = 'Cancel';
+    const acceptButtonText = 'Share';
+    const confirmIsRed = false;
+
+    const dialogRef = this.dialog.open(ConfirmationModalComponent, {
+      data: {text, title, cancelButtonText, acceptButtonText, confirmIsRed}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.shareDeck(id);
+      }
+    });
+  }
+
+  shareDeck(deckId: string) {
+    console.log(deckId);
+    this.sds.addSharedDeck(deckId).subscribe(() => {
+
+    },
+      error => {
+        console.log(error);
+    });
+  }
+
   deleteDeck(id: string) {
     this.ds.deleteDeck(id).subscribe(() => {
       this.deleteRow(id);
     },
       error => {
         console.log(error);
-      });
+    });
   }
 
   deleteRow(id: string) {

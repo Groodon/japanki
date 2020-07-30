@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
 
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
@@ -36,6 +37,8 @@ import { DeckOptionsComponent } from './deck-options/deck-options.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
+import { SharedDecksComponent } from './shared-decks/shared-decks.component';
+import { UserSharedDecksComponent } from './user-shared-decks/user-shared-decks.component';
 
 const config = new AuthServiceConfig([
   {
@@ -59,7 +62,9 @@ export function provideConfig() {
     StudyCardsComponent,
     HomeComponent,
     ConfirmationModalComponent,
-    DeckOptionsComponent
+    DeckOptionsComponent,
+    SharedDecksComponent,
+    UserSharedDecksComponent
   ],
   entryComponents: [
     ConfirmationModalComponent
@@ -80,6 +85,7 @@ export function provideConfig() {
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
+    MatIconModule,
     NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [

@@ -22,6 +22,12 @@
         <a *ngIf="authenticationService.isLoggedIn" routerLink="decks/all" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
           My decks
         </a>
+        <a *ngIf="authenticationService.isLoggedIn" routerLink="shared/user" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          My shared decks
+        </a>
+        <a *ngIf="authenticationService.isLoggedIn" routerLink="shared" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          Shared decks
+        </a>
         <a *ngIf="authenticationService.isLoggedIn" class="nav-link" href="#" (click)="logout()">Logout</a>
         <a *ngIf="!authenticationService.isLoggedIn" class="nav-link" href="#" (click)="signInWithGoogle()">
           <input type="image" id="myimage" src="../assets/google_signin_buttons/web/1x/btn_google_signin_light_normal_web.png" />

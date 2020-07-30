@@ -1,12 +1,12 @@
-<button (click)="router.navigate(['/decks/all'])" class="btn btn-primary mr-1 mb-2 btn-sm">
+<button (click)="router.navigate(['/decks/all'])" class="btn btn-secondary mr-1 mb-2 btn-sm">
   < Back to decks
 </button>
-<a [routerLink]="['/study', deckId]" class="btn btn-info btn-sm mr-1 mb-2">
-  Study
-</a>
-<button (click)="router.navigate(['/card/add/' + deckId])" class="btn btn-success mr-1 mb-2 btn-sm">
-  Add card
+<button *ngIf="deck && !deck.shared" (click)="router.navigate(['/card/add/' + deckId])" class="btn btn-success mr-1 mb-2 btn-sm float-right">
+  <i class="fa fa-fw fa-plus"></i> Add card
 </button>
+<a *ngIf="deck && !deck.shared" [routerLink]="['/study', deckId]" class="btn btn-info btn-sm mr-1 mb-2 float-right">
+  <i class="fa fa-book fa-fw"></i> Study
+</a>
 
 <table class="table table-hover" style="width: 100%; table-layout: fixed; word-wrap: break-word;">
   <thead>

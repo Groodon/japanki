@@ -39,6 +39,12 @@
   --limbo: #FBB364;
 }
 
+@media (min-width: 992px) {
+  .main {
+    margin-top: 300px;
+  }
+}
+
 body {
   height: 100%;
   color: var(--headline-text);
@@ -64,6 +70,11 @@ body {
 
 .cover-container {
   background-color: var(--transparent-background);
+  min-height: 100%;
+}
+
+.mat-tab-body-content {
+  overflow: hidden !important;
 }
 
 .jumbotron {
@@ -103,9 +114,14 @@ h3, #brand:hover, hr {
   text-decoration-color: var(--japan-red);
 }
 
-a {
+a, .mat-slide-toggle-content {
   color: var(--link-color);
   font-weight: 400;
+}
+
+.action-button {
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
 }
 
 th {
@@ -113,15 +129,15 @@ th {
 }
 
 .failed-card {
-  color: var(--cancel-button);
+  color: var(--cancel);
 }
 
 .new-card {
-  color: var(--accept-button);
+  color: var(--accept);
 }
 
 .rep-card {
-  color: var(--limbo-button);
+  color: var(--limbo);
 }
 
 .card {
@@ -129,16 +145,15 @@ th {
   color: var(--paragraph-text);
 }
 
-a:hover {
-  color: var(--link-color);
+.deck-list__item a:hover {
   font-weight: 600;
   text-decoration: none;
 }
 
-button:focus{ 
-  outline-width: thin;
-  outline-color: #fff;
-}
+// button:focus{ 
+//   outline-width: thin;
+//   outline-color: red;
+// }
 
 .mat-raised-button.mat-primary {
   background-color: var(--limbo) !important;
@@ -158,14 +173,35 @@ button:focus{
   background-color: var(--secondary-bg-color) !important;
 }
 
+.deck-list {
+  height: 100%;
+}
+
+.mat-tab-body.mat-tab-body-active {
+  min-height: 300px;
+}
+
 .deck-list__item {
   margin-top: 3px;
   margin-bottom: 3px;
   border-radius: 2px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.mat-tab-header, .mat-tab-nav-bar {
+  border-bottom: 0px solid black !important;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .deck-list__item:nth-of-type(even) {
   background-color: var(--primary-accent);
+}
+
+.mat-mini-fab.mat-button-base {
+  margin-top: 4px !important;
+  margin-bottom: 4px !important;
 }
 
 .deck-list__item:nth-of-type(odd) {
@@ -193,6 +229,10 @@ button:focus{
   font-size: 50px;
 }
 
+.japanki-logo {
+  white-space: nowrap;
+}
+
 .lead {
   font-size: 30px;
   line-height: 1.2;
@@ -202,7 +242,6 @@ button:focus{
   text-align : center;
   font-size  : 1em;
   margin     : 0;
-  color      : white;
   font-weight: 500;
   line-height: 0.7;
 }
@@ -217,6 +256,14 @@ button:focus{
 
 .letter--large { 
   margin-left: -10px;
+}
+
+.letter-l--large {
+  color: var(--h1);
+}
+
+.letter-l {
+  color: var(--link-color);
 }
 
 @keyframes bounce {

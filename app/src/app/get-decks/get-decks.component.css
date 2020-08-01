@@ -13,10 +13,10 @@
   cursor: pointer;
 }
 
-i {
+/* i {
   background: white;
   color: black;
-}
+} */
 
 
 
@@ -29,7 +29,6 @@ i {
   background: none;
   color:white;
 }
-
 
 hr {
   display: block;

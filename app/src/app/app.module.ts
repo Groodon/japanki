@@ -5,8 +5,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+<<<<<<< HEAD
 import {MatIconModule} from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
+=======
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+>>>>>>> origin/css-stuff
 
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
@@ -88,6 +93,8 @@ export function provideConfig() {
     MatCheckboxModule,
     MatIconModule,
     MatTabsModule,
+    MatTooltipModule,
+    MatSlideToggleModule,
     NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [

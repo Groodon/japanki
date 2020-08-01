@@ -1,3 +1,4 @@
+import { ThemeService } from './_services/theme.service';
 import {Component, OnInit} from '@angular/core';
 import {SlimLoadingBarService} from 'ng2-slim-loading-bar';
 import { AuthenticationService } from './_services';
@@ -30,7 +31,7 @@ export class AppComponent implements OnInit {
   returnUrl: string;
   error: string;
   loading: boolean;
-
+  darkMode: boolean = true;
 
   constructor(
     private loadingBar: SlimLoadingBarService,
@@ -38,7 +39,8 @@ export class AppComponent implements OnInit {
     public authenticationService: AuthenticationService,
     private authService: AuthService,
     private userService: UserService,
-    private deckService: DeckService, 
+    private deckService: DeckService,
+    private themeService: ThemeService, 
     private cookieService: CookieService) {
     this.router.events.subscribe((event: Event) => {
       this.navigationInterceptor(event);
@@ -89,7 +91,33 @@ export class AppComponent implements OnInit {
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
+  changeTheme() {
+    if (this.darkMode) {
+      this.setThemeCookie("1");
+      this.themeService.setDarkTheme();
+    } else {
+      this.setThemeCookie("0");
+      this.themeService.setLightTheme();
+    }
+  }
+
+  setThemeCookie(cookie: string) {
+    this.cookieService.set('darkMode', cookie, 1, '/', null, false, "Lax");
+  }
+
+  setThemeForUser() {
+    const darkMode = this.cookieService.get('darkMode');
+    if (darkMode == "1") {
+      this.darkMode = true;
+      this.themeService.setDarkTheme();
+    } else {
+      this.darkMode = false;
+      this.themeService.setLightTheme();
+    }
+  }
+
   ngOnInit() {
+    this.setThemeForUser();
     this.authenticationService.currentUser.subscribe(user => {
       // When user changed (when starting app and when logging in/out)
       // Get user info of last_login

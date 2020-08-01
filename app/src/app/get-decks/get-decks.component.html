@@ -3,19 +3,20 @@
     <h3>Decks</h3>
   </th>
   <td class="p-2">
-    <a [routerLink]="['/decks/add']"><button class="btn btn-secondary"><i class="fa fa-plus" id="add-button"></i> Create deck</button></a>
+    <a [routerLink]="['/decks/add']"><button mat-raised-button color="primary"><i class="material-icons">add_circle</i> Create deck</button></a>
   </td>
 </div>
 <div *ngFor="let deck of decks" [attr.id]="deck._id" class="deck-list__item">
   <div class="d-flex deck-list">
     <th class="mr-auto p-2">
-      <a [routerLink]="['/study', deck._id]">
-      {{ deck.name }} ({{cards[deck._id].newCards}}, {{cards[deck._id].failedCards}}, {{cards[deck._id].repCards}})
+      <a matTooltip="( new cards, failed cards, repetition cards )"
+      matTooltipClass="card-tooltips" matTooltipPosition="right" [routerLink]="['/study', deck._id]">
+        {{ deck.name }} (<span class="new-card">{{cards[deck._id].newCards}}</span>, <span class="failed-card">{{cards[deck._id].failedCards}}</span>, <span class="rep-card">{{cards[deck._id].repCards}}</span>)
       </a>
     </th>
     <td class="p-2">
       <div class="dropdown">
-        <button class="btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button mat-raised-button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Actions
         </button>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">

@@ -16,6 +16,7 @@
       
       </h3>
       <nav class="nav nav-masthead justify-content-center float-md-right">
+        <mat-slide-toggle labelPosition="before" class="nav__toggle" (change)="changeTheme()" [(ngModel)]="darkMode">Dark mode</mat-slide-toggle>
         <a *ngIf="authenticationService.isLoggedIn" routerLink="/" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
           Home
         </a>

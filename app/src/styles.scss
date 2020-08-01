@@ -13,6 +13,11 @@
   --primary-accent: #9c3046;
   --secondary-color: #950740;
   --secondary-accent: #6f2232;
+  --paragraph-text: #fff;
+  --headline-text: rgb(102, 102, 105);
+  --transparent-background: rgba(30,31,35,0.4);
+  --link-color: #fff;
+  --h1: rgb(219, 211, 208);
 
   --pyramid-main-1: #c3073f;
   --pyramid-accent-1: #950740;
@@ -27,20 +32,22 @@
   --pyramid-main-6: #9c3046;
   --pyramid-accent-6: #6f2232;
 
-  --primary-button: #FF6F84;
-  --secondary-button:#4C394C;
-  --cancel-button: red;
-  --accept-button: #5ABAB6;
-  --limbo-button: #FBB364;
+  --primary: #FF6F84;
+  --secondary:#4C394C;
+  --cancel: red;
+  --accept: #5ABAB6;
+  --limbo: #FBB364;
 }
 
 body {
   height: 100%;
-  color: rgb(102, 102, 105);
-  background-color: #1a1a1d;
-  // background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'%3E%3Cpolygon fill='%23c3073f' points='957 450 539 900 1396 900'/%3E%3Cpolygon fill='%23950740' points='957 450 872.9 900 1396 900'/%3E%3Cpolygon fill='%23bb1741' points='-60 900 398 662 816 900'/%3E%3Cpolygon fill='%238d113d' points='337 900 398 662 816 900'/%3E%3Cpolygon fill='%23b42042' points='1203 546 1552 900 876 900'/%3E%3Cpolygon fill='%2386183a' points='1203 546 1552 900 1162 900'/%3E%3Cpolygon fill='%23ac2644' points='641 695 886 900 367 900'/%3E%3Cpolygon fill='%237e1c37' points='587 900 641 695 886 900'/%3E%3Cpolygon fill='%23a42c45' points='1710 900 1401 632 1096 900'/%3E%3Cpolygon fill='%23771f34' points='1710 900 1401 632 1365 900'/%3E%3Cpolygon fill='%239c3046' points='1210 900 971 687 725 900'/%3E%3Cpolygon fill='%236f2232' points='943 900 1210 900 971 687'/%3E%3C/svg%3E");
-  // background-attachment: fixed;
-  // background-size: cover;
+  color: var(--headline-text);
+  background-color: var(--main-bg-color);
+}
+
+.nav__toggle {
+  margin-top: 3px;
+  margin-right: 10px;
 }
 
 .background--svg {
@@ -52,15 +59,15 @@ body {
 }
 
 .cover-container {
-  background-color: rgba(30,31,35,0.4);
+  background-color: var(--transparent-background);
 }
 
 h3, a, hr {
-  color: white;
+  color: var(--link-color);
 }
 
 h1 {
-  color: rgb(219, 211, 208);
+  color: var(--h1);
 }
 
 h3, #brand:hover, hr {
@@ -68,7 +75,7 @@ h3, #brand:hover, hr {
 }
 
 a {
-  color: #fff;
+  color: var(--link-color);
   font-weight: 400;
 }
 
@@ -90,36 +97,31 @@ th {
 
 .card {
   background-color: var(--secondary-bg-color);
-  color: #fff;
+  color: var(--text-color);
 }
 
 a:hover {
-  color: #fff;
+  color: var(--link-color);
   font-weight: 600;
   text-decoration: none;
 }
 
 button:focus{ 
   outline-width: thin;
-  // outline-color: rgb(66, 65, 65);
   outline-color: #fff;
 }
 
-// .btn-secondary:hover {
-//   background-color: var(--accept-button) !important;
-// }
-
-.mat-primary {
-  background-color: var(--limbo-button) !important;
+.mat-raised-button.mat-primary {
+  background-color: var(--limbo) !important;
   color: var(--secondary-bg-color) !important;
 }
 
-.mat-accent {
-  background-color: var(--primary-button) !important;
+.mat-raised-button.mat-accent {
+  background-color: var(--primary) !important;
 }
 
-.mat-warn {
-  background-color: var(--cancel-button) !important;
+.mat-raised-button.mat-warn {
+  background-color: var(--cancel) !important;
 }
 
 .mat-raised-button:hover {
@@ -177,8 +179,7 @@ button:focus{
 }
 
 .bounce, .bounce--large {
-  color    : #C70025;
-  /* animation                : bounce 0.3s 2 alternate ease-out, color-change 2s 1 normal; */
+  color    : var(--japan-red);
 }
 
 .letter {
@@ -205,7 +206,7 @@ button:focus{
   }
 
   to {
-      color: #ff0000;
+      color: var(--japan-red);
   }
 }
 html, body { height: 100%; }

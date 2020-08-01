@@ -1,4 +1,4 @@
-<button (click)="goBack()" class="btn btn-secondary mr-1 mb-2 btn-sm">
+<button *ngIf="deck" (click)="goBack()" class="btn btn-secondary mr-1 mb-2 btn-sm">
   < Back to decks
 </button>
 <button *ngIf="deck && !deck.shared" (click)="router.navigate(['/card/add/' + deckId])" class="btn btn-success mr-1 mb-2 btn-sm float-right">
@@ -14,7 +14,7 @@
     <td>English</td>
     <td>Japanese reading</td>
     <td>Kanji</td>
-    <td>Actions</td>
+    <td *ngIf="isOwner">Actions</td>
   </tr>
   </thead>
 
@@ -34,7 +34,7 @@
       <div [hidden]="card.edit">{{ card.kanji }}</div>
       <input [hidden]="!card.edit" [value]="(card.kanji ? card.kanji : '')" #kanji/>
     </td>
-    <td>
+    <td *ngIf="isOwner">
       <a (click)="updateCard(card, english_word.value, japanese_reading.value, kanji.value)" class="btn btn-info btn-sm mr-1">
         {{card.edit ? "Save" : "Edit"}}
       </a>

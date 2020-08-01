@@ -9,7 +9,7 @@
 <div *ngFor="let deck of decks" [attr.id]="deck._id" class="deck-list__item">
   <div class="d-flex deck-list">
     <th class="mr-auto p-2">
-      <a matTooltip="( new cards, failed cards, repetition cards )"
+      <a matTooltip="( New, Studying, Review )"
       matTooltipClass="card-tooltips" matTooltipPosition="right" [routerLink]="['/study', deck._id]">
         {{ deck.name }} (<span class="new-card">{{cards[deck._id].newCards}}</span>, <span class="failed-card">{{cards[deck._id].failedCards}}</span>, <span class="rep-card">{{cards[deck._id].repCards}}</span>)
       </a>
@@ -32,4 +32,5 @@
   </div>
 </div>
 <!-- <hr/> -->
+
 <app-confirm-dialog></app-confirm-dialog>

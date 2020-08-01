@@ -58,8 +58,37 @@ body {
   z-index: -1;
 }
 
+.mat-tab-label-content {
+  color: var(--link-color);
+}
+
 .cover-container {
   background-color: var(--transparent-background);
+}
+
+.jumbotron {
+  color: var(--paragraph-text);
+}
+
+.mat-form-field-label{
+  color: var(--paragraph-text) !important;
+}
+
+.mat-form-field {
+  color: var(--paragraph-text) !important;
+}
+
+// HEY EMIL DID I DO A BOBBO HERE?
+.ng-star-inserted {
+  color: var(--paragraph-text) !important;
+}
+
+.mat-form-field-underline{
+  background-color: var(--paragraph-text) !important;
+}
+
+.table {
+  color: var(--paragraph-text);
 }
 
 h3, a, hr {
@@ -97,7 +126,7 @@ th {
 
 .card {
   background-color: var(--secondary-bg-color);
-  color: var(--text-color);
+  color: var(--paragraph-text);
 }
 
 a:hover {

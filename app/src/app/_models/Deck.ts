@@ -10,4 +10,5 @@ export default class Deck {
   new_max: number;
   rep_max: number;
   shared: boolean;
+  owner: string;
 }

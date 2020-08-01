@@ -42,8 +42,11 @@ let Deck = new Schema({
   rep_max: {
     type: Number,
     default: 100
+  },
+  shared: {
+    type: Boolean,
+    default: false
   }
-  
 });
 
 module.exports = mongoose.model('Deck', Deck);

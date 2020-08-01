@@ -9,4 +9,5 @@ export default class Deck {
   rep_studied: number;
   new_max: number;
   rep_max: number;
+  shared: boolean;
 }

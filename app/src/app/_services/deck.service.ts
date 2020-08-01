@@ -28,6 +28,12 @@ export class DeckService {
       .post<any>(`${this.uri}/`, {deck});
   }
 
+  addSharedDeck(deckId) {
+    console.log(deckId);
+    return this.http
+      .post<any>(`${this.uri}/shared/`, {deckId});
+  }
+
   getDecks() {
     return this
       .http

@@ -9,6 +9,10 @@
   cursor: pointer;
 }
 
+.dropdown-menu a#update:hover {
+  cursor: pointer;
+}
+
 /* i {
   background: white;
   color: black;

@@ -3,6 +3,7 @@ import {CardService} from "../_services/card.service";
 import Card from "../_models/Card";
 import {DeckService} from "../_services/deck.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import Deck from '../_models/Deck';
 
 @Component({
   selector: 'app-show-deck',
@@ -13,6 +14,7 @@ export class ShowDeckComponent implements OnInit {
 
   cards: Card[];
   deckId: string;
+  deck: Deck;
   newLineHtml(str) {
     return str.replace(/(?:\r\n|\r|\n)/g, '<br>');
   }
@@ -24,11 +26,21 @@ export class ShowDeckComponent implements OnInit {
     this.ds
       .getDeck(this.deckId)
       .subscribe((deck: any) => {
+        this.deck = deck;
         this.cards = deck.cards;
         this.cards.map((card) => {
           card['edit'] = false;
         });
       });
+  }
+
+  goBack() {
+    console.log("d", this.deck);
+    if (this.deck.shared) {
+      this.router.navigate(['/shared']);
+    } else {
+      this.router.navigate(['/decks/all']);
+    }
   }
 
   deleteRow(id){

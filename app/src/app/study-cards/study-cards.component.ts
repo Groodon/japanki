@@ -59,7 +59,6 @@ export class StudyCardsComponent implements OnInit {
       .subscribe((deck: any) => {
         this.deck = deck;
         this.hideHiragana = deck.hide_hiragana;
-        console.log("hide", deck.hide_hiragana)
         this.createStudyDeck(deck);
         console.log(deck);
       });

@@ -10,6 +10,7 @@ deckRoutes.get('/:deckId', jwtAuth, deckController.getDeck);
 deckRoutes.put('/:deckId', jwtAuth, deckController.updateDeck);
 deckRoutes.put('/', jwtAuth, deckController.updateDecks);
 deckRoutes.put('/increment/:deckId', jwtAuth, deckController.incrementDeck);
+deckRoutes.post('/shared/', jwtAuth, deckController.addSharedDeckToUser);
 
 
 module.exports = deckRoutes;

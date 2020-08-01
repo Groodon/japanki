@@ -20,6 +20,7 @@ export const dark: Theme = {
         "--paragraph-text": "#fff",
         "--headline-text": "rgb(102, 102, 105)",
         "--link-color": "#fff",
-        "--h1": "rgb(219, 211, 208)"
+        "--h1": "rgb(219, 211, 208)",
+        "--color": "#fff"
     }
 };

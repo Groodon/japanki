@@ -68,7 +68,7 @@ Controller.loginUser = (req, res) => {
             User.findOne({uid: userInfo.sub}).then(result => {
                 if (result) {
                     try {
-                        jwtResponse({sub: userInfo.sub, id: result._id }, res);
+                        jwtResponse({sub: userInfo.sub, id: result.uid }, res);
                     } catch(err) {
                         console.log(err);
                         res.status(400).send("Unexpected error");
@@ -77,7 +77,7 @@ Controller.loginUser = (req, res) => {
                     let user = new User({ uid: userInfo.sub, username: userInfo.given_name });
                     user.save()
                     .then(u => {
-                        jwtResponse({sub: userInfo.sub, id: u._id }, res);
+                        jwtResponse({sub: userInfo.sub, id: u.uid }, res);
                     })
                     .catch(err => {
                         console.log(err);

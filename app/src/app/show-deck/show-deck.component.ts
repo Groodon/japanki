@@ -4,6 +4,7 @@ import Card from "../_models/Card";
 import {DeckService} from "../_services/deck.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import Deck from '../_models/Deck';
+import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({
   selector: 'app-show-deck',
@@ -15,11 +16,12 @@ export class ShowDeckComponent implements OnInit {
   cards: Card[];
   deckId: string;
   deck: Deck;
+  isOwner: boolean;
   newLineHtml(str) {
     return str.replace(/(?:\r\n|\r|\n)/g, '<br>');
   }
 
-  constructor(private ds: DeckService, private cs: CardService, private route: ActivatedRoute, public router: Router) { }
+  constructor(private ds: DeckService, private cs: CardService, private route: ActivatedRoute, public router: Router, private as: AuthenticationService) { }
 
   ngOnInit() {
     this.deckId = this.route.snapshot.paramMap.get('id');
@@ -30,14 +32,19 @@ export class ShowDeckComponent implements OnInit {
         this.cards = deck.cards;
         this.cards.map((card) => {
           card['edit'] = false;
+        this.isOwner = (deck.owner === this.as.currentUserValue.id);
         });
       });
   }
 
   goBack() {
-    console.log("d", this.deck);
     if (this.deck.shared) {
-      this.router.navigate(['/shared']);
+      if (this.isOwner) {
+        this.router.navigate(['/shared', {tab: 1}]);
+      } else {
+        this.router.navigate(['/shared', {tab: 0}]);
+      }
+      
     } else {
       this.router.navigate(['/decks/all']);
     }

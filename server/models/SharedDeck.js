@@ -27,7 +27,7 @@ let SharedDeck = new Schema({
 });
 
 SharedDeck.pre('deleteOne', function(next) {
-    Deck.deleteOne({ deck_id: this.deck_id, shared: true }, next);
+    Deck.deleteOne({ deck_id: this.deck_id, shared: true, owner: this.owner }, next);
 });
 
 module.exports = mongoose.model('SharedDeck', SharedDeck);

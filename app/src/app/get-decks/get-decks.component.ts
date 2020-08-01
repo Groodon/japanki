@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import Deck from '../_models/Deck'
 import {DeckService} from "../_services/deck.service";
 import { SharedDeckService } from "../_services/shared-deck.service";
-import {ConfirmDialogService} from "../confirm-dialog/confirm-dialog.service";
+import {MatSnackBar} from '@angular/material/snack-bar';
 import * as moment from 'moment';
-import {CardOrders} from "../_models/app-enums";
 import {MatDialog} from '@angular/material/dialog';
 import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
 
@@ -17,8 +16,9 @@ export class GetDecksComponent implements OnInit {
 
   decks: Deck[];
   cards: Object = {};
+  durationInSeconds = 5;
 
-  constructor(private ds: DeckService, public dialog: MatDialog, private sds: SharedDeckService) { }
+  constructor(private _snackBar: MatSnackBar, private ds: DeckService, public dialog: MatDialog, private sds: SharedDeckService) { }
 
   ngOnInit() {
     this.ds
@@ -29,6 +29,12 @@ export class GetDecksComponent implements OnInit {
       });
   }
 
+  openSnackBar(message: string) {
+    this._snackBar.open(message, null, {
+      duration: 5000,
+    });
+  }
+
   getCardNumbers() {
     let now = moment().startOf('day');
     for (let deck of this.decks) {
@@ -36,10 +42,10 @@ export class GetDecksComponent implements OnInit {
       
       this.cards[deck._id] = deck;
       this.cards[deck._id].total_cards = deck.cards.length;
-      this.cards[deck._id].study_cards = 0;
       this.cards[deck._id].newCards = studyDecks['newCards'].length;
       this.cards[deck._id].failedCards = studyDecks['failedCards'].length;
       this.cards[deck._id].repCards = studyDecks['repCards'].length;
+      this.cards[deck._id].study_cards = this.cards[deck._id].repCards + this.cards[deck._id].failedCards + this.cards[deck._id].newCards;
     }
   }
 
@@ -82,7 +88,8 @@ export class GetDecksComponent implements OnInit {
   shareDeck(deckId: string) {
     console.log(deckId);
     this.sds.addSharedDeck(deckId).subscribe(() => {
-
+      console.log("open")
+      this.openSnackBar("Your deck \"" + this.decks.find(deck => deck._id === deckId).name + "\" has been shared.");
     },
       error => {
         console.log(error);

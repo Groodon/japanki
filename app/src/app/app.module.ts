@@ -9,6 +9,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
@@ -92,6 +93,7 @@ export function provideConfig() {
     MatTabsModule,
     MatTooltipModule,
     MatSlideToggleModule,
+    MatSnackBarModule,
     NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [

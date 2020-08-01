@@ -5,6 +5,7 @@ import {UserSharedDecksComponent} from '../user-shared-decks/user-shared-decks.c
 import SharedDeck from '../_models/SharedDeck';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-shared-decks',
@@ -13,15 +14,36 @@ import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-m
 })
 export class SharedDecksComponent implements OnInit {
 
-  constructor(private ds: DeckService, private sds: SharedDeckService, public dialog: MatDialog) { }
+  constructor(private ds: DeckService, private sds: SharedDeckService, public dialog: MatDialog, private route: ActivatedRoute) { }
   sharedDecks: SharedDeck[];
+  activeTab = 0;
 
   ngOnInit() {
+    let optionalRoute = this.route.snapshot.paramMap.get('tab');
+    this.activeTab = (optionalRoute ? Number(optionalRoute) : 0);
     this.sds
       .getSharedDecks()
       .subscribe((decks: SharedDeck[]) => {
         this.sharedDecks = decks;
       });
+  }
+
+  loadDeck() {
+    this.sds
+      .getSharedDecks()
+      .subscribe((decks: SharedDeck[]) => {
+        this.sharedDecks = decks;
+      });
+  }
+
+  tabChanged(tab) {
+    if (tab === 0) {
+      this.sds
+        .getSharedDecks()
+        .subscribe((decks: SharedDeck[]) => {
+          this.sharedDecks = decks;
+        });
+    }
   }
 
   showSaveDialog(id: string) {

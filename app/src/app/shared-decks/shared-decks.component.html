@@ -3,8 +3,9 @@
       <h3>Shared Decks</h3>
     </th>
   </div>
-  <mat-tab-group>
+  <mat-tab-group [selectedIndex]="activeTab" (selectedIndexChange)="tabChanged($event)">
     <mat-tab label="Shared decks">
+      <ng-template matTabContent>
       <div *ngFor="let deck of sharedDecks" [attr.id]="deck._id" class="deck-list__item">
         <div class="d-flex deck-list">
             <th class="mr-auto p-2">
@@ -12,16 +13,19 @@
                     {{ deck.name }}
                 </a>
             </th>
-            <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon" (click)="showSaveDialog(deck.deck_id)">
+            <button mat-mini-fab color="primary" (click)="showSaveDialog(deck.deck_id)">
               <mat-icon>
                 save_alt
               </mat-icon>
             </button>
         </div>
       </div>
+    </ng-template>
     </mat-tab>
     <mat-tab label="My shared decks">
+      <ng-template matTabContent>
       <app-user-shared-decks></app-user-shared-decks>
+    </ng-template>
     </mat-tab>
   </mat-tab-group>
   

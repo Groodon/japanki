@@ -20,6 +20,8 @@ if (process.env.NODE_ENV !== 'production') {
 const cardRoute = require('./routes/card.route');
 const userRoute = require('./routes/user.route');
 const deckRoute = require('./routes/deck.route');
+const sharedDeckRoute = require('./routes/shared-deck.route');
+const userSharedDeckRoute = require('./routes/user-shared-deck.route');
 const searchRoute = require('./routes/search.route');
 
 mongoose.connect(mongoUri, { useNewUrlParser: true }).then(
@@ -39,6 +41,8 @@ app.use('/deck', cardRoute);
 app.use('/user', userRoute);
 app.use('/deck', deckRoute);
 app.use('/search', searchRoute);
+app.use('/share', sharedDeckRoute);
+app.use('/usershare', userSharedDeckRoute);
 
 
 app.use(express.static(path.resolve(__dirname, '../app/dist/japanki')));

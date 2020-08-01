@@ -6,6 +6,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
+import {MatTabsModule} from '@angular/material/tabs';
 
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
@@ -86,6 +87,7 @@ export function provideConfig() {
     MatInputModule,
     MatCheckboxModule,
     MatIconModule,
+    MatTabsModule,
     NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [

@@ -22,9 +22,6 @@
         <a *ngIf="authenticationService.isLoggedIn" routerLink="decks/all" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
           My decks
         </a>
-        <a *ngIf="authenticationService.isLoggedIn" routerLink="shared/user" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-          My shared decks
-        </a>
         <a *ngIf="authenticationService.isLoggedIn" routerLink="shared" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
           Shared decks
         </a>

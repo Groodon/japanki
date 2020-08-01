@@ -9,7 +9,6 @@ import {ShowDeckComponent} from './show-deck/show-deck.component';
 import {StudyCardsComponent} from './study-cards/study-cards.component';
 import {HomeComponent} from './home/home.component';
 import { SharedDecksComponent } from './shared-decks/shared-decks.component';
-import { UserSharedDecksComponent } from './user-shared-decks/user-shared-decks.component';
 
 const routes: Routes = [
   {
@@ -45,11 +44,6 @@ const routes: Routes = [
   {
     path: 'shared',
     component: SharedDecksComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'shared/user',
-    component: UserSharedDecksComponent,
     canActivate: [AuthGuard]
   },
   {

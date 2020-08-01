@@ -1,5 +1,6 @@
 let User = require('../models/User');
 const Deck = require('../models/Deck');
+const mongoose = require('mongoose');
 
 const Controller = {};
 
@@ -19,7 +20,7 @@ Controller.getDecks = (req, res) => {
 
 Controller.getDeck = (req, res) => {
   Deck.findOne({_id: req.params.deckId}, (error, deck) => {
-    if (deck && deck.owner == req.user.sub) {
+    if (deck && (deck.owner == req.user.sub || deck.shared)) {
       res.status(200).send(deck);
     } else {
       res.status(400).send({"message": "Unable to find deck or unauthorized user"});
@@ -32,21 +33,27 @@ Controller.getDeck = (req, res) => {
 Controller.addDeck = (req, res) => {
   let deck = Deck({owner: req.user.sub, name: req.body.deck.name});
   deck.save().then(deck => {
-    User.findOneAndUpdate(
-      { uid: req.user.sub },
-      { $push: { decks: {_id: deck._id}}}, 
-      (error) => {
-        if (error) {
-          res.status(400).send("Unable to update the database");
-        } else {
-          res.status(200).json({'message': 'deck added successfully'});
-      }});
+    addDeckToUser(deck, req, res);
   })
   .catch(err => {
     console.log(err);
     res.status(400).send("unable to save to database");
   });
     
+}
+
+// Adds a shared deck to a users personal collection
+Controller.addSharedDeckToUser = (req, res) => {
+  Deck.findOne({_id: req.body.deckId, shared: true}, (error, deck) => {
+      deck._id = mongoose.Types.ObjectId();
+      deck.owner = req.user.sub;
+      deck.shared = false;
+      deck.isNew = true;
+
+      deck.save().then(deck => {
+        addDeckToUser(deck, req, res);
+      })
+    });
 }
 
 Controller.removeDeck = (req, res) => {
@@ -110,5 +117,24 @@ Controller.updateDecks = (req, res) => {
       }
     })
 }
+
+function addDeckToUser(deck, req, res) {
+  deck.save().then(deck => {
+    User.findOneAndUpdate(
+      { uid: req.user.sub },
+      { $push: { decks: {_id: deck._id}}}, 
+      (error) => {
+        if (error) {
+          res.status(400).send("Unable to update the database");
+        } else {
+          res.status(200).json({'message': 'deck added successfully'});
+    }});
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(400).send("unable to save to database");
+  });
+}
+
 
 module.exports = Controller;

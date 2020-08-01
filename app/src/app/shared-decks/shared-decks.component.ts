@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedDeckService } from '../_services/shared-deck.service';
 import { DeckService } from '../_services/deck.service';
+import {UserSharedDecksComponent} from '../user-shared-decks/user-shared-decks.component'
 import SharedDeck from '../_models/SharedDeck';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';

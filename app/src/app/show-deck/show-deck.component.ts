@@ -34,6 +34,15 @@ export class ShowDeckComponent implements OnInit {
       });
   }
 
+  goBack() {
+    console.log("d", this.deck);
+    if (this.deck.shared) {
+      this.router.navigate(['/shared']);
+    } else {
+      this.router.navigate(['/decks/all']);
+    }
+  }
+
   deleteRow(id){
     for(let i = 0; i < this.cards.length; ++i){
       if (this.cards[i]._id === id) {

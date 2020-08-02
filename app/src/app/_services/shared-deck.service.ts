@@ -38,4 +38,11 @@ export class SharedDeckService {
       .http
       .delete(`${this.uri}/${deckId}`);
   }
+
+  // Likes or un-likes a deck
+  likeSharedDeck(deckId) {
+    return this
+      .http
+      .put(`${this.uri}/like/${deckId}`, {});
+  }
 }

@@ -60,7 +60,6 @@ export class StudyCardsComponent implements OnInit {
         this.deck = deck;
         this.hideHiragana = deck.hide_hiragana;
         this.createStudyDeck(deck);
-        console.log(deck);
       });
   }
 
@@ -100,7 +99,6 @@ export class StudyCardsComponent implements OnInit {
 
     // Select random card
     this.currentCard = this.cs.getNextStudyCard(this.cards);
-    console.log(this.currentCard);
 
     // So we can easily access these values in the html
     this.currentOrder = this.currentCard.order;

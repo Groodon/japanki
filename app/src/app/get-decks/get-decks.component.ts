@@ -86,9 +86,7 @@ export class GetDecksComponent implements OnInit {
   }
 
   shareDeck(deckId: string) {
-    console.log(deckId);
     this.sds.addSharedDeck(deckId).subscribe(() => {
-      console.log("open")
       this.openSnackBar("Your deck \"" + this.decks.find(deck => deck._id === deckId).name + "\" has been shared.");
     },
       error => {

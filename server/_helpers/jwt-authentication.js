@@ -23,7 +23,6 @@ const authenticateJWT = (req, res, next) => {
           next();
       });
   } else {
-      console.log(req.body);
       res.sendStatus(401);
   }
 }

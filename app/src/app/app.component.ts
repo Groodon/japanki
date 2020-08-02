@@ -125,11 +125,9 @@ export class AppComponent implements OnInit {
       if (user !== null) {
         this.userService.getUser().subscribe(currentUser => {
           const now = moment().startOf('day');
-          console.log("now", now, "data", moment(currentUser.last_login))
           if (now > moment(currentUser.last_login)) {
-            console.log("gonna update")
             this.userService.updateUser({last_login: now.format('YYYY-MM-DD[T]HH:mm:ss').toString()}).subscribe(() => {
-              this.deckService.updateDecks({new_studied: 0, rep_studied: 0}).subscribe(() => console.log("done"));
+              this.deckService.updateDecks({new_studied: 0, rep_studied: 0}).subscribe();
             })
           }
         })

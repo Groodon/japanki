@@ -6,6 +6,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import Deck from '../_models/Deck';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
+import { UserSharedDeckService } from '../_services/user-shared-deck.service';
 
 @Component({
   selector: 'app-deck-options',
@@ -19,7 +20,7 @@ export class DeckOptionsComponent implements OnInit {
   editForm;
   CardOrders = CardOrders;
 
-  constructor(private ds: DeckService, private route: ActivatedRoute, private formBuilder: FormBuilder, public dialog: MatDialog, public router: Router) {
+  constructor(private ds: DeckService, private usds: UserSharedDeckService, private route: ActivatedRoute, private formBuilder: FormBuilder, public dialog: MatDialog, public router: Router) {
     this.editForm = this.formBuilder.group({
       name: ['', Validators.required],
       new_max: [0, Validators.required],
@@ -63,12 +64,15 @@ export class DeckOptionsComponent implements OnInit {
   }
 
   onSubmit(deckData) {
-    console.log('Your order has been submitted', deckData);
-    this.ds
+    console.log(deckData);
+    if (this.deck.shared) {
+      this.usds.updateSharedDeck(this.deckId, deckData).subscribe();
+    } else {
+      this.ds
       .updateDeck(this.deckId, deckData)
       .subscribe(() => {
-        console.log("updated")
       });
+    }
   }
 
 }

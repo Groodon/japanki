@@ -13,6 +13,15 @@
                     {{ deck.name }}
                 </a>
             </th>
+            <button mat-icon-button color="primary" (click)="likeDeck(deck._id)">
+              <mat-icon *ngIf="deck.liked_users.includes(userId) === true">
+                favorite
+              </mat-icon>
+              <mat-icon *ngIf="deck.liked_users.includes(userId) === false">
+                favorite_border
+              </mat-icon>
+            </button>
+            {{deck.liked_users.length}}
             <button mat-mini-fab color="primary" (click)="showSaveDialog(deck.deck_id)">
               <mat-icon>
                 save_alt

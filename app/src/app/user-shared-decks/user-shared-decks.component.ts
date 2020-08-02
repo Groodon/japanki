@@ -19,7 +19,6 @@ export class UserSharedDecksComponent implements OnInit {
       .getUserSharedDecks()
       .subscribe((decks: SharedDeck[]) => {
         this.userSharedDecks = decks;
-        console.log(this.userSharedDecks);
       });
   }
 

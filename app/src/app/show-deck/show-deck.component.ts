@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CardService} from "../_services/card.service";
+import {UserSharedDeckService} from "../_services/user-shared-deck.service";
 import Card from "../_models/Card";
 import {DeckService} from "../_services/deck.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -21,7 +22,8 @@ export class ShowDeckComponent implements OnInit {
     return str.replace(/(?:\r\n|\r|\n)/g, '<br>');
   }
 
-  constructor(private ds: DeckService, private cs: CardService, private route: ActivatedRoute, public router: Router, private as: AuthenticationService) { }
+  constructor(private ds: DeckService, private cs: CardService, private usds: UserSharedDeckService, private route: ActivatedRoute, 
+    public router: Router, private as: AuthenticationService) { }
 
   ngOnInit() {
     this.deckId = this.route.snapshot.paramMap.get('id');
@@ -63,7 +65,13 @@ export class ShowDeckComponent implements OnInit {
       card.english_word = english_word;
       card.japanese_reading = japanese_reading;
       card.kanji = kanji;
-      this.cs.updateCard(card, this.deckId).subscribe();
+      if (this.deck.shared) {
+        this.usds.updateSharedCard(card, this.deckId).subscribe();
+      } else {
+        this.cs.updateCard(card, this.deckId).subscribe();
+      }
+      // let updateFunc = (this.deck.shared ? this.usds.updateSharedCard : this.cs.updateCard);
+      // updateFunc(card, this.deckId).subscribe();
     }
     card.edit = !card.edit;
   }

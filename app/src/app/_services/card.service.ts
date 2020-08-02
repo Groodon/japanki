@@ -57,7 +57,6 @@ export class CardService {
     let shouldIncrementRep = (oldCard.order === CardOrders.JapEng ? (oldCard.jap_eng_seen && !oldCard.jap_eng_failed) : 
       (oldCard.eng_jap_seen && !oldCard.eng_jap_failed));
     let increments = {new_studied: (shouldIncrementNew ? 1 : 0), rep_studied: (shouldIncrementRep ? 1 : 0)}
-    console.log(updatedCard);
     this.updateCard(updatedCard, deckId).subscribe(() => {
       if (shouldIncrementNew || shouldIncrementRep) {
         this.ds.incrementDeck(deckId, increments).subscribe();

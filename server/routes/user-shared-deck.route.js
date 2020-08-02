@@ -4,8 +4,9 @@ const userSharedDeckController = require('../controllers/user-shared-deck.contro
 const jwtAuth = require('../_helpers/jwt-authentication');
 
 userSharedDeckRoutes.get('/', jwtAuth, userSharedDeckController.getUserSharedDecks);
-//userSharedDeckRoutes.post('/', jwtAuth, userSharedDeckController.addSharedDeck);
+userSharedDeckRoutes.put('/deck/:deckId/card/:cardId', jwtAuth, userSharedDeckController.updateSharedCard);
 userSharedDeckRoutes.delete('/:deckId', jwtAuth, userSharedDeckController.removeUserSharedDeck);
-//userSharedDeckRoutes.get('/:deckId', jwtAuth, userSharedDeckController.getSharedDeck);
+userSharedDeckRoutes.put('/deck/:deckId', jwtAuth, userSharedDeckController.updateSharedDeck);
+
 
 module.exports = userSharedDeckRoutes;

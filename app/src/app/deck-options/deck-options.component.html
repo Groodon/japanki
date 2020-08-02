@@ -11,14 +11,14 @@
                     Name is <strong>required</strong>
                 </mat-error>
             </mat-form-field>
-            <mat-form-field>
+            <mat-form-field *ngIf="!deck.shared">
                 <mat-label>Repetition cards per day</mat-label>
                 <input type="number" matInput formControlName="rep_max">
                 <mat-error *ngIf="editForm.get('rep_max').invalid">
                     Number is <strong>required</strong>
                 </mat-error>
             </mat-form-field>
-            <mat-form-field>
+            <mat-form-field *ngIf="!deck.shared">
                 <mat-label>New cards per day</mat-label>
                 <input type="number" matInput formControlName="new_max">
                 <mat-error *ngIf="editForm.get('new_max').invalid">
@@ -29,7 +29,7 @@
         <div>
             <p>
                 Card order:
-                <mat-button-toggle-group formControlName="order" name="order" aria-label="Font Style">
+                <mat-button-toggle-group formControlName="order" name="order" aria-label="Font Style" *ngIf="!deck.shared">
                     <mat-button-toggle [value]="CardOrders.EngJap">Eng <i class="fa fa-long-arrow-right"></i> Jap</mat-button-toggle>
                     <mat-button-toggle [value]="CardOrders.JapEng">Jap <i class="fa fa-long-arrow-right"></i> Eng</mat-button-toggle>
                     <mat-button-toggle [value]="CardOrders.Both">Both</mat-button-toggle>
@@ -39,7 +39,7 @@
         
         
         <div>
-            <mat-checkbox formControlName="hide_hiragana" [checked]="deck.hide_hiragana">Hide the hiragana (if kanji exists)</mat-checkbox>
+            <mat-checkbox *ngIf="!deck.shared" formControlName="hide_hiragana" [checked]="deck.hide_hiragana">Hide the hiragana (if kanji exists)</mat-checkbox>
         </div>
         
         <button class="button" type="submit">Save</button>

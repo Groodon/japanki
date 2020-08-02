@@ -36,7 +36,7 @@ Controller.deleteCard = (req, res) => {
 
 Controller.updateCard = (req, res) => {
   Deck.findOneAndUpdate(
-    { _id: req.params.deckId, owner: req.user.sub, 'cards._id': req.params.cardId },
+    { _id: req.params.deckId, owner: req.user.sub, 'cards._id': req.params.cardId, shared: false },
     { $set: { 'cards.$.kanji': req.body.card.kanji, 'cards.$.english_word': req.body.card.english_word, 
       'cards.$.japanese_reading': req.body.card.japanese_reading, 'cards.$.jap_eng_next_study_time': req.body.card.jap_eng_next_study_time,
       'cards.$.eng_jap_next_study_time': req.body.card.eng_jap_next_study_time, 'cards.$.jap_eng_last_wait_time': req.body.card.jap_eng_last_wait_time,

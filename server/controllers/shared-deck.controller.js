@@ -58,15 +58,20 @@ Controller.removeSharedDeck = (req, res) => {
 }
 
 Controller.likeSharedDeck = (req, res) => {
-  SharedDeck.findOneAndUpdate(
-    { uid: req.user.sub },
-    { $push: { decks: {_id: deck._id}}}, 
-    (error) => {
-      if (error) {
-        res.status(400).send("Unable to update the database");
+  SharedDeck.findOne(
+    { _id: req.params.deckId },
+    ((error, sharedDeck) => {
+      let likedStatus = {liked: false}
+      const index = sharedDeck.liked_users.indexOf(req.user.sub);
+      if (index > -1) {
+        likedStatus.liked = true
+        sharedDeck.liked_users.splice(index,1)
       } else {
-        res.status(200).json({'message': 'deck added successfully'});
-  }});
+        sharedDeck.liked_users.push(req.user.sub);
+      }
+
+      sharedDeck.save().then(res.status(200).send(sharedDeck));
+    }));
 }
 
 

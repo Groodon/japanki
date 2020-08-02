@@ -27,4 +27,16 @@ export class UserSharedDeckService {
       .http
       .delete(`${this.uri}/${deckId}`);
   }
+
+  updateSharedCard(card: Card, deckId) {
+    return this
+      .http
+      .put(`${this.uri}/deck/${deckId}/card/${card._id}`, {card});
+  }
+
+  updateSharedDeck(deckId, data) {
+    return this
+      .http
+      .put(`${this.uri}/deck/${deckId}/`, {data});
+  }
 }

@@ -63,7 +63,6 @@ Controller.updateUser = (req, res) => {
 Controller.loginUser = (req, res) => {
 
     try {
-        console.log(req.body)
         verifyIdToken(req.body.idToken).then(userInfo => {
             User.findOne({uid: userInfo.sub}).then(result => {
                 if (result) {

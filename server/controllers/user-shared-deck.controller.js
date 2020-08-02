@@ -26,5 +26,36 @@ Controller.removeUserSharedDeck = (req, res) => {
     )
 }
 
+Controller.updateSharedCard = (req, res) => {
+  Deck.findOneAndUpdate(
+    { _id: req.params.deckId, owner: req.user.sub, 'cards._id': req.params.cardId, shared: true },
+    { $set: { 'cards.$.kanji': req.body.card.kanji, 'cards.$.english_word': req.body.card.english_word, 
+      'cards.$.japanese_reading': req.body.card.japanese_reading
+    } },
+    (error) => {
+      if (error) {
+        res.status(400).send("Unable to update the database");
+      } else {
+        res.status(200).send();
+      }
+    }
+  )
+}
+
+Controller.updateSharedDeck = (req, res) => {
+  SharedDeck.findOneAndUpdate(
+    { deck_id: req.params.deckId, owner: req.user.sub },
+    { $set: { name: req.body.data.name
+    } },
+    (error) => {
+      if (error) {
+        res.status(400).send("Unable to update the database");
+      } else {
+        res.status(200).send();
+      }
+    }
+  )
+}
+
 
 module.exports = Controller;

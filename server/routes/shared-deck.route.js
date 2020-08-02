@@ -7,5 +7,6 @@ sharedDeckRoutes.get('/', jwtAuth, sharedDeckController.getSharedDecks);
 sharedDeckRoutes.post('/', jwtAuth, sharedDeckController.addSharedDeck);
 sharedDeckRoutes.delete('/:deckId', jwtAuth, sharedDeckController.removeSharedDeck);
 sharedDeckRoutes.get('/:deckId', jwtAuth, sharedDeckController.getSharedDeck);
+sharedDeckRoutes.put('/like/:deckId', jwtAuth, sharedDeckController.likeSharedDeck);
 
 module.exports = sharedDeckRoutes;

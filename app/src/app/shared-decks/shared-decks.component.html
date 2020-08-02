@@ -1,4 +1,5 @@
-<div class="d-flex">
+<div class="shared-deck-container">
+  <div class="d-flex">
     <th class="mr-auto p-2">
       <h3>Shared Decks</h3>
     </th>
@@ -7,28 +8,38 @@
     <mat-tab label="Shared decks">
       <ng-template matTabContent>
       <div *ngFor="let deck of sharedDecks" [attr.id]="deck._id" class="deck-list__item">
-        <div class="d-flex deck-list">
-            <th class="mr-auto p-2">
-                <a [routerLink]="['/decks/show', deck.deck_id]">
-                    {{ deck.name }}
-                </a>
-            </th>
-            <button mat-icon-button color="primary" (click)="likeDeck(deck._id)">
-              <mat-icon *ngIf="deck.liked_users.includes(userId) === true">
-                favorite
-              </mat-icon>
-              <mat-icon *ngIf="deck.liked_users.includes(userId) === false">
-                favorite_border
-              </mat-icon>
-            </button>
-            {{deck.liked_users.length}}
-            <button mat-mini-fab color="primary" (click)="showSaveDialog(deck.deck_id)">
-              <mat-icon>
-                save_alt
-              </mat-icon>
-            </button>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 align-self-center">
+              <a [routerLink]="['/decks/show', deck.deck_id]">
+                {{ deck.name }}
+              </a>
+            </div>
+            <div class="col-md-3 align-self-center text-right">
+              <div class="row flex-row-reverse">
+                <div class="col-md-4 col-3 align-self-center text-right">
+                  <button mat-icon-button color="primary" (click)="showSaveDialog(deck.deck_id)">
+                    <mat-icon>
+                      save_alt
+                    </mat-icon>
+                  </button>
+                </div>
+                <div class="col-md-7 col-3 align-self-center text-right">
+                  <button mat-icon-button color="primary" (click)="likeDeck(deck._id)">
+                    <mat-icon *ngIf="deck.liked_users.includes(userId) === true">
+                      favorite
+                    </mat-icon>
+                    <mat-icon *ngIf="deck.liked_users.includes(userId) === false">
+                      favorite_border
+                    </mat-icon>
+                  </button>
+                  {{deck.liked_users.length}}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </div> 
     </ng-template>
     </mat-tab>
     <mat-tab label="My shared decks">
@@ -37,7 +48,7 @@
     </ng-template>
     </mat-tab>
   </mat-tab-group>
-  
+    
   <!-- <hr/> -->
   <app-confirm-dialog></app-confirm-dialog>
-  
+</div>

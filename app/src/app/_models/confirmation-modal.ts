@@ -3,4 +3,5 @@ export default class IConfirmation {
     text: string;
     cancelButtonText: string;
     acceptButtonText: string;
+    confirmIsRed: boolean;
   }

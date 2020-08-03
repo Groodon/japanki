@@ -73,7 +73,7 @@ Controller.loginUser = (req, res) => {
                         res.status(400).send("Unexpected error");
                     }
                 } else {
-                    let user = new User({ uid: userInfo.sub, username: userInfo.given_name });
+                    let user = new User({ uid: userInfo.sub, username: userInfo.given_name, last_login: req.body.now });
                     user.save()
                     .then(u => {
                         jwtResponse({sub: userInfo.sub, id: u.uid }, res);

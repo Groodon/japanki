@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
-
+import * as moment from 'moment';
 import { User } from '../_models';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -28,7 +28,8 @@ export class AuthenticationService {
 
   // posts the user credentials to the api and checks the response for a JWT token.
   login(idToken: string) {
-    return this.http.post<any>(`user/login`, { idToken })
+    const now = moment().startOf('day').format('YYYY-MM-DD[T]HH:mm:ss').toString();
+    return this.http.post<any>(`user/login`, { idToken, now })
       .pipe(map(user => {
         // User is the response we got from the post call
         // login successful if there's a jwt token in the response

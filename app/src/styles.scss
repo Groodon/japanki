@@ -77,6 +77,10 @@ body {
   overflow: hidden !important;
 }
 
+.mat-dialog-container {
+  background-color: var(--main-bg-color) !important;
+}
+
 .jumbotron {
   color: var(--paragraph-text);
 }

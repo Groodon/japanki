@@ -7,6 +7,7 @@ import Deck from '../_models/Deck';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
 import { UserSharedDeckService } from '../_services/user-shared-deck.service';
+import { AuthenticationService } from '../_services';
 
 @Component({
   selector: 'app-deck-options',
@@ -19,8 +20,10 @@ export class DeckOptionsComponent implements OnInit {
   deck: Deck;
   editForm;
   CardOrders = CardOrders;
+  isOwner: Boolean;
 
-  constructor(private ds: DeckService, private usds: UserSharedDeckService, private route: ActivatedRoute, private formBuilder: FormBuilder, public dialog: MatDialog, public router: Router) {
+  constructor(private ds: DeckService, private usds: UserSharedDeckService, private route: ActivatedRoute, 
+    private formBuilder: FormBuilder, public dialog: MatDialog, public router: Router, private as: AuthenticationService) {
     this.editForm = this.formBuilder.group({
       name: ['', Validators.required],
       new_max: [0, Validators.required],
@@ -32,7 +35,6 @@ export class DeckOptionsComponent implements OnInit {
 
   ngOnInit() {
     this.deckId = this.route.snapshot.paramMap.get('id');
-
     this.ds
       .getDeck(this.deckId)
       .subscribe((deck: any) => {
@@ -42,6 +44,7 @@ export class DeckOptionsComponent implements OnInit {
         this.editForm.controls['order'].setValue(deck.order);
         this.editForm.controls['hide_hiragana'].setValue(deck.hide_hiragana);
         this.deck = deck;
+        this.isOwner = (deck.owner === this.as.currentUserValue.id);
       });
   }
 
@@ -63,8 +66,20 @@ export class DeckOptionsComponent implements OnInit {
     });
   }
 
+  goBack() {
+    if (this.deck.shared) {
+      if (this.isOwner) {
+        this.router.navigate(['/shared', {tab: 1}]);
+      } else {
+        this.router.navigate(['/shared', {tab: 0}]);
+      }
+      
+    } else {
+      this.router.navigate(['/decks/all']);
+    }
+  }
+
   onSubmit(deckData) {
-    console.log(deckData);
     if (this.deck.shared) {
       this.usds.updateSharedDeck(this.deckId, deckData).subscribe();
     } else {

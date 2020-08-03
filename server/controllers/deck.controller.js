@@ -20,7 +20,6 @@ Controller.getDecks = (req, res) => {
 
 Controller.getDeck = (req, res) => {
   Deck.findOne({_id: req.params.deckId}, (error, deck) => {
-    console.log(req.params.deckId);
     if (deck && (deck.owner == req.user.sub || deck.shared)) {
       res.status(200).send(deck);
     } else {
